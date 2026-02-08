@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaushal S — ML & Robotics Engineer</title>
+    <meta name="description" content="Machine Learning and Robotics Engineer specializing in autonomous systems, computer vision, and neural networks.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==================== RESET & BASE ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0A0A0A;
+            --bg-secondary: #141414;
+            --border-primary: #1F1F1F;
+            --border-accent: rgba(59, 130, 246, 0.3);
+            --text-primary: #E5E5E5;
+            --text-secondary: #999999;
+            --accent-blue: #3B82F6;
+            --accent-blue-light: #60A5FA;
+            --accent-blue-dark: #1E40AF;
+            --success: #10B981;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background-color: rgba(59, 130, 246, 0.3);
+            color: var(--text-primary);
+        }
+
+        /* ==================== TYPOGRAPHY ==================== */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-blue-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-gradient-animated {
+            background: linear-gradient(90deg, 
+                var(--text-primary) 0%, 
+                var(--accent-blue-light) 25%, 
+                var(--text-primary) 50%, 
+                var(--accent-blue-light) 75%, 
+                var(--text-primary) 100%
+            );
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 8s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            color: var(--accent-blue);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ==================== LAYOUT ==================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            section {
+                padding: 4rem 0;
+            }
+        }
+
+        /* ==================== GRID BACKGROUND ==================== */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.5;
+        }
+
+        /* ==================== CURSOR ==================== */
+        .cursor-glow {
+            width: 400px;
+            height: 400px;
+            position: fixed;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
+            transition: opacity 0.3s ease;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .cursor-glow {
+                display: none;
+            }
+        }
+
+        /* ==================== SCROLL PROGRESS ==================== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue-dark), var(--accent-blue), var(--accent-blue-light));
+            z-index: 10000;
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 0.1s ease-out;
+        }
+
+        /* ==================== NAVIGATION ==================== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-primary);
+            z-index: 1000;
+            transition: padding 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.5rem 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.25rem;
+            padding-bottom: 1.25rem;
+        }
+
+        nav.scrolled .container {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .nav-brand {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            position: relative;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text-primary);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+            }
+        }
+
+        .status-text {
+            font-size: 0.75rem;
+            color: var(--success);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* ==================== BUTTONS ==================== */
+        .btn {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            border: 1px solid var(--border-accent);
+            background: transparent;
+            color: var(--accent-blue-light);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            color: white;
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: white;
+        }
+
+        .btn-primary::before {
+            background: var(--accent-blue-dark);
+        }
+
+        /* ==================== CARDS ==================== */
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+        }
+
+        .card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-glass {
+            background: rgba(59, 130, 246, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        /* ==================== TAGS ==================== */
+        .tag {
+            display: inline-block;
+            padding: 0.375rem 0.875rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--accent-blue-light);
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-content p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 6rem;
+        }
+
+        .stat-card {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-blue-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .stat-bar {
+            height: 3px;
+            background: rgba(59, 130, 246, 0.1);
+            margin-top: 1rem;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .stat-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue-dark), var(--accent-blue));
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stat-bar-fill.animate {
+            width: var(--width, 100%);
+        }
+
+        /* ==================== WORK SECTION ==================== */
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.625rem 1.25rem;
+            border: 1px solid var(--border-primary);
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent-blue);
+            color: var(--text-primary);
+        }
+
+        .filter-btn.active {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .project-card.hidden {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+            position: absolute;
+        }
+
+        .project-header {
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 0.75rem;
+        }
+
+        /* Featured Project */
+        .featured-project {
+            grid-column: 1 / -1;
+            margin-bottom: 2rem;
+        }
+
+        .featured-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .featured-content {
+                grid-template-columns: 1fr;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .code-preview {
+            background: rgba(59, 130, 246, 0.03);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-left: 3px solid var(--accent-blue);
+            padding: 1.5rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.8;
+        }
+
+        .code-line {
+            display: block;
+            color: var(--text-secondary);
+        }
+
+        .code-comment {
+            color: #666;
+        }
+
+        .code-keyword {
+            color: var(--accent-blue);
+        }
+
+        .code-function {
+            color: var(--accent-blue-light);
+        }
+
+        /* ==================== SKILLS SECTION ==================== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            margin-bottom: 1rem;
+        }
+
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .skill-item:last-child {
+            border-bottom: none;
+        }
+
+        .skill-level {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-blue);
+        }
+
+        /* ==================== ABOUT SECTION ==================== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        .about-text {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2.5rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, var(--accent-blue), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -2.9rem;
+            top: 0.5rem;
+            width: 14px;
+            height: 14px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-meta {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ==================== CONTACT SECTION ==================== */
+        .contact-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-content p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-card {
+            text-align: left;
+        }
+
+        .contact-card .section-label {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-value {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-primary);
+        }
+
+        footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer .mono {
+            font-size: 0.875rem;
+        }
+
+        footer .text-secondary {
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            footer .container {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        /* ==================== UTILITIES ==================== */
+        .relative {
+            position: relative;
+        }
+
+        .z-10 {
+            z-index: 10;
+        }
+
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+
+        .text-secondary {
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="grid-background"></div>
+    <div class="noise-overlay"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav id="mainNav">
+        <div class="container">
+            <div class="nav-brand">KAUSHAL.S</div>
+            <div class="nav-links">
+                <a href="#work" class="nav-link">Work</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Available</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container relative z-10">
+            <div class="hero-content fade-in">
+                <div class="section-label mb-4">ML & ROBOTICS ENGINEER</div>
+                <h1>
+                    Building Autonomous<br>
+                    <span class="text-gradient-animated">Intelligent Systems</span>
+                </h1>
+                <p>
+                    Specializing in computer vision, neural networks, and autonomous robotics. 
+                    Bridging perception, planning, and control for production ML systems.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#work" class="btn">View Projects</a>
+                    <a href="#contact" class="btn btn-primary">Get in Touch</a>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid fade-in">
+                <div class="stat-card card-glass">
+                    <div class="stat-number" data-target="6">0</div>
+                    <div class="stat-label">Systems Built</div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" style="--width: 85%"></div>
+                    </div>
+                </div>
+                <div class="stat-card card-glass">
+                    <div class="stat-number" data-target="30">0</div>
+                    <div class="stat-label">Components Integrated</div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" style="--width: 90%"></div>
+                    </div>
+                </div>
+                <div class="stat-card card-glass">
+                    <div class="stat-number" data-target="8.4">0</div>
+                    <div class="stat-label">Academic CGPA</div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" style="--width: 84%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work">
+        <div class="container relative z-10">
+            <div class="section-header fade-in">
+                <div class="section-label mb-3">SELECTED WORK</div>
+                <h2>Projects</h2>
+            </div>
+
+            <!-- Filters -->
+            <div class="filter-buttons fade-in">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="autonomous">Autonomous</button>
+                <button class="filter-btn" data-filter="ai-ml">AI/ML</button>
+                <button class="filter-btn" data-filter="research">Research</button>
+                <button class="filter-btn" data-filter="fullstack">Full Stack</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects-grid">
+                <!-- Featured Project -->
+                <div class="featured-project project-card card fade-in" data-category="autonomous ai-ml">
+                    <div class="featured-content">
+                        <div>
+                            <div class="section-label mb-3">FEATURED / AUTONOMOUS SYSTEMS</div>
+                            <h3 class="project-title">Mobile Manipulator Platform</h3>
+                            <p class="project-description">
+                                Autonomous robotic system with integrated computer vision, state-machine control, 
+                                and multi-DOF manipulation. Real-time OpenCV processing with coordinated motion planning.
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">Python</span>
+                                <span class="tag">OpenCV</span>
+                                <span class="tag">C++</span>
+                                <span class="tag">State Machines</span>
+                                <span class="tag">ROS</span>
+                            </div>
+                            <a href="https://github.com/kaushalrog" target="_blank" class="project-link">
+                                View on GitHub →
+                            </a>
+                        </div>
+                        <div>
+                            <div class="code-preview">
+                                <span class="code-line code-comment"># Autonomy Stack</span>
+                                <span class="code-line"><span class="code-keyword">perception</span> = <span class="code-function">cv2.detect</span>(camera)</span>
+                                <span class="code-line"><span class="code-keyword">decision</span> = <span class="code-function">fsm.process</span>(state)</span>
+                                <span class="code-line"><span class="code-keyword">trajectory</span> = <span class="code-function">planner.compute</span>()</span>
+                                <span class="code-line"><span class="code-keyword">control</span>.<span class="code-function">actuate</span>(motors, pwm)</span>
+                                <span class="code-line code-comment">> Navigation complete</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 1 -->
+                <div class="project-card card fade-in" data-category="ai-ml">
+                    <div class="project-header">
+                        <div class="section-label mb-3">AI/ML SYSTEM</div>
+                        <h3 class="project-title">Hybrid AI Traffic Control</h3>
+                    </div>
+                    <p class="project-description">
+                        Neural network congestion prediction with fuzzy logic optimization. 
+                        Graph-based traffic modeling for real-time signal control.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Neural Networks</span>
+                        <span class="tag">Fuzzy Logic</span>
+                        <span class="tag">Optimization</span>
+                    </div>
+                    <a href="https://github.com/kaushalrog" target="_blank" class="project-link">
+                        View Project →
+                    </a>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card card fade-in" data-category="fullstack ai-ml">
+                    <div class="project-header">
+                        <div class="section-label mb-3">FULL-STACK AI</div>
+                        <h3 class="project-title">BizAI Platform</h3>
+                    </div>
+                    <p class="project-description">
+                        AI-powered application with PostgreSQL backend, REST API, 
+                        and authentication system. Production deployment on Supabase.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Supabase</span>
+                        <span class="tag">PostgreSQL</span>
+                        <span class="tag">REST API</span>
+                    </div>
+                    <a href="https://github.com/kaushalrog" target="_blank" class="project-link">
+                        View Project →
+                    </a>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card card fade-in" data-category="research ai-ml">
+                    <div class="project-header">
+                        <div class="section-label mb-3">RESEARCH / OPTIMIZATION</div>
+                        <h3 class="project-title">MCDIP-ADMM Framework</h3>
+                    </div>
+                    <p class="project-description">
+                        Optimization framework for low-dose CT reconstruction. ADMM algorithms 
+                        with neural network integration for medical imaging.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">PyTorch</span>
+                        <span class="tag">ADMM</span>
+                        <span class="tag">Medical Imaging</span>
+                    </div>
+                    <a href="https://github.com/kaushalrog" target="_blank" class="project-link">
+                        View Project →
+                    </a>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card card fade-in" data-category="autonomous">
+                    <div class="project-header">
+                        <div class="section-label mb-3">AUTONOMOUS SYSTEMS</div>
+                        <h3 class="project-title">AntBot Hexapod</h3>
+                    </div>
+                    <p class="project-description">
+                        21-DOF hexapod with inverse kinematics. Tripod gait implementation 
+                        validated via MATLAB simulation on uneven terrain.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Inverse Kinematics</span>
+                        <span class="tag">MATLAB</span>
+                        <span class="tag">Gait Planning</span>
+                    </div>
+                    <a href="https://github.com/kaushalrog" target="_blank" class="project-link">
+                        View Project →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container relative z-10">
+            <div class="section-header fade-in">
+                <div class="section-label mb-3">TECHNICAL EXPERTISE</div>
+                <h2>Skills</h2>
+            </div>
+
+            <div class="skills-grid">
+                <!-- ML/AI -->
+                <div class="card fade-in">
+                    <div class="section-label mb-4">MACHINE LEARNING</div>
+                    <div class="skill-category">
+                        <div class="skill-item">
+                            <span>PyTorch</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>TensorFlow</span>
+                            <span class="skill-level">Proficient</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>Neural Networks</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>Optimization</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Computer Vision -->
+                <div class="card fade-in">
+                    <div class="section-label mb-4">COMPUTER VISION</div>
+                    <div class="skill-category">
+                        <div class="skill-item">
+                            <span>OpenCV</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>Object Detection</span>
+                            <span class="skill-level">Proficient</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>Image Processing</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>Real-time Systems</span>
+                            <span class="skill-level">Proficient</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Programming -->
+                <div class="card fade-in">
+                    <div class="section-label mb-4">PROGRAMMING</div>
+                    <div class="skill-category">
+                        <div class="skill-item">
+                            <span>Python</span>
+                            <span class="skill-level">Primary</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>C++</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>JavaScript</span>
+                            <span class="skill-level">Proficient</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>SQL</span>
+                            <span class="skill-level">Proficient</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Robotics -->
+                <div class="card fade-in">
+                    <div class="section-label mb-4">ROBOTICS</div>
+                    <div class="skill-category">
+                        <div class="skill-item">
+                            <span>Autonomous Navigation</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>Sensor Fusion</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>Motion Planning</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>Control Systems</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="card fade-in">
+                    <div class="section-label mb-4">BACKEND</div>
+                    <div class="skill-category">
+                        <div class="skill-item">
+                            <span>PostgreSQL</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>Supabase</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>REST APIs</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>Authentication</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools -->
+                <div class="card fade-in">
+                    <div class="section-label mb-4">TOOLS & PLATFORMS</div>
+                    <div class="skill-category">
+                        <div class="skill-item">
+                            <span>Git / GitHub</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>MATLAB</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>Linux</span>
+                        </div>
+                        <div class="skill-item">
+                            <span>Docker</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container relative z-10">
+            <div class="about-grid">
+                <div class="fade-in">
+                    <div class="section-label mb-3">BACKGROUND</div>
+                    <h2 class="mb-6">About</h2>
+                    <div class="about-text">
+                        <p>
+                            ML and Robotics Engineer focused on autonomous systems and computer vision. 
+                            Currently pursuing B.Tech in AI & Data Science at Amrita Vishwa Vidyapeetham.
+                        </p>
+                        <p>
+                            I build intelligent systems that bridge perception, decision-making, and control. 
+                            My work spans neural networks, optimization algorithms, and real-time robotics.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="fade-in">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="section-label mb-2">EDUCATION</div>
+                                <h3>B.Tech in AI & Data Science</h3>
+                                <div class="timeline-meta">Amrita Vishwa Vidyapeetham · 2024 - 2028</div>
+                                <div class="timeline-description">CGPA: 8.4 / 10</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="section-label mb-2">EXPERIENCE</div>
+                                <h3>Technical Photographer</h3>
+                                <div class="timeline-meta">Srishti & Team Media Amrita</div>
+                                <div class="timeline-description">
+                                    Technical documentation and visual storytelling for engineering projects.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="section-label mb-2">CURRENT FOCUS</div>
+                                <h3>Research & Development</h3>
+                                <div class="timeline-meta">2025 - Present</div>
+                                <div class="timeline-description">
+                                    Exploring advanced optimization algorithms, autonomous navigation systems, 
+                                    and production ML deployments.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container relative z-10">
+            <div class="contact-content fade-in">
+                <div class="section-label mb-4">GET IN TOUCH</div>
+                <h2>Let's Connect</h2>
+                <p>
+                    Open to opportunities in ML research, robotics, and autonomous systems.
+                </p>
+
+                <div class="contact-grid">
+                    <a href="mailto:kaushalreddy15@gmail.com" class="contact-card card">
+                        <div class="section-label">EMAIL</div>
+                        <div class="contact-value">kaushalreddy15@gmail.com</div>
+                        <div class="contact-label">Primary contact</div>
+                    </a>
+                    <a href="tel:+919642293339" class="contact-card card">
+                        <div class="section-label">PHONE</div>
+                        <div class="contact-value">+91 96422 93339</div>
+                        <div class="contact-label">Direct line</div>
+                    </a>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://github.com/kaushalrog" target="_blank" class="social-link">GitHub</a>
+                    <a href="https://www.linkedin.com/in/kaushal-s-19234b314" target="_blank" class="social-link">LinkedIn</a>
+                    <a href="https://drive.google.com/drive/folders/13eqdqJ4URxu0OCDohW2A_HUsPlX1g-Lr" target="_blank" class="social-link">Photography</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="mono">KAUSHAL.S · 2025</div>
+            <div class="text-secondary">Coimbatore, Tamil Nadu</div>
+        </div>
+    </footer>
+
+    <script>
+        // ==================== CURSOR GLOW ====================
+        const cursorGlow = document.getElementById('cursorGlow');
+        let mouseX = 0, mouseY = 0;
+        let glowX = 0, glowY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            glowX += (mouseX - glowX) * 0.1;
+            glowY += (mouseY - glowY) * 0.1;
+            
+            cursorGlow.style.left = glowX + 'px';
+            cursorGlow.style.top = glowY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+
+        // ==================== SCROLL PROGRESS ====================
+        const scrollProgress = document.getElementById('scrollProgress');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = scrollTop / docHeight;
+            scrollProgress.style.transform = `scaleX(${scrollPercent})`;
+
+            // Nav scroll effect
+            const nav = document.getElementById('mainNav');
+            if (scrollTop > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // ==================== INTERSECTION OBSERVER ====================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Animate stat numbers
+                    if (entry.target.querySelector('.stat-number')) {
+                        animateStatNumbers(entry.target);
+                    }
+                    
+                    // Animate stat bars
+                    const statBars = entry.target.querySelectorAll('.stat-bar-fill');
+                    statBars.forEach(bar => {
+                        bar.classList.add('animate');
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ==================== STAT COUNTER ANIMATION ====================
+        function animateStatNumbers(container) {
+            const statNumbers = container.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const target = parseFloat(stat.getAttribute('data-target'));
+                const isDecimal = target % 1 !== 0;
+                let current = 0;
+                const increment = target / 60;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        stat.textContent = isDecimal ? target.toFixed(1) : Math.floor(target);
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = isDecimal ? current.toFixed(1) : Math.floor(current);
+                    }
+                }, 30);
+            });
+        }
+
+        // ==================== PROJECT FILTERING ====================
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+                
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Filter projects
+                projectCards.forEach(card => {
+                    const categories = card.getAttribute('data-category');
+                    
+                    if (filter === 'all' || (categories && categories.includes(filter))) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // ==================== SMOOTH SCROLL ====================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ==================== ACTIVE NAV LINK ====================
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
