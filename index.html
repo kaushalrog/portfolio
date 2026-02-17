@@ -3,26 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaushal S — ML & Robotics Engineer </title>
-    <meta name="description" content="Machine Learning and Robotics Engineer specializing in autonomous systems, computer vision, and neural networks.">
-    
+    <title>Kaushal S — ML & Robotics Engineer</title>
+    <meta name="description" content="Machine Learning and Robotics Engineer specializing in autonomous systems, computer vision, neural networks, and cybersecurity.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    
     <style>
-        /* ==================== RESET & BASE ==================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --bg-primary: #0A0A0A;
             --bg-secondary: #141414;
             --border-primary: #1F1F1F;
-            --border-accent: rgba(59, 130, 246, 0.3);
+            --border-accent: rgba(59,130,246,0.3);
             --text-primary: #E5E5E5;
             --text-secondary: #999999;
             --accent-blue: #3B82F6;
@@ -34,1417 +27,798 @@
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        ::selection {
-            background-color: rgba(59, 130, 246, 0.3);
-            color: var(--text-primary);
-        }
+        ::selection { background: rgba(59,130,246,0.3); color: var(--text-primary); }
 
-        /* ==================== TYPOGRAPHY ==================== */
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
+        h1,h2,h3,h4 { font-weight: 700; line-height: 1.2; }
         .mono { font-family: 'JetBrains Mono', monospace; }
 
-        .text-gradient {
-            background: linear-gradient(135deg, #ffffff 0%, var(--accent-blue-light) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
         .text-gradient-animated {
-            background: linear-gradient(90deg, 
-                var(--text-primary) 0%, 
-                var(--accent-blue-light) 25%, 
-                var(--text-primary) 50%, 
-                var(--accent-blue-light) 75%, 
-                var(--text-primary) 100%
-            );
+            background: linear-gradient(90deg,
+                var(--text-primary) 0%,
+                var(--accent-blue-light) 25%,
+                var(--text-primary) 50%,
+                var(--accent-blue-light) 75%,
+                var(--text-primary) 100%);
             background-size: 200% 100%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradient-shift 8s ease infinite;
+            animation: gshift 8s ease infinite;
         }
-
-        @keyframes gradient-shift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        @keyframes gshift {
+            0%,100% { background-position: 0% 50%; }
+            50%      { background-position: 100% 50%; }
         }
 
         .section-label {
-            font-size: 0.75rem;
-            letter-spacing: 0.12em;
+            font-size: 0.72rem;
+            letter-spacing: 0.13em;
             color: var(--accent-blue);
             font-weight: 600;
             text-transform: uppercase;
             font-family: 'JetBrains Mono', monospace;
         }
 
-        /* ==================== LAYOUT ==================== */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        section {
-            padding: 6rem 0;
-            position: relative;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        section { padding: 6rem 0; position: relative; }
 
         @media (max-width: 768px) {
-            .container { padding: 0 1.5rem; }
+            .container { padding: 0 1.25rem; }
             section { padding: 4rem 0; }
         }
 
-        /* ==================== GRID BACKGROUND ==================== */
-        .grid-background {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+        /* ---------- BACKGROUND ---------- */
+        .grid-bg {
+            position: fixed; inset: 0;
+            background-image:
+                linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
             background-size: 60px 60px;
-            pointer-events: none;
-            z-index: 0;
+            pointer-events: none; z-index: 0;
         }
 
-        .noise-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.5;
-        }
-
-        /* ==================== CURSOR ==================== */
+        /* ---------- CURSOR ---------- */
         .cursor-glow {
-            width: 400px;
-            height: 400px;
-            position: fixed;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
+            width: 380px; height: 380px;
+            position: fixed; border-radius: 50%;
+            background: radial-gradient(circle, rgba(59,130,246,0.13) 0%, transparent 70%);
+            pointer-events: none; z-index: 9999;
+            transform: translate(-50%,-50%);
             mix-blend-mode: screen;
-            transition: opacity 0.3s ease;
         }
+        @media (hover:none) { .cursor-glow { display:none; } }
 
-        @media (hover: none) and (pointer: coarse) {
-            .cursor-glow { display: none; }
-        }
-
-        /* ==================== SCROLL PROGRESS ==================== */
+        /* ---------- SCROLL BAR ---------- */
         .scroll-progress {
-            position: fixed;
-            top: 0; left: 0;
-            height: 3px;
+            position: fixed; top: 0; left: 0; height: 3px; width: 100%;
             background: linear-gradient(90deg, var(--accent-blue-dark), var(--accent-blue), var(--accent-blue-light));
-            z-index: 10000;
-            transform-origin: left;
-            transform: scaleX(0);
-            transition: transform 0.1s ease-out;
+            z-index: 10000; transform-origin: left; transform: scaleX(0);
         }
 
-        /* ==================== NAVIGATION ==================== */
+        /* ---------- NAV ---------- */
         nav {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%;
-            background: rgba(10, 10, 10, 0.8);
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: rgba(10,10,10,0.85);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-primary);
             z-index: 1000;
-            transition: padding 0.3s ease;
         }
-
-        nav.scrolled { padding: 0.5rem 0; }
-
         nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 1.25rem;
-            padding-bottom: 1.25rem;
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 1.2rem; padding-bottom: 1.2rem;
         }
-
-        nav.scrolled .container {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-        }
-
-        .nav-brand {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.875rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 2.5rem;
-        }
-
+        .nav-brand { font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.05em; }
+        .nav-links { display: flex; align-items: center; gap: 2.5rem; }
         .nav-link {
-            position: relative;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.875rem;
-            transition: color 0.2s ease;
+            position: relative; color: var(--text-secondary);
+            text-decoration: none; font-size: 0.875rem; transition: color 0.2s;
         }
-
         .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -6px; left: 0;
-            width: 0; height: 2px;
-            background: var(--accent-blue);
-            transition: width 0.3s ease;
+            content: ''; position: absolute; bottom: -5px; left: 0;
+            width: 0; height: 2px; background: var(--accent-blue); transition: width 0.3s;
         }
-
         .nav-link:hover, .nav-link.active { color: var(--text-primary); }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
+        .status-indicator { display: flex; align-items: center; gap: 0.5rem; }
         .status-dot {
-            width: 8px; height: 8px;
-            background: var(--success);
-            border-radius: 50%;
-            animation: pulse-dot 2s infinite;
+            width: 8px; height: 8px; background: var(--success);
+            border-radius: 50%; animation: pdot 2s infinite;
         }
-
-        @keyframes pulse-dot {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+        @keyframes pdot {
+            0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.7); }
+            50%      { box-shadow: 0 0 0 6px rgba(16,185,129,0); }
         }
+        .status-text { font-size: 0.75rem; color: var(--success); }
+        @media (max-width: 768px) { .nav-links { display: none; } }
 
-        .status-text {
-            font-size: 0.75rem;
-            color: var(--success);
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-        }
-
-        /* ==================== BUTTONS ==================== */
+        /* ---------- BUTTONS ---------- */
         .btn {
-            display: inline-block;
-            padding: 0.875rem 2rem;
+            display: inline-block; padding: 0.875rem 2rem;
             border: 1px solid var(--border-accent);
-            background: transparent;
-            color: var(--accent-blue-light);
-            font-size: 0.875rem;
-            font-weight: 500;
-            text-decoration: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
+            background: transparent; color: var(--accent-blue-light);
+            font-size: 0.875rem; font-weight: 500;
+            text-decoration: none; border-radius: 6px; cursor: pointer;
+            transition: all 0.3s; position: relative; overflow: hidden; z-index: 1;
         }
-
         .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 0; height: 0;
-            background: var(--accent-blue);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
-            z-index: -1;
+            content: ''; position: absolute; top: 50%; left: 50%;
+            width: 0; height: 0; background: var(--accent-blue);
+            border-radius: 50%; transform: translate(-50%,-50%);
+            transition: width 0.6s, height 0.6s; z-index: -1;
         }
-
         .btn:hover::before { width: 300px; height: 300px; }
-        .btn:hover {
-            color: white;
-            border-color: var(--accent-blue);
-            transform: translateY(-2px);
-        }
-
-        .btn-primary {
-            background: var(--accent-blue);
-            border-color: var(--accent-blue);
-            color: white;
-        }
-
+        .btn:hover { color: #fff; border-color: var(--accent-blue); transform: translateY(-2px); }
+        .btn-primary { background: var(--accent-blue); border-color: var(--accent-blue); color: #fff; }
         .btn-primary::before { background: var(--accent-blue-dark); }
 
-        /* ==================== CARDS ==================== */
+        /* ---------- CARDS ---------- */
         .card {
             background: var(--bg-secondary);
             border: 1px solid var(--border-primary);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.4s ease;
+            border-radius: 12px; padding: 2rem;
+            transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s;
         }
-
         .card:hover {
             border-color: var(--border-accent);
             transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
-
         .card-glass {
-            background: rgba(59, 130, 246, 0.03);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(59, 130, 246, 0.1);
+            background: rgba(59,130,246,0.03);
+            border: 1px solid rgba(59,130,246,0.1);
         }
 
-        /* ==================== TAGS ==================== */
+        /* ---------- TAGS ---------- */
         .tag {
-            display: inline-block;
-            padding: 0.375rem 0.875rem;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 6px;
-            font-size: 0.75rem;
-            color: var(--accent-blue-light);
-            transition: all 0.3s ease;
+            display: inline-block; padding: 0.35rem 0.8rem;
+            background: rgba(59,130,246,0.1);
+            border: 1px solid rgba(59,130,246,0.2);
+            border-radius: 6px; font-size: 0.72rem;
+            color: var(--accent-blue-light); transition: all 0.3s;
         }
+        .tag:hover { background: rgba(59,130,246,0.2); border-color: var(--accent-blue); transform: translateY(-2px); }
 
-        .tag:hover {
-            background: rgba(59, 130, 246, 0.2);
-            border-color: var(--accent-blue);
-            transform: translateY(-2px);
-        }
-
-        /* ==================== ANIMATIONS ==================== */
-        .fade-in {
+        /* ---------- SCROLL REVEAL (non-hero only) ---------- */
+        .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(22px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
         }
+        .reveal.on { opacity: 1; transform: translateY(0); }
 
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ==================== HERO SECTION ==================== */
+        /* ---------- HERO ---------- */
         #hero {
             min-height: 100vh;
-            display: flex;
-            align-items: center;
+            display: flex; align-items: center;
             padding-top: 80px;
         }
+        #hero .container { position: relative; z-index: 10; }
 
-        .hero-content h1 {
-            font-size: clamp(3rem, 8vw, 5rem);
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-        }
+        .hero-content { margin-bottom: 0; }
+        .hero-content h1 { font-size: clamp(2.8rem, 7vw, 5rem); margin-bottom: 1.5rem; line-height: 1.1; }
+        .hero-content p { font-size: 1.1rem; color: var(--text-secondary); max-width: 580px; margin-bottom: 2.5rem; line-height: 1.75; }
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-        .hero-content p {
-            font-size: 1.125rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin-bottom: 2.5rem;
-            line-height: 1.7;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        /* Stats Grid */
+        /* ---------- STATS ---------- */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 6rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem; margin-top: 5rem;
         }
+        @media (max-width: 600px) { .stats-grid { grid-template-columns: 1fr; } }
 
-        .stat-card { text-align: center; }
-
+        .stat-card { text-align: center; padding: 1.5rem; border-radius: 10px; }
         .stat-number {
-            font-size: 3.5rem;
-            font-weight: 800;
+            font-size: 3.5rem; font-weight: 800; line-height: 1;
             background: linear-gradient(135deg, var(--text-primary), var(--accent-blue-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
             margin-bottom: 0.5rem;
         }
+        .stat-label { font-size: 0.875rem; color: var(--text-secondary); }
+        .stat-bar { height: 3px; background: rgba(59,130,246,0.1); margin-top: 1rem; border-radius: 2px; overflow: hidden; }
+        .stat-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent-blue-dark), var(--accent-blue)); width: 0; transition: width 1.6s cubic-bezier(0.4,0,0.2,1); }
 
-        .stat-label {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-        }
+        /* ---------- WORK SECTION ---------- */
+        .section-header { margin-bottom: 3.5rem; }
+        .section-header h2 { font-size: 2.5rem; margin-top: 0.5rem; }
 
-        .stat-bar {
-            height: 3px;
-            background: rgba(59, 130, 246, 0.1);
-            margin-top: 1rem;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .stat-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-blue-dark), var(--accent-blue));
-            width: 0;
-            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .stat-bar-fill.animate { width: var(--width, 100%); }
-
-        /* ==================== WORK SECTION ==================== */
-        .section-header {
-            margin-bottom: 4rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Filter Buttons */
-        .filter-buttons {
-            display: flex;
-            gap: 0.75rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
+        .filter-buttons { display: flex; gap: 0.6rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
         .filter-btn {
-            padding: 0.625rem 1.25rem;
+            padding: 0.55rem 1.1rem;
             border: 1px solid var(--border-primary);
-            background: transparent;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            background: transparent; color: var(--text-secondary);
+            font-size: 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.3s;
         }
+        .filter-btn:hover { border-color: var(--accent-blue); color: var(--text-primary); }
+        .filter-btn.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
 
-        .filter-btn:hover {
-            border-color: var(--accent-blue);
-            color: var(--text-primary);
-        }
-
-        .filter-btn.active {
-            background: var(--accent-blue);
-            color: white;
-            border-color: var(--accent-blue);
-        }
-
-        /* Projects Grid */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 2rem;
         }
+        @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; } }
 
-        .project-card {
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
+        .project-card.hidden { display: none; }
 
-        .project-card.hidden {
-            opacity: 0;
-            transform: scale(0.95);
-            pointer-events: none;
-            position: absolute;
-        }
+        .featured-project { grid-column: 1 / -1; }
+        .featured-content { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        @media (max-width: 768px) { .featured-content { grid-template-columns: 1fr; } }
 
-        .project-header { margin-bottom: 1rem; }
-
-        .project-title {
-            font-size: 1.5rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .project-title-sm {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .project-description {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-
+        .project-title    { font-size: 1.45rem; margin-bottom: 0.75rem; }
+        .project-title-sm { font-size: 1.15rem; margin-bottom: 0.6rem; }
+        .project-description { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.65; margin-bottom: 1.25rem; }
+        .project-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
         .project-link {
-            color: var(--accent-blue);
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: gap 0.3s ease;
+            color: var(--accent-blue); text-decoration: none;
+            font-size: 0.875rem; font-weight: 500;
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            transition: gap 0.25s;
         }
-
-        .project-link:hover { gap: 0.75rem; }
-
-        /* Featured Project */
-        .featured-project {
-            grid-column: 1 / -1;
-            margin-bottom: 2rem;
-        }
-
-        .featured-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-
-        @media (max-width: 768px) {
-            .featured-content { grid-template-columns: 1fr; }
-            .projects-grid { grid-template-columns: 1fr; }
-        }
+        .project-link:hover { gap: 0.7rem; }
 
         .code-preview {
-            background: rgba(59, 130, 246, 0.03);
-            border: 1px solid rgba(59, 130, 246, 0.1);
+            background: rgba(59,130,246,0.03);
+            border: 1px solid rgba(59,130,246,0.1);
             border-left: 3px solid var(--accent-blue);
-            padding: 1.5rem;
-            border-radius: 6px;
+            padding: 1.5rem; border-radius: 6px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.875rem;
-            line-height: 1.8;
+            font-size: 0.8rem; line-height: 1.9;
         }
+        .code-line    { display: block; color: var(--text-secondary); }
+        .code-comment { color: #555; }
+        .code-kw      { color: var(--accent-blue); }
+        .code-fn      { color: var(--accent-blue-light); }
+        .code-str     { color: var(--success); }
 
-        .code-line { display: block; color: var(--text-secondary); }
-        .code-comment { color: #666; }
-        .code-keyword { color: var(--accent-blue); }
-        .code-function { color: var(--accent-blue-light); }
-        .code-string { color: var(--success); }
-
-        /* ==================== SKILLS SECTION ==================== */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .skill-category { margin-bottom: 1rem; }
-
+        /* ---------- SKILLS ---------- */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 1.5rem; }
         .skill-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--border-primary);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.7rem 0; border-bottom: 1px solid var(--border-primary);
         }
-
         .skill-item:last-child { border-bottom: none; }
+        .skill-level { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--accent-blue); }
 
-        .skill-level {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--accent-blue);
-        }
+        /* ---------- ABOUT ---------- */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 3rem; } }
+        .about-text { font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); }
+        .about-text p { margin-bottom: 1.4rem; }
 
-        /* ==================== ABOUT SECTION ==================== */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-        }
-
-        @media (max-width: 768px) {
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-        }
-
-        .about-text {
-            font-size: 1.125rem;
-            line-height: 1.8;
-            color: var(--text-secondary);
-        }
-
-        .about-text p { margin-bottom: 1.5rem; }
-
-        /* Timeline */
-        .timeline {
-            position: relative;
-            padding-left: 2.5rem;
-        }
-
+        .timeline { position: relative; padding-left: 2.5rem; }
         .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0;
+            content: ''; position: absolute; left: 0; top: 0;
             width: 2px; height: 100%;
             background: linear-gradient(180deg, transparent, var(--accent-blue), transparent);
         }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 2.5rem;
-        }
-
+        .timeline-item { position: relative; margin-bottom: 2.25rem; }
         .timeline-item:last-child { margin-bottom: 0; }
-
         .timeline-dot {
-            position: absolute;
-            left: -2.9rem;
-            top: 0.5rem;
-            width: 14px; height: 14px;
-            background: var(--accent-blue);
-            border-radius: 50%;
-            border: 3px solid var(--bg-primary);
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+            position: absolute; left: -2.9rem; top: 0.35rem;
+            width: 14px; height: 14px; background: var(--accent-blue);
+            border-radius: 50%; border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 0 4px rgba(59,130,246,0.2);
         }
+        .timeline-content h3 { font-size: 1.1rem; margin-bottom: 0.35rem; }
+        .timeline-meta { font-size: 0.83rem; color: var(--text-secondary); margin-bottom: 0.35rem; }
+        .timeline-description { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.6; }
 
-        .timeline-content h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-meta {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-description {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* ==================== CONTACT SECTION ==================== */
-        .contact-content {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .contact-content h2 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .contact-content p {
-            font-size: 1.125rem;
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .contact-card {
-            text-align: left;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .contact-card .section-label { margin-bottom: 0.5rem; }
-
-        .contact-value {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .contact-label {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .social-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.875rem;
-            transition: color 0.3s ease;
-        }
-
+        /* ---------- CONTACT ---------- */
+        .contact-content { text-align: center; max-width: 800px; margin: 0 auto; }
+        .contact-content h2 { font-size: 3rem; margin-bottom: 1rem; }
+        .contact-content > p { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 3rem; }
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+        .contact-card { text-align: left; text-decoration: none; color: inherit; }
+        .contact-value { font-weight: 600; margin: 0.4rem 0 0.2rem; }
+        .contact-label { font-size: 0.875rem; color: var(--text-secondary); }
+        .social-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+        .social-link { color: var(--text-secondary); text-decoration: none; font-size: 0.875rem; transition: color 0.3s; }
         .social-link:hover { color: var(--text-primary); }
 
-        /* ==================== FOOTER ==================== */
-        footer {
-            padding: 2rem 0;
-            border-top: 1px solid var(--border-primary);
-        }
+        /* ---------- FOOTER ---------- */
+        footer { padding: 2rem 0; border-top: 1px solid var(--border-primary); }
+        footer .container { display: flex; justify-content: space-between; align-items: center; }
+        @media (max-width: 768px) { footer .container { flex-direction: column; gap: 1rem; text-align: center; } }
 
-        footer .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        footer .mono { font-size: 0.875rem; }
-        footer .text-secondary { font-size: 0.875rem; }
-
-        @media (max-width: 768px) {
-            footer .container {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-        }
-
-        /* ==================== UTILITIES ==================== */
-        .relative { position: relative; }
-        .z-10 { z-index: 10; }
+        /* ---------- UTILS ---------- */
         .mb-2 { margin-bottom: 0.5rem; }
         .mb-3 { margin-bottom: 0.75rem; }
         .mb-4 { margin-bottom: 1rem; }
         .mb-6 { margin-bottom: 1.5rem; }
-        .mb-8 { margin-bottom: 2rem; }
-        .text-secondary { color: var(--text-secondary); }
     </style>
 </head>
 <body>
-    <div class="grid-background"></div>
-    <div class="noise-overlay"></div>
-    <div class="cursor-glow" id="cursorGlow"></div>
-    <div class="scroll-progress" id="scrollProgress"></div>
 
-    <!-- Navigation -->
-    <nav id="mainNav">
-        <div class="container">
-            <div class="nav-brand">KAUSHAL.S</div>
-            <div class="nav-links">
-                <a href="#work" class="nav-link">Work</a>
-                <a href="#skills" class="nav-link">Skills</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Contact</a>
-                <div class="status-indicator">
-                    <span class="status-dot"></span>
-                    <span class="status-text">Available</span>
-                </div>
+<div class="grid-bg"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+    <div class="container">
+        <div class="nav-brand">KAUSHAL.S</div>
+        <div class="nav-links">
+            <a href="#work"    class="nav-link">Work</a>
+            <a href="#skills"  class="nav-link">Skills</a>
+            <a href="#about"   class="nav-link">About</a>
+            <a href="#contact" class="nav-link">Contact</a>
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span class="status-text">Available</span>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <!-- Hero Section -->
-    <section id="hero">
-        <div class="container relative z-10">
-            <div class="hero-content fade-in">
-                <div class="section-label mb-4">ML ENGINEER · ROBOTICS · AI SYSTEMS · CYBERSECURITY</div>
-                <h1>
-                    Building Autonomous<br>
-                    <span class="text-gradient-animated">Intelligent Systems</span>
-                </h1>
-                <p>
-                    Machine Learning and Robotics Engineer specializing in neural networks, autonomous systems,
-                    computer vision, cybersecurity, and production AI platforms. Building intelligent systems
-                    that operate in real-world environments.
+<!-- ══════════════════════════════════════ HERO ══ -->
+<section id="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="section-label mb-4">ML ENGINEER · ROBOTICS · AI SYSTEMS · CYBERSECURITY</div>
+            <h1>
+                Building Autonomous<br>
+                <span class="text-gradient-animated">Intelligent Systems</span>
+            </h1>
+            <p>
+                Machine Learning and Robotics Engineer specializing in neural networks,
+                autonomous systems, computer vision, cybersecurity, and production AI platforms.
+                Building intelligent systems that operate in real-world environments.
+            </p>
+            <div class="hero-buttons">
+                <a href="#work"    class="btn">View Projects</a>
+                <a href="#contact" class="btn btn-primary">Get in Touch</a>
+            </div>
+        </div>
+
+        <div class="stats-grid" id="heroStats">
+            <div class="stat-card card-glass">
+                <div class="stat-number" data-target="5">5</div>
+                <div class="stat-label">Production Systems</div>
+                <div class="stat-bar"><div class="stat-bar-fill" data-w="85"></div></div>
+            </div>
+            <div class="stat-card card-glass">
+                <div class="stat-number" data-target="10">10</div>
+                <div class="stat-label">Projects Shipped</div>
+                <div class="stat-bar"><div class="stat-bar-fill" data-w="90"></div></div>
+            </div>
+            <div class="stat-card card-glass">
+                <div class="stat-number" data-target="8.4">8.4</div>
+                <div class="stat-label">Academic CGPA</div>
+                <div class="stat-bar"><div class="stat-bar-fill" data-w="84"></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════ WORK ══ -->
+<section id="work">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="section-label mb-3">SELECTED WORK</div>
+            <h2>Projects</h2>
+        </div>
+
+        <div class="filter-buttons reveal">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="fullstack">Full-Stack AI</button>
+            <button class="filter-btn" data-filter="ai-ml">AI / ML</button>
+            <button class="filter-btn" data-filter="autonomous">Autonomous</button>
+            <button class="filter-btn" data-filter="cybersecurity">Cybersecurity</button>
+            <button class="filter-btn" data-filter="research">Research</button>
+            <button class="filter-btn" data-filter="transport">Transport AI</button>
+            <button class="filter-btn" data-filter="materials">Materials AI</button>
+        </div>
+
+        <div class="projects-grid">
+
+            <!-- FEATURED -->
+            <div class="featured-project project-card card reveal" data-category="fullstack ai-ml">
+                <div class="featured-content">
+                    <div>
+                        <div class="section-label mb-3">FEATURED / FULL-STACK AI · PRODUCTION</div>
+                        <h3 class="project-title">ABiz — Autonomous Business Intelligence Platform</h3>
+                        <p class="project-description">
+                            Production-ready AI business intelligence platform providing automated analytics,
+                            decision support, and real-time dashboards. Full-stack architecture with React,
+                            Supabase, PostgreSQL, deployed on Vercel.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Supabase</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">REST API</span>
+                            <span class="tag">Vercel</span>
+                            <span class="tag">Production AI</span>
+                        </div>
+                        <a href="https://github.com/kaushalrog/ABiz" target="_blank" class="project-link">View on GitHub →</a>
+                    </div>
+                    <div>
+                        <div class="code-preview">
+                            <span class="code-line code-comment"># Production AI Stack</span>
+                            <span class="code-line"><span class="code-kw">frontend</span> = <span class="code-fn">React</span>(<span class="code-str">"dashboard"</span>)</span>
+                            <span class="code-line"><span class="code-kw">backend</span>  = <span class="code-fn">Supabase</span>(<span class="code-str">"postgres"</span>)</span>
+                            <span class="code-line"><span class="code-kw">api</span>      = <span class="code-fn">REST</span>.<span class="code-fn">auth</span>(jwt)</span>
+                            <span class="code-line"><span class="code-kw">ai</span>.<span class="code-fn">analyze</span>(business_data)</span>
+                            <span class="code-line"><span class="code-kw">deploy</span>.<span class="code-fn">vercel</span>(production)</span>
+                            <span class="code-line code-comment">> Platform live ✓</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Traffic -->
+            <div class="project-card card reveal" data-category="ai-ml">
+                <div class="section-label mb-3">AI / ML · OPTIMIZATION</div>
+                <h3 class="project-title-sm">Hybrid AI Traffic Control System</h3>
+                <p class="project-description">
+                    Neural network congestion prediction combined with fuzzy logic optimization.
+                    Graph-based traffic modeling for real-time adaptive signal control.
                 </p>
-                <div class="hero-buttons">
-                    <a href="#work" class="btn">View Projects</a>
-                    <a href="#contact" class="btn btn-primary">Get in Touch</a>
+                <div class="project-tags">
+                    <span class="tag">Neural Networks</span>
+                    <span class="tag">Fuzzy Logic</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Graph Models</span>
                 </div>
+                <a href="https://github.com/kaushalrog/TrafficFlowAI" target="_blank" class="project-link">View on GitHub →</a>
             </div>
 
-            <!-- Stats -->
-            <div class="stats-grid fade-in">
-                <div class="stat-card card-glass">
-                    <div class="stat-number" data-target="5">0</div>
-                    <div class="stat-label">Production Systems</div>
-                    <div class="stat-bar">
-                        <div class="stat-bar-fill" style="--width: 85%"></div>
-                    </div>
-                </div>
-                <div class="stat-card card-glass">
-                    <div class="stat-number" data-target="10">0</div>
-                    <div class="stat-label">Projects Shipped</div>
-                    <div class="stat-bar">
-                        <div class="stat-bar-fill" style="--width: 90%"></div>
-                    </div>
-                </div>
-                <div class="stat-card card-glass">
-                    <div class="stat-number" data-target="8.4">0</div>
-                    <div class="stat-label">Academic CGPA</div>
-                    <div class="stat-bar">
-                        <div class="stat-bar-fill" style="--width: 84%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Work Section -->
-    <section id="work">
-        <div class="container relative z-10">
-            <div class="section-header fade-in">
-                <div class="section-label mb-3">SELECTED WORK</div>
-                <h2>Projects</h2>
-            </div>
-
-            <!-- Filters -->
-            <div class="filter-buttons fade-in">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="fullstack">Full-Stack AI</button>
-                <button class="filter-btn" data-filter="ai-ml">AI / ML</button>
-                <button class="filter-btn" data-filter="autonomous">Autonomous</button>
-                <button class="filter-btn" data-filter="cybersecurity">Cybersecurity</button>
-                <button class="filter-btn" data-filter="research">Research</button>
-                <button class="filter-btn" data-filter="transport">Transport AI</button>
-                <button class="filter-btn" data-filter="materials">Materials AI</button>
-            </div>
-
-            <div class="projects-grid">
-
-                <!-- FEATURED: ABiz -->
-                <div class="featured-project project-card card fade-in" data-category="fullstack ai-ml">
-                    <div class="featured-content">
-                        <div>
-                            <div class="section-label mb-3">FEATURED / FULL-STACK AI · PRODUCTION</div>
-                            <h3 class="project-title">ABiz — Autonomous Business Intelligence Platform</h3>
-                            <p class="project-description">
-                                Production-ready AI business intelligence platform providing automated analytics,
-                                decision support, and real-time dashboards. Full-stack architecture with React,
-                                Supabase, PostgreSQL, and deployed on Vercel. Demonstrates end-to-end system
-                                design and production AI deployment.
-                            </p>
-                            <div class="project-tags">
-                                <span class="tag">React</span>
-                                <span class="tag">Supabase</span>
-                                <span class="tag">PostgreSQL</span>
-                                <span class="tag">REST API</span>
-                                <span class="tag">Vercel</span>
-                                <span class="tag">Production AI</span>
-                            </div>
-                            <a href="https://github.com/kaushalrog/ABiz" target="_blank" class="project-link">
-                                View on GitHub →
-                            </a>
-                        </div>
-                        <div>
-                            <div class="code-preview">
-                                <span class="code-line code-comment"># Production AI Stack</span>
-                                <span class="code-line"><span class="code-keyword">frontend</span> = <span class="code-function">React</span>(<span class="code-string">"dashboard"</span>)</span>
-                                <span class="code-line"><span class="code-keyword">backend</span> = <span class="code-function">Supabase</span>(<span class="code-string">"postgres"</span>)</span>
-                                <span class="code-line"><span class="code-keyword">api</span> = <span class="code-function">REST</span>.<span class="code-function">auth</span>(jwt_token)</span>
-                                <span class="code-line"><span class="code-keyword">ai</span>.<span class="code-function">analyze</span>(business_data)</span>
-                                <span class="code-line"><span class="code-keyword">deploy</span>.<span class="code-function">vercel</span>(production)</span>
-                                <span class="code-line code-comment">> Platform live ✓</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hybrid AI Traffic Control -->
-                <div class="project-card card fade-in" data-category="ai-ml">
-                    <div class="project-header">
-                        <div class="section-label mb-3">AI / ML · OPTIMIZATION</div>
-                        <h3 class="project-title-sm">Hybrid AI Traffic Control System</h3>
-                    </div>
-                    <p class="project-description">
-                        Neural network congestion prediction combined with fuzzy logic optimization.
-                        Graph-based traffic modeling enabling real-time adaptive signal control
-                        for intelligent infrastructure decision systems.
-                    </p>
-                    <div class="project-tags">
-                        <span class="tag">Neural Networks</span>
-                        <span class="tag">Fuzzy Logic</span>
-                        <span class="tag">Optimization</span>
-                        <span class="tag">Python</span>
-                        <span class="tag">Graph Models</span>
-                    </div>
-                    <a href="https://github.com/kaushalrog/TrafficFlowAI" target="_blank" class="project-link">
-                        View on GitHub →
-                    </a>
-                </div>
-
-                <!-- OS Intrusion Detection System -->
-                <div class="project-card card fade-in" data-category="cybersecurity">
-                    <div class="project-header">
-                        <div class="section-label mb-3">CYBERSECURITY · SYSTEMS</div>
-                        <h3 class="project-title-sm">OS Intrusion Detection System</h3>
-                    </div>
-                    <p class="project-description">
-                        System-level intrusion detection platform that monitors OS process activity
-                        to identify malicious behavior using anomaly detection and behavioral analysis.
-                        Built with Linux internals and real-time system monitoring.
-                    </p>
-                    <div class="project-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Linux</span>
-                        <span class="tag">Anomaly Detection</span>
-                        <span class="tag">Behavioral Analysis</span>
-                        <span class="tag">OS Internals</span>
-                    </div>
-                    <a href="https://github.com/kaushalrog/ids---System" target="_blank" class="project-link">
-                        View on GitHub →
-                    </a>
-                </div>
-
-                <!-- Neural Network Digit Recognition -->
-                <div class="project-card card fade-in" data-category="ai-ml">
-                    <div class="project-header">
-                        <div class="section-label mb-3">CORE ML · FROM SCRATCH</div>
-                        <h3 class="project-title-sm">Neural Network Digit Recognition</h3>
-                    </div>
-                    <p class="project-description">
-                        Custom neural network built entirely from scratch — forward propagation,
-                        backpropagation, and gradient descent to classify handwritten digits.
-                        Demonstrates deep understanding of ML internals beyond library usage.
-                    </p>
-                    <div class="project-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Neural Networks</span>
-                        <span class="tag">Backpropagation</span>
-                        <span class="tag">Deep Learning</span>
-                        <span class="tag">From Scratch</span>
-                    </div>
-                    <a href="https://github.com/kaushalrog/digitrecognition" target="_blank" class="project-link">
-                        View on GitHub →
-                    </a>
-                </div>
-
-                <!-- Autonomous Robotics Platform -->
-                <div class="project-card card fade-in" data-category="autonomous">
-                    <div class="project-header">
-                        <div class="section-label mb-3">AUTONOMOUS SYSTEMS · ROBOTICS</div>
-                        <h3 class="project-title-sm">Autonomous Robotics Platform</h3>
-                    </div>
-                    <p class="project-description">
-                        Mobile manipulator with integrated computer vision, state-machine control,
-                        and multi-DOF manipulation. Includes AntBot hexapod with 21-DOF inverse
-                        kinematics and tripod gait planning validated via MATLAB simulation.
-                    </p>
-                    <div class="project-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">OpenCV</span>
-                        <span class="tag">C++</span>
-                        <span class="tag">Inverse Kinematics</span>
-                        <span class="tag">MATLAB</span>
-                        <span class="tag">ROS</span>
-                    </div>
-                    <a href="https://github.com/kaushalrog?tab=repositories" target="_blank" class="project-link">
-                        View on GitHub →
-                    </a>
-                </div>
-
-                <!-- MCDIP-ADMM -->
-                <div class="project-card card fade-in" data-category="research ai-ml">
-                    <div class="project-header">
-                        <div class="section-label mb-3">RESEARCH · OPTIMIZATION</div>
-                        <h3 class="project-title-sm">MCDIP-ADMM Framework</h3>
-                    </div>
-                    <p class="project-description">
-                        Optimization framework for low-dose CT reconstruction using ADMM algorithms
-                        with neural network integration. Applies advanced mathematical optimization
-                        to solve medical imaging inverse problems.
-                    </p>
-                    <div class="project-tags">
-                        <span class="tag">PyTorch</span>
-                        <span class="tag">ADMM</span>
-                        <span class="tag">Medical Imaging</span>
-                        <span class="tag">Optimization</span>
-                    </div>
-                    <a href="https://github.com/kaushalrog/mcdip-admm-ct-reconstruction" target="_blank" class="project-link">
-                        View on GitHub →
-                    </a>
-                </div>
-
-                <!-- Kerala Metro Scheduling -->
-                <div class="project-card card fade-in" data-category="transport ai-ml">
-                    <div class="project-header">
-                        <div class="section-label mb-3">TRANSPORT AI · SCHEDULING</div>
-                        <h3 class="project-title-sm">Kerala Metro Scheduling System</h3>
-                    </div>
-                    <p class="project-description">
-                        AI-driven metro train scheduling and optimization system for Kerala Metro.
-                        Applies intelligent scheduling algorithms to minimize headway, optimize
-                        induction planning, and improve operational efficiency across metro lines.
-                    </p>
-                    <div class="project-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Scheduling Algorithms</span>
-                        <span class="tag">Optimization</span>
-                        <span class="tag">Transport AI</span>
-                        <span class="tag">AI Planning</span>
-                    </div>
-                    <a href="https://github.com/kaushalrog/kerala_metro_scheduling" target="_blank" class="project-link">
-                        View on GitHub →
-                    </a>
-                </div>
-
-                <!-- ML Alloys -->
-                <div class="project-card card fade-in" data-category="materials research ai-ml">
-                    <div class="project-header">
-                        <div class="section-label mb-3">MATERIALS AI · RESEARCH</div>
-                        <h3 class="project-title-sm">ML-Driven Structure–Property Correlation for Alloys</h3>
-                    </div>
-                    <p class="project-description">
-                        Machine learning framework that correlates microstructural features with
-                        mechanical properties of alloys for engineering design. Enables data-driven
-                        prediction of material behavior, accelerating alloy selection and structural design.
-                    </p>
-                    <div class="project-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Machine Learning</span>
-                        <span class="tag">Materials Science</span>
-                        <span class="tag">Regression Models</span>
-                        <span class="tag">Feature Engineering</span>
-                    </div>
-                    <a href="https://github.com/kaushalrog/-Machine-Learning-Driven-Structure-Property-Correlation-for-Mechanical-Design-of-Alloys" target="_blank" class="project-link">
-                        View on GitHub →
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills">
-        <div class="container relative z-10">
-            <div class="section-header fade-in">
-                <div class="section-label mb-3">TECHNICAL EXPERTISE</div>
-                <h2>Skills</h2>
-            </div>
-
-            <div class="skills-grid">
-
-                <!-- Machine Learning & AI -->
-                <div class="card fade-in">
-                    <div class="section-label mb-4">MACHINE LEARNING & AI</div>
-                    <div class="skill-category">
-                        <div class="skill-item">
-                            <span>Neural Networks</span>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Deep Learning</span>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Computer Vision</span>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>PyTorch</span>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>TensorFlow</span>
-                            <span class="skill-level">Proficient</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Model Training & Evaluation</span>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Optimization Algorithms</span>
-                            <span class="skill-level">Intermediate</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Full Stack & Production AI -->
-                <div class="card fade-in">
-                    <div class="section-label mb-4">FULL STACK & PRODUCTION AI</div>
-                    <div class="skill-category">
-                        <div class="skill-item">
-                            <span>React</span>
-                            <span class="skill-level">Proficient</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Supabase</span>
-                            <span class="skill-level">Proficient</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>PostgreSQL</span>
-                            <span class="skill-level">Proficient</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>REST APIs</span>
-                            <span class="skill-level">Proficient</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Authentication Systems</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>System Architecture</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Production Deployment (Vercel)</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Programming -->
-                <div class="card fade-in">
-                    <div class="section-label mb-4">PROGRAMMING</div>
-                    <div class="skill-category">
-                        <div class="skill-item">
-                            <span>Python</span>
-                            <span class="skill-level">Primary</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>C++</span>
-                            <span class="skill-level">Advanced</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>JavaScript</span>
-                            <span class="skill-level">Proficient</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>SQL</span>
-                            <span class="skill-level">Proficient</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Bash / Linux Shell</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Robotics & Autonomous Systems -->
-                <div class="card fade-in">
-                    <div class="section-label mb-4">ROBOTICS & AUTONOMOUS SYSTEMS</div>
-                    <div class="skill-category">
-                        <div class="skill-item">
-                            <span>Autonomous Navigation</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Computer Vision Robotics</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Sensor Integration</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Motion Planning</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Control Systems</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Inverse Kinematics</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Systems & Cybersecurity -->
-                <div class="card fade-in">
-                    <div class="section-label mb-4">SYSTEMS & CYBERSECURITY</div>
-                    <div class="skill-category">
-                        <div class="skill-item">
-                            <span>Intrusion Detection Systems</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>OS Monitoring</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Linux Systems</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>System Programming</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Behavioral Analysis Systems</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Anomaly Detection</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tools & Platforms -->
-                <div class="card fade-in">
-                    <div class="section-label mb-4">TOOLS & PLATFORMS</div>
-                    <div class="skill-category">
-                        <div class="skill-item">
-                            <span>Git / GitHub</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Linux</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Docker</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>MATLAB</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>Vercel</span>
-                        </div>
-                        <div class="skill-item">
-                            <span>OpenCV</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about">
-        <div class="container relative z-10">
-            <div class="about-grid">
-                <div class="fade-in">
-                    <div class="section-label mb-3">BACKGROUND</div>
-                    <h2 class="mb-6">About</h2>
-                    <div class="about-text">
-                        <p>
-                            ML and Robotics Engineer focused on autonomous systems and computer vision.
-                            Currently pursuing B.Tech in AI & Data Science at Amrita Vishwa Vidyapeetham.
-                        </p>
-                        <p>
-                            I build intelligent systems that bridge perception, decision-making, and control.
-                            My work spans neural networks, optimization algorithms, cybersecurity systems,
-                            and real-time robotics — from bare-metal implementations to production deployments.
-                        </p>
-                        <p>
-                            I care about engineering depth. Every project is built to understand internals,
-                            not just to use libraries.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="fade-in">
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <div class="section-label mb-2">EDUCATION</div>
-                                <h3>B.Tech in AI & Data Science</h3>
-                                <div class="timeline-meta">Amrita Vishwa Vidyapeetham · 2024 – 2028</div>
-                                <div class="timeline-description">CGPA: 8.4 / 10</div>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <div class="section-label mb-2">EXPERIENCE</div>
-                                <h3>Technical Photographer</h3>
-                                <div class="timeline-meta">Srishti & Team Media — Amrita</div>
-                                <div class="timeline-description">
-                                    Technical documentation and visual storytelling for engineering projects.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <div class="section-label mb-2">CURRENT FOCUS</div>
-                                <h3>Research & Production Systems</h3>
-                                <div class="timeline-meta">2025 – Present</div>
-                                <div class="timeline-description">
-                                    Advanced optimization algorithms, autonomous navigation,
-                                    cybersecurity engineering, and production ML deployments.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container relative z-10">
-            <div class="contact-content fade-in">
-                <div class="section-label mb-4">GET IN TOUCH</div>
-                <h2>Let's Connect</h2>
-                <p>
-                    Open to opportunities in ML Engineering, Robotics, Cybersecurity, and AI Research.
+            <!-- IDS -->
+            <div class="project-card card reveal" data-category="cybersecurity">
+                <div class="section-label mb-3">CYBERSECURITY · SYSTEMS</div>
+                <h3 class="project-title-sm">OS Intrusion Detection System</h3>
+                <p class="project-description">
+                    System-level intrusion detection platform monitoring OS process activity
+                    to identify malicious behavior using anomaly detection and behavioral analysis.
                 </p>
-
-                <div class="contact-grid">
-                    <a href="/cdn-cgi/l/email-protection#3b505a4e48535a57495e5f5f420a0e7b5c565a525715585456" class="contact-card card">
-                        <div class="section-label">EMAIL</div>
-                        <div class="contact-value"><span class="__cf_email__" data-cfemail="402b21353328212c3225242439717500272d21292c6e232f2d">[email&#160;protected]</span></div>
-                        <div class="contact-label">Primary contact</div>
-                    </a>
-                    <a href="tel:+919642293339" class="contact-card card">
-                        <div class="section-label">PHONE</div>
-                        <div class="contact-value">+91 96422 93339</div>
-                        <div class="contact-label">Direct line</div>
-                    </a>
+                <div class="project-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Linux</span>
+                    <span class="tag">Anomaly Detection</span>
+                    <span class="tag">OS Internals</span>
                 </div>
+                <a href="https://github.com/kaushalrog/ids---System" target="_blank" class="project-link">View on GitHub →</a>
+            </div>
 
-                <div class="social-links">
-                    <a href="https://github.com/kaushalrog" target="_blank" class="social-link">GitHub</a>
-                    <a href="https://www.linkedin.com/in/kaushal-s-19234b314" target="_blank" class="social-link">LinkedIn</a>
-                    <a href="https://drive.google.com/drive/folders/13eqdqJ4URxu0OCDohW2A_HUsPlX1g-Lr" target="_blank" class="social-link">Photography</a>
+            <!-- Digit -->
+            <div class="project-card card reveal" data-category="ai-ml">
+                <div class="section-label mb-3">CORE ML · FROM SCRATCH</div>
+                <h3 class="project-title-sm">Neural Network Digit Recognition</h3>
+                <p class="project-description">
+                    Custom neural network built entirely from scratch — forward propagation,
+                    backpropagation, and gradient descent to classify handwritten digits.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Backpropagation</span>
+                    <span class="tag">Deep Learning</span>
+                    <span class="tag">From Scratch</span>
+                </div>
+                <a href="https://github.com/kaushalrog/digitrecognition" target="_blank" class="project-link">View on GitHub →</a>
+            </div>
+
+            <!-- Robotics -->
+            <div class="project-card card reveal" data-category="autonomous">
+                <div class="section-label mb-3">AUTONOMOUS SYSTEMS · ROBOTICS</div>
+                <h3 class="project-title-sm">Autonomous Robotics Platform</h3>
+                <p class="project-description">
+                    Mobile manipulator with integrated computer vision, state-machine control,
+                    and multi-DOF manipulation. AntBot hexapod with 21-DOF inverse kinematics
+                    and tripod gait validated via MATLAB simulation.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">OpenCV</span>
+                    <span class="tag">C++</span>
+                    <span class="tag">Inverse Kinematics</span>
+                    <span class="tag">MATLAB</span>
+                </div>
+                <a href="https://github.com/kaushalrog?tab=repositories" target="_blank" class="project-link">View on GitHub →</a>
+            </div>
+
+            <!-- MCDIP -->
+            <div class="project-card card reveal" data-category="research ai-ml">
+                <div class="section-label mb-3">RESEARCH · OPTIMIZATION</div>
+                <h3 class="project-title-sm">MCDIP-ADMM Framework</h3>
+                <p class="project-description">
+                    Optimization framework for low-dose CT reconstruction using ADMM algorithms
+                    with neural network integration for medical imaging inverse problems.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">PyTorch</span>
+                    <span class="tag">ADMM</span>
+                    <span class="tag">Medical Imaging</span>
+                    <span class="tag">Optimization</span>
+                </div>
+                <a href="https://github.com/kaushalrog/mcdip-admm-ct-reconstruction" target="_blank" class="project-link">View on GitHub →</a>
+            </div>
+
+            <!-- Kerala Metro -->
+            <div class="project-card card reveal" data-category="transport ai-ml">
+                <div class="section-label mb-3">TRANSPORT AI · SCHEDULING</div>
+                <h3 class="project-title-sm">Kerala Metro Scheduling System</h3>
+                <p class="project-description">
+                    AI-driven metro train scheduling and optimization for Kerala Metro.
+                    Minimizes headway, optimizes induction planning, and improves
+                    operational efficiency across metro lines.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Scheduling Algorithms</span>
+                    <span class="tag">Optimization</span>
+                    <span class="tag">Transport AI</span>
+                </div>
+                <a href="https://github.com/kaushalrog/kerala_metro_scheduling" target="_blank" class="project-link">View on GitHub →</a>
+            </div>
+
+            <!-- Alloys -->
+            <div class="project-card card reveal" data-category="materials research ai-ml">
+                <div class="section-label mb-3">MATERIALS AI · RESEARCH</div>
+                <h3 class="project-title-sm">ML-Driven Structure–Property Correlation for Alloys</h3>
+                <p class="project-description">
+                    Machine learning framework correlating microstructural features with
+                    mechanical properties of alloys for engineering design.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Machine Learning</span>
+                    <span class="tag">Materials Science</span>
+                    <span class="tag">Feature Engineering</span>
+                </div>
+                <a href="https://github.com/kaushalrog/-Machine-Learning-Driven-Structure-Property-Correlation-for-Mechanical-Design-of-Alloys" target="_blank" class="project-link">View on GitHub →</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════ SKILLS ══ -->
+<section id="skills">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="section-label mb-3">TECHNICAL EXPERTISE</div>
+            <h2>Skills</h2>
+        </div>
+
+        <div class="skills-grid">
+            <div class="card reveal">
+                <div class="section-label mb-4">MACHINE LEARNING & AI</div>
+                <div class="skill-item"><span>Neural Networks</span><span class="skill-level">Advanced</span></div>
+                <div class="skill-item"><span>Deep Learning</span><span class="skill-level">Advanced</span></div>
+                <div class="skill-item"><span>Computer Vision</span><span class="skill-level">Advanced</span></div>
+                <div class="skill-item"><span>PyTorch</span><span class="skill-level">Advanced</span></div>
+                <div class="skill-item"><span>TensorFlow</span><span class="skill-level">Proficient</span></div>
+                <div class="skill-item"><span>Model Training & Evaluation</span><span class="skill-level">Advanced</span></div>
+                <div class="skill-item"><span>Optimization Algorithms</span><span class="skill-level">Intermediate</span></div>
+            </div>
+
+            <div class="card reveal">
+                <div class="section-label mb-4">FULL STACK & PRODUCTION AI</div>
+                <div class="skill-item"><span>React</span><span class="skill-level">Proficient</span></div>
+                <div class="skill-item"><span>Supabase</span><span class="skill-level">Proficient</span></div>
+                <div class="skill-item"><span>PostgreSQL</span><span class="skill-level">Proficient</span></div>
+                <div class="skill-item"><span>REST APIs</span><span class="skill-level">Proficient</span></div>
+                <div class="skill-item"><span>Authentication Systems</span></div>
+                <div class="skill-item"><span>System Architecture</span></div>
+                <div class="skill-item"><span>Production Deployment (Vercel)</span></div>
+            </div>
+
+            <div class="card reveal">
+                <div class="section-label mb-4">PROGRAMMING</div>
+                <div class="skill-item"><span>Python</span><span class="skill-level">Primary</span></div>
+                <div class="skill-item"><span>C++</span><span class="skill-level">Advanced</span></div>
+                <div class="skill-item"><span>JavaScript</span><span class="skill-level">Proficient</span></div>
+                <div class="skill-item"><span>SQL</span><span class="skill-level">Proficient</span></div>
+                <div class="skill-item"><span>Bash / Linux Shell</span></div>
+            </div>
+
+            <div class="card reveal">
+                <div class="section-label mb-4">ROBOTICS & AUTONOMOUS SYSTEMS</div>
+                <div class="skill-item"><span>Autonomous Navigation</span></div>
+                <div class="skill-item"><span>Computer Vision Robotics</span></div>
+                <div class="skill-item"><span>Sensor Integration</span></div>
+                <div class="skill-item"><span>Motion Planning</span></div>
+                <div class="skill-item"><span>Control Systems</span></div>
+                <div class="skill-item"><span>Inverse Kinematics</span></div>
+            </div>
+
+            <div class="card reveal">
+                <div class="section-label mb-4">SYSTEMS & CYBERSECURITY</div>
+                <div class="skill-item"><span>Intrusion Detection Systems</span></div>
+                <div class="skill-item"><span>OS Monitoring</span></div>
+                <div class="skill-item"><span>Linux Systems</span></div>
+                <div class="skill-item"><span>System Programming</span></div>
+                <div class="skill-item"><span>Behavioral Analysis</span></div>
+                <div class="skill-item"><span>Anomaly Detection</span></div>
+            </div>
+
+            <div class="card reveal">
+                <div class="section-label mb-4">TOOLS & PLATFORMS</div>
+                <div class="skill-item"><span>Git / GitHub</span></div>
+                <div class="skill-item"><span>Linux</span></div>
+                <div class="skill-item"><span>Docker</span></div>
+                <div class="skill-item"><span>MATLAB</span></div>
+                <div class="skill-item"><span>Vercel</span></div>
+                <div class="skill-item"><span>OpenCV</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════ ABOUT ══ -->
+<section id="about">
+    <div class="container">
+        <div class="about-grid">
+            <div class="reveal">
+                <div class="section-label mb-3">BACKGROUND</div>
+                <h2 class="mb-6">About</h2>
+                <div class="about-text">
+                    <p>ML and Robotics Engineer focused on autonomous systems and computer vision. Currently pursuing B.Tech in AI &amp; Data Science at Amrita Vishwa Vidyapeetham.</p>
+                    <p>I build intelligent systems that bridge perception, decision-making, and control. My work spans neural networks, optimization algorithms, cybersecurity systems, and real-time robotics — from bare-metal implementations to production deployments.</p>
+                    <p>I care about engineering depth. Every project is built to understand internals, not just to use libraries.</p>
+                </div>
+            </div>
+            <div class="reveal">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div>
+                            <div class="section-label mb-2">EDUCATION</div>
+                            <h3>B.Tech in AI &amp; Data Science</h3>
+                            <div class="timeline-meta">Amrita Vishwa Vidyapeetham · 2024 – 2028</div>
+                            <div class="timeline-description">CGPA: 8.4 / 10</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div>
+                            <div class="section-label mb-2">EXPERIENCE</div>
+                            <h3>Technical Photographer</h3>
+                            <div class="timeline-meta">Srishti &amp; Team Media — Amrita</div>
+                            <div class="timeline-description">Technical documentation and visual storytelling for engineering projects.</div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div>
+                            <div class="section-label mb-2">CURRENT FOCUS</div>
+                            <h3>Research &amp; Production Systems</h3>
+                            <div class="timeline-meta">2025 – Present</div>
+                            <div class="timeline-description">Advanced optimization algorithms, autonomous navigation, cybersecurity engineering, and production ML deployments.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="mono">KAUSHAL.S · 2026</div>
-            <div class="text-secondary">Coimbatore, Tamil Nadu</div>
+<!-- ══════════════════════════════════════ CONTACT ══ -->
+<section id="contact">
+    <div class="container">
+        <div class="contact-content reveal">
+            <div class="section-label mb-4">GET IN TOUCH</div>
+            <h2>Let's Connect</h2>
+            <p>Open to opportunities in ML Engineering, Robotics, Cybersecurity, and AI Research.</p>
+            <div class="contact-grid">
+                <a href="mailto:kaushalreddy15@gmail.com" class="contact-card card">
+                    <div class="section-label">EMAIL</div>
+                    <div class="contact-value">kaushalreddy15@gmail.com</div>
+                    <div class="contact-label">Primary contact</div>
+                </a>
+                <a href="tel:+919642293339" class="contact-card card">
+                    <div class="section-label">PHONE</div>
+                    <div class="contact-value">+91 96422 93339</div>
+                    <div class="contact-label">Direct line</div>
+                </a>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/kaushalrog" target="_blank" class="social-link">GitHub</a>
+                <a href="https://www.linkedin.com/in/kaushal-s-19234b314" target="_blank" class="social-link">LinkedIn</a>
+                <a href="https://drive.google.com/drive/folders/13eqdqJ4URxu0OCDohW2A_HUsPlX1g-Lr" target="_blank" class="social-link">Photography</a>
+            </div>
         </div>
-    </footer>
+    </div>
+</section>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // ==================== CURSOR GLOW ====================
-        const cursorGlow = document.getElementById('cursorGlow');
-        let mouseX = 0, mouseY = 0;
-        let glowX = 0, glowY = 0;
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="mono" style="font-size:0.875rem">KAUSHAL.S · 2026</div>
+        <div style="font-size:0.875rem;color:var(--text-secondary)">Coimbatore, Tamil Nadu</div>
+    </div>
+</footer>
 
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
+<script>
+/* ── CURSOR ── */
+const cg = document.getElementById('cursorGlow');
+let mx=0,my=0,gx=0,gy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function tick(){
+    gx+=(mx-gx)*0.1; gy+=(my-gy)*0.1;
+    cg.style.left=gx+'px'; cg.style.top=gy+'px';
+    requestAnimationFrame(tick);
+})();
 
-        function animateCursor() {
-            glowX += (mouseX - glowX) * 0.1;
-            glowY += (mouseY - glowY) * 0.1;
-            cursorGlow.style.left = glowX + 'px';
-            cursorGlow.style.top = glowY + 'px';
-            requestAnimationFrame(animateCursor);
-        }
+/* ── SCROLL BAR + NAV ── */
+const sp=document.getElementById('scrollProgress'), nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>{
+    const pct=window.scrollY/(document.documentElement.scrollHeight-innerHeight);
+    sp.style.transform=`scaleX(${pct})`;
+    nav.style.borderBottomColor = window.scrollY>60 ? 'rgba(59,130,246,0.15)' : 'var(--border-primary)';
+});
 
-        animateCursor();
-
-        // ==================== SCROLL PROGRESS ====================
-        const scrollProgress = document.getElementById('scrollProgress');
-
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollPercent = scrollTop / docHeight;
-            scrollProgress.style.transform = `scaleX(${scrollPercent})`;
-
-            const nav = document.getElementById('mainNav');
-            if (scrollTop > 100) {
-                nav.classList.add('scrolled');
+/* ── STAT COUNTERS (run immediately, values already set so page never shows 0) ── */
+window.addEventListener('load',()=>{
+    document.querySelectorAll('.stat-number').forEach(el=>{
+        const target=parseFloat(el.dataset.target);
+        const isDec=target%1!==0;
+        let cur=0;
+        el.textContent = isDec ? '0.0' : '0';
+        const step=target/60;
+        const id=setInterval(()=>{
+            cur+=step;
+            if(cur>=target){
+                el.textContent=isDec?target.toFixed(1):target;
+                clearInterval(id);
             } else {
-                nav.classList.remove('scrolled');
+                el.textContent=isDec?cur.toFixed(1):Math.floor(cur);
             }
+        },22);
+    });
+    /* stat bars */
+    document.querySelectorAll('.stat-bar-fill').forEach(el=>{
+        const w=el.dataset.w||'80';
+        requestAnimationFrame(()=>{ el.style.width=w+'%'; });
+    });
+});
+
+/* ── SCROLL REVEAL (only .reveal elements, not hero) ── */
+const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }
+    });
+},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ── ACTIVE NAV ── */
+const secs=document.querySelectorAll('section[id]');
+const nls=document.querySelectorAll('.nav-link');
+window.addEventListener('scroll',()=>{
+    let cur='';
+    secs.forEach(s=>{ if(window.scrollY>=s.offsetTop-200) cur=s.id; });
+    nls.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+cur));
+});
+
+/* ── PROJECT FILTER ── */
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+        document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const f=btn.dataset.filter;
+        document.querySelectorAll('.project-card').forEach(card=>{
+            const cat=card.dataset.category||'';
+            card.classList.toggle('hidden', f!=='all' && !cat.includes(f));
         });
+    });
+});
 
-        // ==================== INTERSECTION OBSERVER ====================
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-
-                    if (entry.target.querySelector('.stat-number')) {
-                        animateStatNumbers(entry.target);
-                    }
-
-                    const statBars = entry.target.querySelectorAll('.stat-bar-fill');
-                    statBars.forEach(bar => bar.classList.add('animate'));
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // ==================== STAT COUNTER ANIMATION ====================
-        function animateStatNumbers(container) {
-            const statNumbers = container.querySelectorAll('.stat-number');
-            statNumbers.forEach(stat => {
-                const target = parseFloat(stat.getAttribute('data-target'));
-                const isDecimal = target % 1 !== 0;
-                let current = 0;
-                const increment = target / 60;
-
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        stat.textContent = isDecimal ? target.toFixed(1) : Math.floor(target);
-                        clearInterval(timer);
-                    } else {
-                        stat.textContent = isDecimal ? current.toFixed(1) : Math.floor(current);
-                    }
-                }, 30);
-            });
-        }
-
-        // ==================== PROJECT FILTERING ====================
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const projectCards = document.querySelectorAll('.project-card');
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const filter = button.getAttribute('data-filter');
-
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-
-                projectCards.forEach(card => {
-                    const categories = card.getAttribute('data-category');
-                    if (filter === 'all' || (categories && categories.includes(filter))) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                });
-            });
-        });
-
-        // ==================== SMOOTH SCROLL ====================
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // ==================== ACTIVE NAV LINK ====================
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach
+/* ── SMOOTH SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+        e.preventDefault();
+        const t=document.querySelector(a.getAttribute('href'));
+        if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+});
+</script>
+</body>
+</html>
