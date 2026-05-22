@@ -1,824 +1,1089 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaushal S — ML & Robotics Engineer</title>
-    <meta name="description" content="Machine Learning and Robotics Engineer specializing in autonomous systems, computer vision, neural networks, and cybersecurity.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>kaushal@portfolio:~$</title>
+<meta name="description" content="Kaushal S — ML & Robotics Engineer. Autonomous systems, computer vision, edge AI, IEEE-published research.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
-        :root {
-            --bg-primary: #0A0A0A;
-            --bg-secondary: #141414;
-            --border-primary: #1F1F1F;
-            --border-accent: rgba(59,130,246,0.3);
-            --text-primary: #E5E5E5;
-            --text-secondary: #999999;
-            --accent-blue: #3B82F6;
-            --accent-blue-light: #60A5FA;
-            --accent-blue-dark: #1E40AF;
-            --success: #10B981;
-        }
+:root{
+  --bg:#030703;
+  --bg2:#060d06;
+  --bg3:#091509;
+  --green:#00ff41;
+  --g2:#00cc35;
+  --g3:#006618;
+  --g4:rgba(0,255,65,0.07);
+  --cyan:#00e5c8;
+  --amber:#ffc600;
+  --red:#ff4c52;
+  --text:#b4f0b4;
+  --dim:#3d6644;
+  --dim2:#5a8f5a;
+  --border:rgba(0,255,65,0.1);
+  --border2:rgba(0,255,65,0.28);
+  --glow:0 0 22px rgba(0,255,65,0.13);
+}
 
-        html { scroll-behavior: smooth; }
+html{scroll-behavior:smooth}
 
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+body{
+  font-family:'JetBrains Mono',monospace;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  overflow-x:hidden;
+}
 
-        ::selection { background: rgba(59,130,246,0.3); color: var(--text-primary); }
+/* scanlines */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background:repeating-linear-gradient(
+    0deg,transparent,transparent 2px,
+    rgba(0,0,0,0.06) 2px,rgba(0,0,0,0.06) 4px
+  );
+  pointer-events:none;z-index:9998;
+}
 
-        h1,h2,h3,h4 { font-weight: 700; line-height: 1.2; }
-        .mono { font-family: 'JetBrains Mono', monospace; }
+::selection{background:rgba(0,255,65,0.2);color:var(--green)}
 
-        .text-gradient-animated {
-            background: linear-gradient(90deg,
-                var(--text-primary) 0%,
-                var(--accent-blue-light) 25%,
-                var(--text-primary) 50%,
-                var(--accent-blue-light) 75%,
-                var(--text-primary) 100%);
-            background-size: 200% 100%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gshift 8s ease infinite;
-        }
-        @keyframes gshift {
-            0%,100% { background-position: 0% 50%; }
-            50%      { background-position: 100% 50%; }
-        }
+/* matrix canvas */
+#mc{position:fixed;inset:0;z-index:0;opacity:.04;pointer-events:none}
 
-        .section-label {
-            font-size: 0.72rem;
-            letter-spacing: 0.13em;
-            color: var(--accent-blue);
-            font-weight: 600;
-            text-transform: uppercase;
-            font-family: 'JetBrains Mono', monospace;
-        }
+/* scroll bar */
+#prog{position:fixed;top:0;left:0;height:2px;width:0%;
+  background:linear-gradient(90deg,var(--g3),var(--green),var(--cyan));
+  z-index:10001;transition:width .1s}
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-        section { padding: 6rem 0; position: relative; }
+/* cursor glow */
+#cg{width:320px;height:320px;position:fixed;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,255,65,.07) 0%,transparent 70%);
+  pointer-events:none;z-index:9997;transform:translate(-50%,-50%);mix-blend-mode:screen}
+@media(hover:none){#cg{display:none}}
 
-        @media (max-width: 768px) {
-            .container { padding: 0 1.25rem; }
-            section { padding: 4rem 0; }
-        }
+/* typography */
+h1,h2,h3,h4{font-family:'Share Tech Mono',monospace;line-height:1.15}
+.mono{font-family:'Share Tech Mono',monospace}
 
-        /* ---------- BACKGROUND ---------- */
-        .grid-bg {
-            position: fixed; inset: 0;
-            background-image:
-                linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            pointer-events: none; z-index: 0;
-        }
+/* blink cursor */
+.cur{display:inline-block;width:10px;height:1em;background:var(--green);
+  margin-left:3px;vertical-align:middle;animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
-        /* ---------- CURSOR ---------- */
-        .cursor-glow {
-            width: 380px; height: 380px;
-            position: fixed; border-radius: 50%;
-            background: radial-gradient(circle, rgba(59,130,246,0.13) 0%, transparent 70%);
-            pointer-events: none; z-index: 9999;
-            transform: translate(-50%,-50%);
-            mix-blend-mode: screen;
-        }
-        @media (hover:none) { .cursor-glow { display:none; } }
+/* layout */
+.wrap{max-width:1200px;margin:0 auto;padding:0 2rem;position:relative;z-index:1}
+section{padding:5.5rem 0}
+@media(max-width:768px){.wrap{padding:0 1.2rem}section{padding:3.5rem 0}}
 
-        /* ---------- SCROLL BAR ---------- */
-        .scroll-progress {
-            position: fixed; top: 0; left: 0; height: 3px; width: 100%;
-            background: linear-gradient(90deg, var(--accent-blue-dark), var(--accent-blue), var(--accent-blue-light));
-            z-index: 10000; transform-origin: left; transform: scaleX(0);
-        }
+/* section labels */
+.sec-cmd{font-family:'Share Tech Mono',monospace;font-size:.82rem;
+  color:var(--dim);margin-bottom:.4rem}
+.sec-cmd .g{color:var(--green)}
+.sec-title{font-size:clamp(1.9rem,4vw,2.8rem);color:var(--text);margin-bottom:2.5rem}
 
-        /* ---------- NAV ---------- */
-        nav {
-            position: fixed; top: 0; left: 0; width: 100%;
-            background: rgba(10,10,10,0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-primary);
-            z-index: 1000;
-        }
-        nav .container {
-            display: flex; justify-content: space-between; align-items: center;
-            padding-top: 1.2rem; padding-bottom: 1.2rem;
-        }
-        .nav-brand { font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.05em; }
-        .nav-links { display: flex; align-items: center; gap: 2.5rem; }
-        .nav-link {
-            position: relative; color: var(--text-secondary);
-            text-decoration: none; font-size: 0.875rem; transition: color 0.2s;
-        }
-        .nav-link::after {
-            content: ''; position: absolute; bottom: -5px; left: 0;
-            width: 0; height: 2px; background: var(--accent-blue); transition: width 0.3s;
-        }
-        .nav-link:hover, .nav-link.active { color: var(--text-primary); }
-        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-        .status-indicator { display: flex; align-items: center; gap: 0.5rem; }
-        .status-dot {
-            width: 8px; height: 8px; background: var(--success);
-            border-radius: 50%; animation: pdot 2s infinite;
-        }
-        @keyframes pdot {
-            0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.7); }
-            50%      { box-shadow: 0 0 0 6px rgba(16,185,129,0); }
-        }
-        .status-text { font-size: 0.75rem; color: var(--success); }
-        @media (max-width: 768px) { .nav-links { display: none; } }
+/* terminal window card */
+.tc{background:var(--bg2);border:1px solid var(--border);border-radius:8px;
+  overflow:hidden;transition:border-color .3s,box-shadow .3s,transform .3s}
+.tc:hover{border-color:var(--border2);box-shadow:var(--glow);transform:translateY(-3px)}
+.tb{background:var(--bg3);border-bottom:1px solid var(--border);
+  padding:.55rem 1rem;display:flex;align-items:center;gap:.45rem}
+.td{width:10px;height:10px;border-radius:50%}
+.dr{background:#ff5f57}.da{background:#ffbd2e}.dg{background:#28c840}
+.tn{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--dim);margin-left:.5rem}
+.tbd{padding:1.5rem}
 
-        /* ---------- BUTTONS ---------- */
-        .btn {
-            display: inline-block; padding: 0.875rem 2rem;
-            border: 1px solid var(--border-accent);
-            background: transparent; color: var(--accent-blue-light);
-            font-size: 0.875rem; font-weight: 500;
-            text-decoration: none; border-radius: 6px; cursor: pointer;
-            transition: all 0.3s; position: relative; overflow: hidden; z-index: 1;
-        }
-        .btn::before {
-            content: ''; position: absolute; top: 50%; left: 50%;
-            width: 0; height: 0; background: var(--accent-blue);
-            border-radius: 50%; transform: translate(-50%,-50%);
-            transition: width 0.6s, height 0.6s; z-index: -1;
-        }
-        .btn:hover::before { width: 300px; height: 300px; }
-        .btn:hover { color: #fff; border-color: var(--accent-blue); transform: translateY(-2px); }
-        .btn-primary { background: var(--accent-blue); border-color: var(--accent-blue); color: #fff; }
-        .btn-primary::before { background: var(--accent-blue-dark); }
+/* tags */
+.tag{display:inline-block;padding:.2rem .6rem;border:1px solid var(--border);
+  border-radius:3px;font-size:.67rem;color:var(--green);background:var(--g4);
+  transition:all .2s;font-family:'Share Tech Mono',monospace}
+.tag:hover{border-color:var(--green);background:rgba(0,255,65,.14)}
+.tags{display:flex;gap:.4rem;flex-wrap:wrap;margin:.75rem 0}
 
-        /* ---------- CARDS ---------- */
-        .card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-primary);
-            border-radius: 12px; padding: 2rem;
-            transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s;
-        }
-        .card:hover {
-            border-color: var(--border-accent);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-        .card-glass {
-            background: rgba(59,130,246,0.03);
-            border: 1px solid rgba(59,130,246,0.1);
-        }
+/* metric badge */
+.met{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:.68rem;
+  color:var(--amber);border:1px solid rgba(255,198,0,.2);background:rgba(255,198,0,.05);
+  padding:.2rem .55rem;border-radius:3px;margin:.4rem 0 .7rem}
 
-        /* ---------- TAGS ---------- */
-        .tag {
-            display: inline-block; padding: 0.35rem 0.8rem;
-            background: rgba(59,130,246,0.1);
-            border: 1px solid rgba(59,130,246,0.2);
-            border-radius: 6px; font-size: 0.72rem;
-            color: var(--accent-blue-light); transition: all 0.3s;
-        }
-        .tag:hover { background: rgba(59,130,246,0.2); border-color: var(--accent-blue); transform: translateY(-2px); }
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.7rem 1.6rem;
+  border:1px solid var(--border2);background:transparent;color:var(--green);
+  font-family:'Share Tech Mono',monospace;font-size:.82rem;text-decoration:none;
+  border-radius:4px;cursor:pointer;transition:all .25s;white-space:nowrap}
+.btn::before{content:'./';opacity:.5}
+.btn:hover{background:rgba(0,255,65,.09);border-color:var(--green);
+  box-shadow:0 0 15px rgba(0,255,65,.1);color:#fff}
+.btn-p{background:rgba(0,255,65,.1);border-color:var(--green)}
+.btn-cv{border-color:var(--cyan);color:var(--cyan)}
+.btn-cv::before{content:'↓ ';opacity:1}
+.btn-cv:hover{background:rgba(0,229,200,.09);color:#fff;border-color:var(--cyan)}
 
-        /* ---------- SCROLL REVEAL (non-hero only) ---------- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(22px);
-            transition: opacity 0.65s ease, transform 0.65s ease;
-        }
-        .reveal.on { opacity: 1; transform: translateY(0); }
+/* proj links */
+.pl{display:flex;gap:1.2rem;align-items:center;margin-top:.8rem;flex-wrap:wrap}
+.plink{font-family:'Share Tech Mono',monospace;font-size:.74rem;
+  color:var(--green);text-decoration:none;transition:color .2s}
+.plink:hover{color:#fff}
+.plink-live{color:var(--cyan)}
+.plink-live:hover{color:#fff}
 
-        /* ---------- HERO ---------- */
-        #hero {
-            min-height: 100vh;
-            display: flex; align-items: center;
-            padding-top: 80px;
-        }
-        #hero .container { position: relative; z-index: 10; }
+/* reveal */
+.rev{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.rev.on{opacity:1;transform:translateY(0)}
 
-        .hero-content { margin-bottom: 0; }
-        .hero-content h1 { font-size: clamp(2.8rem, 7vw, 5rem); margin-bottom: 1.5rem; line-height: 1.1; }
-        .hero-content p { font-size: 1.1rem; color: var(--text-secondary); max-width: 580px; margin-bottom: 2.5rem; line-height: 1.75; }
-        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+/* ═══════════ NAV ═══════════ */
+nav{position:fixed;top:0;left:0;width:100%;background:rgba(3,7,3,.92);
+  backdrop-filter:blur(14px);border-bottom:1px solid var(--border);z-index:1000}
+.ni{display:flex;justify-content:space-between;align-items:center;
+  padding:.85rem 2rem;max-width:1200px;margin:0 auto}
+.nb{font-family:'Share Tech Mono',monospace;font-size:.88rem;
+  color:var(--green);text-shadow:0 0 8px rgba(0,255,65,.35)}
+.nb span{color:var(--dim)}
+.nl{display:flex;align-items:center;gap:2rem}
+.nla{font-family:'Share Tech Mono',monospace;font-size:.78rem;
+  color:var(--dim);text-decoration:none;transition:color .2s;position:relative}
+.nla::before{content:'./';opacity:0;transition:opacity .2s}
+.nla:hover,.nla.active{color:var(--green)}
+.nla:hover::before,.nla.active::before{opacity:1}
+.ns{display:flex;align-items:center;gap:.45rem;font-family:'Share Tech Mono',monospace;font-size:.7rem}
+.sd{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pdot 2s infinite}
+@keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(0,255,65,.6)}50%{box-shadow:0 0 0 5px rgba(0,255,65,0)}}
+.st{color:var(--green)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.ham span{display:block;width:22px;height:2px;background:var(--green);transition:all .3s}
+.ham.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+@media(max-width:768px){
+  .nl{display:none}
+  .nl.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;
+    background:rgba(3,7,3,.97);border-bottom:1px solid var(--border);
+    padding:1.5rem 2rem;gap:1.2rem;align-items:flex-start}
+  .ham{display:flex}
+}
 
-        /* ---------- STATS ---------- */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem; margin-top: 5rem;
-        }
-        @media (max-width: 600px) { .stats-grid { grid-template-columns: 1fr; } }
+/* ═══════════ HERO ═══════════ */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:80px}
 
-        .stat-card { text-align: center; padding: 1.5rem; border-radius: 10px; }
-        .stat-number {
-            font-size: 3.5rem; font-weight: 800; line-height: 1;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent-blue-light));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-        .stat-label { font-size: 0.875rem; color: var(--text-secondary); }
-        .stat-bar { height: 3px; background: rgba(59,130,246,0.1); margin-top: 1rem; border-radius: 2px; overflow: hidden; }
-        .stat-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent-blue-dark), var(--accent-blue)); width: 0; transition: width 1.6s cubic-bezier(0.4,0,0.2,1); }
+.boot{font-family:'Share Tech Mono',monospace;font-size:.78rem;
+  line-height:1.9;margin-bottom:2.5rem;min-height:6rem}
+.bl{display:block;opacity:0;animation:fi .1s forwards}
+.bok{color:var(--green)}.bwn{color:var(--amber)}.bin{color:var(--cyan)}
+@keyframes fi{to{opacity:1}}
 
-        /* ---------- WORK SECTION ---------- */
-        .section-header { margin-bottom: 3.5rem; }
-        .section-header h2 { font-size: 2.5rem; margin-top: 0.5rem; }
+#hc{opacity:0;transition:opacity .9s ease}
+.hs{font-family:'Share Tech Mono',monospace;font-size:.72rem;
+  color:var(--dim);letter-spacing:.12em;margin-bottom:.7rem}
+.ht{font-size:clamp(2.4rem,6vw,4.5rem);margin-bottom:1rem;line-height:1.1}
+.ht .l1{color:var(--text)}
+.ht .l2{color:var(--green);text-shadow:0 0 30px rgba(0,255,65,.25)}
+.hd{color:var(--dim);font-size:.88rem;max-width:560px;line-height:1.85;margin-bottom:2rem}
+.hbtn{display:flex;gap:.85rem;flex-wrap:wrap;margin-bottom:3.5rem}
 
-        .filter-buttons { display: flex; gap: 0.6rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
-        .filter-btn {
-            padding: 0.55rem 1.1rem;
-            border: 1px solid var(--border-primary);
-            background: transparent; color: var(--text-secondary);
-            font-size: 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.3s;
-        }
-        .filter-btn:hover { border-color: var(--accent-blue); color: var(--text-primary); }
-        .filter-btn.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
+/* stats */
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  border:1px solid var(--border);border-radius:6px;overflow:hidden;
+  background:var(--border);max-width:680px}
+@media(max-width:600px){.sg{grid-template-columns:repeat(2,1fr)}}
+.sc{background:var(--bg2);padding:1rem;text-align:center}
+.sv{font-family:'Share Tech Mono',monospace;font-size:2rem;
+  color:var(--green);text-shadow:0 0 10px rgba(0,255,65,.3)}
+.sl{font-size:.62rem;color:var(--dim);margin-top:.2rem}
+.sbar{font-family:'Share Tech Mono',monospace;font-size:.58rem;
+  color:var(--g3);margin-top:.35rem;letter-spacing:-1px}
+.sbar .f{color:var(--green)}
 
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 2rem;
-        }
-        @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; } }
+/* ═══════════ PUBLICATIONS ═══════════ */
+#pub{background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%)}
 
-        .project-card.hidden { display: none; }
+.pub-inner{display:flex;gap:2rem;align-items:flex-start}
+@media(max-width:700px){.pub-inner{flex-direction:column;gap:1rem}}
+.pbadge{flex-shrink:0;background:rgba(0,229,200,.07);border:1px solid rgba(0,229,200,.2);
+  border-radius:6px;padding:1.1rem 1.3rem;text-align:center;min-width:90px}
+.pbl{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--cyan);
+  display:block;margin-bottom:.3rem}
+.pby{font-family:'Share Tech Mono',monospace;font-size:2.1rem;color:var(--cyan);line-height:1}
+.pbv{font-size:.62rem;color:rgba(0,229,200,.55);display:block;margin-top:.2rem}
+.pbc{flex:1}
+.pt{font-size:1.2rem;color:var(--text);margin-bottom:.5rem}
+.pm{font-size:.77rem;color:var(--dim);line-height:1.65;margin-bottom:.65rem}
+.pa{font-size:.8rem;color:var(--dim);line-height:1.75;margin-bottom:.85rem}
 
-        .featured-project { grid-column: 1 / -1; }
-        .featured-content { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-        @media (max-width: 768px) { .featured-content { grid-template-columns: 1fr; } }
+/* ═══════════ PROJECTS ═══════════ */
+.frow{display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.fb{font-family:'Share Tech Mono',monospace;font-size:.72rem;padding:.35rem .8rem;
+  border:1px solid var(--border);background:transparent;color:var(--dim);
+  border-radius:3px;cursor:pointer;transition:all .2s}
+.fb::before{content:'--';opacity:.4;margin-right:2px}
+.fb:hover{border-color:var(--green);color:var(--text)}
+.fb.active{background:rgba(0,255,65,.1);border-color:var(--green);color:var(--green)}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}
+@media(max-width:700px){.pg{grid-template-columns:1fr}}
+.pf{grid-column:1/-1}
+.pc{font-family:'Share Tech Mono',monospace;font-size:.64rem;color:var(--dim);margin-bottom:.5rem}
+.pn{font-size:1.1rem;color:var(--text);margin-bottom:.45rem}
+.pnl{font-size:1.3rem;color:var(--text);margin-bottom:.5rem}
+.pd{font-size:.8rem;color:var(--dim);line-height:1.72;margin-bottom:.5rem}
 
-        .project-title    { font-size: 1.45rem; margin-bottom: 0.75rem; }
-        .project-title-sm { font-size: 1.15rem; margin-bottom: 0.6rem; }
-        .project-description { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.65; margin-bottom: 1.25rem; }
-        .project-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
-        .project-link {
-            color: var(--accent-blue); text-decoration: none;
-            font-size: 0.875rem; font-weight: 500;
-            display: inline-flex; align-items: center; gap: 0.4rem;
-            transition: gap 0.25s;
-        }
-        .project-link:hover { gap: 0.7rem; }
+/* featured two col */
+.pfeat{display:grid;grid-template-columns:1.2fr 1fr;gap:2.5rem}
+@media(max-width:768px){.pfeat{grid-template-columns:1fr}}
 
-        .code-preview {
-            background: rgba(59,130,246,0.03);
-            border: 1px solid rgba(59,130,246,0.1);
-            border-left: 3px solid var(--accent-blue);
-            padding: 1.5rem; border-radius: 6px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem; line-height: 1.9;
-        }
-        .code-line    { display: block; color: var(--text-secondary); }
-        .code-comment { color: #555; }
-        .code-kw      { color: var(--accent-blue); }
-        .code-fn      { color: var(--accent-blue-light); }
-        .code-str     { color: var(--success); }
+/* code block */
+.cb{background:var(--bg3);border:1px solid var(--border);
+  border-left:3px solid var(--green);padding:1.2rem;border-radius:4px;
+  font-size:.77rem;line-height:1.95;font-family:'JetBrains Mono',monospace}
+.cc{color:var(--dim)}.ck{color:var(--green)}.cf{color:var(--cyan)}.cs{color:var(--amber)}
 
-        /* ---------- SKILLS ---------- */
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 1.5rem; }
-        .skill-item {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0.7rem 0; border-bottom: 1px solid var(--border-primary);
-        }
-        .skill-item:last-child { border-bottom: none; }
-        .skill-level { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--accent-blue); }
+/* hidden */
+.hidden{display:none!important}
 
-        /* ---------- ABOUT ---------- */
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
-        @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 3rem; } }
-        .about-text { font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); }
-        .about-text p { margin-bottom: 1.4rem; }
+/* ═══════════ SKILLS ═══════════ */
+.swrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+.sgt{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--green);
+  border-bottom:1px solid var(--border);padding-bottom:.4rem;margin-bottom:.8rem}
+.sr{display:flex;justify-content:space-between;align-items:center;padding:.33rem 0;
+  border-bottom:1px solid rgba(0,255,65,.04);font-size:.78rem}
+.sr:last-child{border-bottom:none}
+.sn{color:var(--text)}
+.sbr{font-family:'Share Tech Mono',monospace;font-size:.63rem;color:var(--g3);letter-spacing:-1px}
+.sbr .f{color:var(--green)}
 
-        .timeline { position: relative; padding-left: 2.5rem; }
-        .timeline::before {
-            content: ''; position: absolute; left: 0; top: 0;
-            width: 2px; height: 100%;
-            background: linear-gradient(180deg, transparent, var(--accent-blue), transparent);
-        }
-        .timeline-item { position: relative; margin-bottom: 2.25rem; }
-        .timeline-item:last-child { margin-bottom: 0; }
-        .timeline-dot {
-            position: absolute; left: -2.9rem; top: 0.35rem;
-            width: 14px; height: 14px; background: var(--accent-blue);
-            border-radius: 50%; border: 3px solid var(--bg-primary);
-            box-shadow: 0 0 0 4px rgba(59,130,246,0.2);
-        }
-        .timeline-content h3 { font-size: 1.1rem; margin-bottom: 0.35rem; }
-        .timeline-meta { font-size: 0.83rem; color: var(--text-secondary); margin-bottom: 0.35rem; }
-        .timeline-description { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.6; }
+/* ═══════════ ABOUT ═══════════ */
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+@media(max-width:768px){.agrid{grid-template-columns:1fr;gap:2.5rem}}
+.abio{font-size:.86rem;color:var(--dim);line-height:1.9}
+.abio p{margin-bottom:1.2rem}
+.abio .qte{color:var(--green);font-family:'Share Tech Mono',monospace;font-size:.78rem;line-height:1.7}
 
-        /* ---------- CONTACT ---------- */
-        .contact-content { text-align: center; max-width: 800px; margin: 0 auto; }
-        .contact-content h2 { font-size: 3rem; margin-bottom: 1rem; }
-        .contact-content > p { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 3rem; }
-        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 1.5rem; margin-bottom: 3rem; }
-        .contact-card { text-align: left; text-decoration: none; color: inherit; }
-        .contact-value { font-weight: 600; margin: 0.4rem 0 0.2rem; }
-        .contact-label { font-size: 0.875rem; color: var(--text-secondary); }
-        .social-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
-        .social-link { color: var(--text-secondary); text-decoration: none; font-size: 0.875rem; transition: color 0.3s; }
-        .social-link:hover { color: var(--text-primary); }
+.tl{padding-left:2rem;position:relative}
+.tl::before{content:'';position:absolute;left:0;top:0;width:1px;height:100%;
+  background:linear-gradient(180deg,transparent,var(--g3),transparent)}
+.ti{position:relative;margin-bottom:2rem}
+.ti:last-child{margin-bottom:0}
+.tidot{position:absolute;left:-2.45rem;top:.3rem;width:10px;height:10px;
+  background:var(--green);border-radius:2px;box-shadow:0 0 8px rgba(0,255,65,.4)}
+.tcat{font-family:'Share Tech Mono',monospace;font-size:.63rem;color:var(--green);margin-bottom:.3rem}
+.ttit{font-size:.95rem;color:var(--text);margin-bottom:.2rem}
+.tmeta{font-size:.74rem;color:var(--dim);margin-bottom:.3rem}
+.tdesc{font-size:.74rem;color:var(--dim);line-height:1.6}
 
-        /* ---------- FOOTER ---------- */
-        footer { padding: 2rem 0; border-top: 1px solid var(--border-primary); }
-        footer .container { display: flex; justify-content: space-between; align-items: center; }
-        @media (max-width: 768px) { footer .container { flex-direction: column; gap: 1rem; text-align: center; } }
+/* ═══════════ CONTACT ═══════════ */
+#contact{background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%)}
+.cwrap{max-width:700px}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
+@media(max-width:580px){.cgrid{grid-template-columns:1fr}}
+.ccard{text-decoration:none;color:inherit}
+.clbl{font-family:'Share Tech Mono',monospace;font-size:.63rem;color:var(--dim);margin-bottom:.4rem}
+.cval{font-size:.85rem;color:var(--text);margin-bottom:.2rem}
+.csub{font-size:.71rem;color:var(--dim)}
 
-        /* ---------- UTILS ---------- */
-        .mb-2 { margin-bottom: 0.5rem; }
-        .mb-3 { margin-bottom: 0.75rem; }
-        .mb-4 { margin-bottom: 1rem; }
-        .mb-6 { margin-bottom: 1.5rem; }
-    </style>
+/* form */
+.mform{margin-top:2.5rem}
+.fp{font-family:'Share Tech Mono',monospace;font-size:.77rem;color:var(--dim);margin-bottom:1rem}
+.fp .g{color:var(--green)}
+.ff{margin-bottom:1rem}
+.ff label{display:block;font-family:'Share Tech Mono',monospace;font-size:.68rem;
+  color:var(--dim);margin-bottom:.4rem}
+.ff label::before{content:'> ';color:var(--green)}
+.ff input,.ff textarea{width:100%;background:var(--bg3);border:1px solid var(--border);
+  border-radius:4px;padding:.7rem 1rem;color:var(--text);
+  font-family:'JetBrains Mono',monospace;font-size:.8rem;
+  outline:none;transition:border-color .2s,box-shadow .2s}
+.ff input:focus,.ff textarea:focus{border-color:var(--green);box-shadow:0 0 10px rgba(0,255,65,.07)}
+.ff textarea{resize:vertical;min-height:130px}
+#sbtn{font-family:'Share Tech Mono',monospace;font-size:.8rem;padding:.7rem 1.8rem;
+  background:rgba(0,255,65,.08);border:1px solid var(--green);color:var(--green);
+  border-radius:4px;cursor:pointer;transition:all .25s}
+#sbtn::before{content:'./send '}
+#sbtn:hover{background:rgba(0,255,65,.16);color:#fff;box-shadow:0 0 15px rgba(0,255,65,.1)}
+#sok{display:none;font-family:'Share Tech Mono',monospace;font-size:.77rem;
+  color:var(--green);margin-top:.75rem}
+#sok::before{content:'[  OK  ] '}
+
+/* socials */
+.srow{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:2rem}
+.slink{font-family:'Share Tech Mono',monospace;font-size:.77rem;
+  color:var(--dim);text-decoration:none;transition:color .2s}
+.slink::before{content:'↗ '}
+.slink:hover{color:var(--green)}
+
+/* ═══════════ FOOTER ═══════════ */
+footer{padding:1.5rem 0;border-top:1px solid var(--border)}
+.fi{display:flex;justify-content:space-between;align-items:center;
+  font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--dim)}
+@media(max-width:600px){.fi{flex-direction:column;gap:.4rem;text-align:center}}
+.fb2{color:var(--green)}
+</style>
 </head>
 <body>
 
-<div class="grid-bg"></div>
-<div class="cursor-glow" id="cursorGlow"></div>
-<div class="scroll-progress" id="scrollProgress"></div>
+<canvas id="mc"></canvas>
+<div id="prog"></div>
+<div id="cg"></div>
 
-<!-- NAV -->
-<nav id="mainNav">
-    <div class="container">
-        <div class="nav-brand">KAUSHAL.S</div>
-        <div class="nav-links">
-            <a href="#work"    class="nav-link">Work</a>
-            <a href="#skills"  class="nav-link">Skills</a>
-            <a href="#about"   class="nav-link">About</a>
-            <a href="#contact" class="nav-link">Contact</a>
-            <div class="status-indicator">
-                <span class="status-dot"></span>
-                <span class="status-text">Available</span>
-            </div>
-        </div>
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <div class="ni">
+    <div class="nb">kaushal<span>@portfolio</span>:~$</div>
+    <div class="nl" id="nl">
+      <a href="#work"    class="nla">work</a>
+      <a href="#pub"     class="nla">research</a>
+      <a href="#skills"  class="nla">skills</a>
+      <a href="#about"   class="nla">about</a>
+      <a href="#contact" class="nla">contact</a>
+      <div class="ns">
+        <span class="sd"></span>
+        <span class="st">open to internships</span>
+      </div>
     </div>
+    <div class="ham" id="ham" onclick="toggleHam()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
 </nav>
 
-<!-- ══════════════════════════════════════ HERO ══ -->
+<!-- ═══ HERO ═══ -->
 <section id="hero">
-    <div class="container">
-        <div class="hero-content">
-            <div class="section-label mb-4">ML ENGINEER · ROBOTICS · AI SYSTEMS · CYBERSECURITY</div>
-            <h1>
-                Building Autonomous<br>
-                <span class="text-gradient-animated">Intelligent Systems</span>
-            </h1>
-            <p>
-                Machine Learning and Robotics Engineer specializing in neural networks,
-                autonomous systems, computer vision, cybersecurity, and production AI platforms.
-                Building intelligent systems that operate in real-world environments.
+  <div class="wrap">
+    <div class="boot" id="boot"></div>
+
+    <div id="hc">
+      <div class="hs">ML ENGINEER · ROBOTICS · AUTONOMOUS SYSTEMS · EDGE AI · CYBERSECURITY</div>
+      <h1 class="ht">
+        <span class="l1">Building Autonomous<br></span>
+        <span class="l2">Intelligent Systems<span class="cur"></span></span>
+      </h1>
+      <p class="hd">
+        ML and Robotics Engineer — neural networks, autonomous platforms, computer vision,
+        and production AI. From bare-metal implementations to IEEE-published robotics research.
+        Still compiling. Still learning.
+      </p>
+      <div class="hbtn">
+        <a href="#work"    class="btn">explore_work</a>
+        <a href="#contact" class="btn btn-p">get_in_touch</a>
+        <a href="https://drive.google.com/file/d/1vNouvR0xk24Vo0vjgVY9oO2hzKTIP-wW/view?usp=sharing"
+           target="_blank" class="btn btn-cv">download_cv</a>
+      </div>
+
+      <div class="sg">
+        <div class="sc">
+          <div class="sv" data-t="1">0</div>
+          <div class="sl">IEEE Publication</div>
+          <div class="sbar"><span class="f" id="s0f"></span><span id="s0e"></span></div>
+        </div>
+        <div class="sc">
+          <div class="sv" data-t="10">0</div>
+          <div class="sl">Projects Shipped</div>
+          <div class="sbar"><span class="f" id="s1f"></span><span id="s1e"></span></div>
+        </div>
+        <div class="sc">
+          <div class="sv" data-t="5">0</div>
+          <div class="sl">Production Systems</div>
+          <div class="sbar"><span class="f" id="s2f"></span><span id="s2e"></span></div>
+        </div>
+        <div class="sc">
+          <div class="sv" data-t="8.4">0</div>
+          <div class="sl">Academic CGPA</div>
+          <div class="sbar"><span class="f" id="s3f"></span><span id="s3e"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PUBLICATIONS ═══ -->
+<section id="pub">
+  <div class="wrap">
+    <div class="sec-cmd rev"><span class="g">$</span> cat ~/publications.bib</div>
+    <h2 class="sec-title rev">Research</h2>
+
+    <div class="tc rev">
+      <div class="tb">
+        <span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+        <span class="tn">publications.bib — IEEE Xplore 2026</span>
+      </div>
+      <div class="tbd">
+        <div class="pub-inner">
+          <div class="pbadge">
+            <span class="pbl">PUBLISHED</span>
+            <span class="pby">2026</span>
+            <span class="pbv">IEEE</span>
+          </div>
+          <div class="pbc">
+            <h3 class="pt">AntBot: Design and Implementation of an Autonomous Hexapod Surveillance Robot</h3>
+            <div class="pm">Kaushal S et al. · IEEE Conference 2026 · DOI: 10.1109/ieeexplore.2026.11426098</div>
+            <p class="pa">
+              AntBot is a 21-DOF hexapod surveillance robot implementing inverse kinematics with tripod gait
+              validated via MATLAB simulation. Integrates computer vision for autonomous navigation and
+              environmental monitoring in GPS-denied environments, enabling persistent surveillance
+              missions across unstructured terrain.
             </p>
-            <div class="hero-buttons">
-                <a href="#work"    class="btn">View Projects</a>
-                <a href="#contact" class="btn btn-primary">Get in Touch</a>
+            <div class="tags">
+              <span class="tag">Hexapod Robotics</span>
+              <span class="tag">21-DOF Kinematics</span>
+              <span class="tag">Computer Vision</span>
+              <span class="tag">Tripod Gait</span>
+              <span class="tag">MATLAB</span>
+              <span class="tag">Autonomous Nav</span>
             </div>
+            <div class="pl">
+              <a href="https://ieeexplore.ieee.org/abstract/document/11426098" target="_blank" class="plink">→ IEEE Xplore</a>
+              <a href="https://github.com/kaushalrog?tab=repositories" target="_blank" class="plink" style="color:var(--dim)">→ GitHub</a>
+            </div>
+          </div>
         </div>
-
-        <div class="stats-grid" id="heroStats">
-            <div class="stat-card card-glass">
-                <div class="stat-number" data-target="5">5</div>
-                <div class="stat-label">Production Systems</div>
-                <div class="stat-bar"><div class="stat-bar-fill" data-w="85"></div></div>
-            </div>
-            <div class="stat-card card-glass">
-                <div class="stat-number" data-target="10">10</div>
-                <div class="stat-label">Projects Shipped</div>
-                <div class="stat-bar"><div class="stat-bar-fill" data-w="90"></div></div>
-            </div>
-            <div class="stat-card card-glass">
-                <div class="stat-number" data-target="8.4">8.4</div>
-                <div class="stat-label">Academic CGPA</div>
-                <div class="stat-bar"><div class="stat-bar-fill" data-w="84"></div></div>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- ══════════════════════════════════════ WORK ══ -->
+<!-- ═══ WORK ═══ -->
 <section id="work">
-    <div class="container">
-        <div class="section-header reveal">
-            <div class="section-label mb-3">SELECTED WORK</div>
-            <h2>Projects</h2>
-        </div>
+  <div class="wrap">
+    <div class="sec-cmd rev"><span class="g">$</span> ls -la ~/projects/ --sorted=impact</div>
+    <h2 class="sec-title rev">Projects</h2>
 
-        <div class="filter-buttons reveal">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="fullstack">Full-Stack AI</button>
-            <button class="filter-btn" data-filter="ai-ml">AI / ML</button>
-            <button class="filter-btn" data-filter="autonomous">Autonomous</button>
-            <button class="filter-btn" data-filter="cybersecurity">Cybersecurity</button>
-            <button class="filter-btn" data-filter="research">Research</button>
-            <button class="filter-btn" data-filter="transport">Transport AI</button>
-            <button class="filter-btn" data-filter="materials">Materials AI</button>
-        </div>
-
-        <div class="projects-grid">
-
-            <!-- FEATURED -->
-            <div class="featured-project project-card card reveal" data-category="fullstack ai-ml">
-                <div class="featured-content">
-                    <div>
-                        <div class="section-label mb-3">FEATURED / FULL-STACK AI · PRODUCTION</div>
-                        <h3 class="project-title">ABiz — Autonomous Business Intelligence Platform</h3>
-                        <p class="project-description">
-                            Production-ready AI business intelligence platform providing automated analytics,
-                            decision support, and real-time dashboards. Full-stack architecture with React,
-                            Supabase, PostgreSQL, deployed on Vercel.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">React</span>
-                            <span class="tag">Supabase</span>
-                            <span class="tag">PostgreSQL</span>
-                            <span class="tag">REST API</span>
-                            <span class="tag">Vercel</span>
-                            <span class="tag">Production AI</span>
-                        </div>
-                        <a href="https://github.com/kaushalrog/ABiz" target="_blank" class="project-link">View on GitHub →</a>
-                    </div>
-                    <div>
-                        <div class="code-preview">
-                            <span class="code-line code-comment"># Production AI Stack</span>
-                            <span class="code-line"><span class="code-kw">frontend</span> = <span class="code-fn">React</span>(<span class="code-str">"dashboard"</span>)</span>
-                            <span class="code-line"><span class="code-kw">backend</span>  = <span class="code-fn">Supabase</span>(<span class="code-str">"postgres"</span>)</span>
-                            <span class="code-line"><span class="code-kw">api</span>      = <span class="code-fn">REST</span>.<span class="code-fn">auth</span>(jwt)</span>
-                            <span class="code-line"><span class="code-kw">ai</span>.<span class="code-fn">analyze</span>(business_data)</span>
-                            <span class="code-line"><span class="code-kw">deploy</span>.<span class="code-fn">vercel</span>(production)</span>
-                            <span class="code-line code-comment">> Platform live ✓</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Traffic -->
-            <div class="project-card card reveal" data-category="ai-ml">
-                <div class="section-label mb-3">AI / ML · OPTIMIZATION</div>
-                <h3 class="project-title-sm">Hybrid AI Traffic Control System</h3>
-                <p class="project-description">
-                    Neural network congestion prediction combined with fuzzy logic optimization.
-                    Graph-based traffic modeling for real-time adaptive signal control.
-                </p>
-                <div class="project-tags">
-                    <span class="tag">Neural Networks</span>
-                    <span class="tag">Fuzzy Logic</span>
-                    <span class="tag">Python</span>
-                    <span class="tag">Graph Models</span>
-                </div>
-                <a href="https://github.com/kaushalrog/TrafficFlowAI" target="_blank" class="project-link">View on GitHub →</a>
-            </div>
-
-            <!-- IDS -->
-            <div class="project-card card reveal" data-category="cybersecurity">
-                <div class="section-label mb-3">CYBERSECURITY · SYSTEMS</div>
-                <h3 class="project-title-sm">OS Intrusion Detection System</h3>
-                <p class="project-description">
-                    System-level intrusion detection platform monitoring OS process activity
-                    to identify malicious behavior using anomaly detection and behavioral analysis.
-                </p>
-                <div class="project-tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">Linux</span>
-                    <span class="tag">Anomaly Detection</span>
-                    <span class="tag">OS Internals</span>
-                </div>
-                <a href="https://github.com/kaushalrog/ids---System" target="_blank" class="project-link">View on GitHub →</a>
-            </div>
-
-            <!-- Digit -->
-            <div class="project-card card reveal" data-category="ai-ml">
-                <div class="section-label mb-3">CORE ML · FROM SCRATCH</div>
-                <h3 class="project-title-sm">Neural Network Digit Recognition</h3>
-                <p class="project-description">
-                    Custom neural network built entirely from scratch — forward propagation,
-                    backpropagation, and gradient descent to classify handwritten digits.
-                </p>
-                <div class="project-tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">Backpropagation</span>
-                    <span class="tag">Deep Learning</span>
-                    <span class="tag">From Scratch</span>
-                </div>
-                <a href="https://github.com/kaushalrog/digitrecognition" target="_blank" class="project-link">View on GitHub →</a>
-            </div>
-
-            <!-- Robotics -->
-            <div class="project-card card reveal" data-category="autonomous">
-                <div class="section-label mb-3">AUTONOMOUS SYSTEMS · ROBOTICS</div>
-                <h3 class="project-title-sm">Autonomous Robotics Platform</h3>
-                <p class="project-description">
-                    Mobile manipulator with integrated computer vision, state-machine control,
-                    and multi-DOF manipulation. AntBot hexapod with 21-DOF inverse kinematics
-                    and tripod gait validated via MATLAB simulation.
-                </p>
-                <div class="project-tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">OpenCV</span>
-                    <span class="tag">C++</span>
-                    <span class="tag">Inverse Kinematics</span>
-                    <span class="tag">MATLAB</span>
-                </div>
-                <a href="https://github.com/kaushalrog?tab=repositories" target="_blank" class="project-link">View on GitHub →</a>
-            </div>
-
-            <!-- MCDIP -->
-            <div class="project-card card reveal" data-category="research ai-ml">
-                <div class="section-label mb-3">RESEARCH · OPTIMIZATION</div>
-                <h3 class="project-title-sm">MCDIP-ADMM Framework</h3>
-                <p class="project-description">
-                    Optimization framework for low-dose CT reconstruction using ADMM algorithms
-                    with neural network integration for medical imaging inverse problems.
-                </p>
-                <div class="project-tags">
-                    <span class="tag">PyTorch</span>
-                    <span class="tag">ADMM</span>
-                    <span class="tag">Medical Imaging</span>
-                    <span class="tag">Optimization</span>
-                </div>
-                <a href="https://github.com/kaushalrog/mcdip-admm-ct-reconstruction" target="_blank" class="project-link">View on GitHub →</a>
-            </div>
-
-            <!-- Kerala Metro -->
-            <div class="project-card card reveal" data-category="transport ai-ml">
-                <div class="section-label mb-3">TRANSPORT AI · SCHEDULING</div>
-                <h3 class="project-title-sm">Kerala Metro Scheduling System</h3>
-                <p class="project-description">
-                    AI-driven metro train scheduling and optimization for Kerala Metro.
-                    Minimizes headway, optimizes induction planning, and improves
-                    operational efficiency across metro lines.
-                </p>
-                <div class="project-tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">Scheduling Algorithms</span>
-                    <span class="tag">Optimization</span>
-                    <span class="tag">Transport AI</span>
-                </div>
-                <a href="https://github.com/kaushalrog/kerala_metro_scheduling" target="_blank" class="project-link">View on GitHub →</a>
-            </div>
-
-            <!-- Alloys -->
-            <div class="project-card card reveal" data-category="materials research ai-ml">
-                <div class="section-label mb-3">MATERIALS AI · RESEARCH</div>
-                <h3 class="project-title-sm">ML-Driven Structure–Property Correlation for Alloys</h3>
-                <p class="project-description">
-                    Machine learning framework correlating microstructural features with
-                    mechanical properties of alloys for engineering design.
-                </p>
-                <div class="project-tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">Machine Learning</span>
-                    <span class="tag">Materials Science</span>
-                    <span class="tag">Feature Engineering</span>
-                </div>
-                <a href="https://github.com/kaushalrog/-Machine-Learning-Driven-Structure-Property-Correlation-for-Mechanical-Design-of-Alloys" target="_blank" class="project-link">View on GitHub →</a>
-            </div>
-
-        </div>
+    <div class="frow rev">
+      <button class="fb active" data-f="all">all</button>
+      <button class="fb" data-f="fullstack">fullstack</button>
+      <button class="fb" data-f="ai-ml">ai-ml</button>
+      <button class="fb" data-f="autonomous">autonomous</button>
+      <button class="fb" data-f="cybersecurity">cybersecurity</button>
+      <button class="fb" data-f="research">research</button>
+      <button class="fb" data-f="transport">transport</button>
+      <button class="fb" data-f="materials">materials</button>
     </div>
+
+    <div class="pg">
+
+      <!-- FEATURED: ABiZ -->
+      <div class="pf pcard tc rev" data-cat="fullstack ai-ml">
+        <div class="tb">
+          <span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">ABiZ_Final_version — full-stack · production · FEATURED</span>
+        </div>
+        <div class="tbd">
+          <div class="pfeat">
+            <div>
+              <div class="pc">FULL-STACK AI · PRODUCTION · LIVE DEMO</div>
+              <h3 class="pnl">ABiZ — Business Intelligence Platform</h3>
+              <p class="pd">
+                Full-stack business intelligence platform for students and professionals.
+                Real-time news from 10+ sources, AI market sentiment via Google Gemini,
+                live market data, gamified quizzes, and leaderboards.
+                Deployed on Vercel and packaged as a native Android APK via Capacitor.
+              </p>
+              <div class="tags">
+                <span class="tag">React 18</span><span class="tag">Node.js</span>
+                <span class="tag">Firebase</span><span class="tag">Google Gemini AI</span>
+                <span class="tag">Capacitor</span><span class="tag">Tailwind CSS</span>
+                <span class="tag">Recharts</span><span class="tag">Framer Motion</span>
+              </div>
+              <div class="pl">
+                <a href="https://github.com/Beatlestrauma/ABiZ_Final_version" target="_blank" class="plink">→ GitHub</a>
+                <a href="https://abiz-final-version.vercel.app" target="_blank" class="plink plink-live">↗ Live Demo</a>
+              </div>
+            </div>
+            <div>
+              <div class="cb">
+                <span class="cc"># ABiZ v1.2 stack</span><br>
+                <span class="ck">frontend</span> = <span class="cf">React</span>(<span class="cs">"18+Vite"</span>)<br>
+                <span class="ck">backend</span>  = <span class="cf">Node</span>.express(<span class="cs">":4000"</span>)<br>
+                <span class="ck">ai</span>       = <span class="cf">Gemini</span>.analyze(market)<br>
+                <span class="ck">db</span>       = <span class="cf">Firebase</span>.realtime()<br>
+                <span class="ck">mobile</span>   = <span class="cf">Capacitor</span>.apk()<br>
+                <span class="ck">deploy</span>   = <span class="cf">Vercel</span>(<span class="cs">"prod"</span>)<br>
+                <span class="cc">> status: LIVE ✓</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WDS-IDS -->
+      <div class="pcard tc rev" data-cat="cybersecurity autonomous">
+        <div class="tb">
+          <span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">wds-ids — edge IDS · RPi 5</span>
+        </div>
+        <div class="tbd">
+          <div class="pc">CYBERSECURITY · EDGE AI · BEHAVIORAL</div>
+          <h3 class="pn">WDS-IDS — Behavioral Intrusion Detection</h3>
+          <div class="met">100% recall · &lt;12ms inference on Raspberry Pi 5</div>
+          <p class="pd">OS-level intrusion detection monitoring behavioral changes in system processes
+          caused by malicious activity — not content inspection. Drift detection and anomaly analysis
+          at edge-native speeds without a network connection.</p>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">Linux</span>
+            <span class="tag">Raspberry Pi 5</span><span class="tag">Anomaly Detection</span>
+            <span class="tag">Drift Detection</span>
+          </div>
+          <div class="pl">
+            <a href="https://github.com/kaushalrog/ids---System" target="_blank" class="plink">→ GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- AntBot -->
+      <div class="pcard tc rev" data-cat="autonomous research">
+        <div class="tb">
+          <span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">antbot — IEEE 2026 📄</span>
+        </div>
+        <div class="tbd">
+          <div class="pc">AUTONOMOUS ROBOTICS · IEEE PUBLISHED</div>
+          <h3 class="pn">AntBot — Hexapod Surveillance Robot</h3>
+          <div class="met">21-DOF · Tripod Gait · Published IEEE 2026</div>
+          <p class="pd">Autonomous hexapod with 21-DOF inverse kinematics and tripod gait
+          validated via MATLAB. Computer vision integration for surveillance
+          in GPS-denied environments and unstructured terrain.</p>
+          <div class="tags">
+            <span class="tag">C++</span><span class="tag">Python</span>
+            <span class="tag">OpenCV</span><span class="tag">MATLAB</span>
+            <span class="tag">Inverse Kinematics</span>
+          </div>
+          <div class="pl">
+            <a href="https://ieeexplore.ieee.org/abstract/document/11426098" target="_blank" class="plink">→ IEEE Paper</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Traffic AI -->
+      <div class="pcard tc rev" data-cat="ai-ml transport">
+        <div class="tb">
+          <span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">traffic-flow-ai</span>
+        </div>
+        <div class="tbd">
+          <div class="pc">AI / ML · OPTIMIZATION · TRANSPORT</div>
+          <h3 class="pn">Hybrid AI Traffic Control System</h3>
+          <p class="pd">LSTM + LightGBM neural network congestion prediction combined with
+          fuzzy logic optimization. Graph-based traffic modeling for adaptive
+          real-time signal control across city networks.</p>
+          <div class="tags">
+            <span class="tag">TensorFlow</span><span class="tag">LightGBM</span>
+            <span class="tag">Fuzzy Logic</span><span class="tag">Python</span>
+            <span class="tag">Graph Models</span>
+          </div>
+          <div class="pl">
+            <a href="https://github.com/kaushalrog/TrafficFlowAI" target="_blank" class="plink">→ GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI-DWECS -->
+      <div class="pcard tc rev" data-cat="ai-ml autonomous">
+        <div class="tb">
+          <span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">ai-dwecs</span>
+        </div>
+        <div class="tbd">
+          <div class="pc">REINFORCEMENT LEARNING · EDGE COMPUTING</div>
+          <h3 class="pn">AI-DWECS — Distributed Edge Scheduler</h3>
+          <p class="pd">Q-Learning task scheduler for distributed edge nodes. Dynamically allocates
+          computation to minimize latency and energy cost across heterogeneous
+          edge devices with no central coordinator.</p>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">Q-Learning</span>
+            <span class="tag">Edge Computing</span><span class="tag">RL</span>
+          </div>
+          <div class="pl">
+            <a href="https://github.com/kaushalrog?tab=repositories" target="_blank" class="plink">→ GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SVD Genomic -->
+      <div class="pcard tc rev" data-cat="research cybersecurity ai-ml">
+        <div class="tb">
+          <span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">svd-genomic-steg</span>
+        </div>
+        <div class="tbd">
+          <div class="pc">RESEARCH · BIOINFORMATICS · STEGANOGRAPHY</div>
+          <h3 class="pn">SVD Genomic Steganography</h3>
+          <p class="pd">Novel technique embedding data inside DNA sequences via Singular Value
+          Decomposition. Exploits genomic redundancy for covert storage and
+          bioinformatic security — hiding signals in biology.</p>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">SVD</span>
+            <span class="tag">Bioinformatics</span><span class="tag">NumPy</span>
+          </div>
+          <div class="pl">
+            <a href="https://github.com/kaushalrog?tab=repositories" target="_blank" class="plink">→ GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- MCDIP-ADMM -->
+      <div class="pcard tc rev" data-cat="research ai-ml">
+        <div class="tb">
+          <span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">mcdip-admm-ct</span>
+        </div>
+        <div class="tbd">
+          <div class="pc">RESEARCH · MEDICAL IMAGING · OPTIMIZATION</div>
+          <h3 class="pn">MCDIP-ADMM CT Reconstruction</h3>
+          <p class="pd">Unsupervised low-dose CT reconstruction via ADMM with Multi-Code Deep
+          Image Prior ensemble to reduce overfitting in inverse imaging. No paired
+          training data required.</p>
+          <div class="tags">
+            <span class="tag">PyTorch</span><span class="tag">ADMM</span>
+            <span class="tag">Medical Imaging</span><span class="tag">Jupyter</span>
+          </div>
+          <div class="pl">
+            <a href="https://github.com/kaushalrog/mcdip-admm-ct-reconstruction" target="_blank" class="plink">→ GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Digit Recognition -->
+      <div class="pcard tc rev" data-cat="ai-ml">
+        <div class="tb">
+          <span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">digit-recognition — zero libraries</span>
+        </div>
+        <div class="tbd">
+          <div class="pc">CORE ML · FROM SCRATCH</div>
+          <h3 class="pn">Neural Network Digit Recognition</h3>
+          <p class="pd">Custom neural net built from scratch — forward propagation, backpropagation,
+          gradient descent. No ML libraries. Pure math, pure understanding.</p>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">NumPy</span>
+            <span class="tag">Backpropagation</span><span class="tag">From Scratch</span>
+          </div>
+          <div class="pl">
+            <a href="https://github.com/kaushalrog/digitrecognition" target="_blank" class="plink">→ GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kerala Metro -->
+      <div class="pcard tc rev" data-cat="transport ai-ml">
+        <div class="tb">
+          <span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">kerala-metro-scheduler</span>
+        </div>
+        <div class="tbd">
+          <div class="pc">TRANSPORT AI · SCHEDULING</div>
+          <h3 class="pn">Kerala Metro Scheduling System</h3>
+          <p class="pd">AI-driven metro train scheduling minimizing headway and optimizing induction
+          planning for Kerala Metro operations. Improves efficiency across multiple lines.</p>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">Scheduling</span>
+            <span class="tag">Optimization</span><span class="tag">Pandas</span>
+          </div>
+          <div class="pl">
+            <a href="https://github.com/kaushalrog/kerala_metro_scheduling" target="_blank" class="plink">→ GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alloys -->
+      <div class="pcard tc rev" data-cat="materials research ai-ml">
+        <div class="tb">
+          <span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">ml-alloy-predictor</span>
+        </div>
+        <div class="tbd">
+          <div class="pc">MATERIALS AI · RESEARCH</div>
+          <h3 class="pn">ML Alloy Structure–Property Correlation</h3>
+          <p class="pd">ML framework predicting alloy phase structure from composition, thermodynamic
+          properties, and processing parameters for mechanical engineering design.</p>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">scikit-learn</span>
+            <span class="tag">Materials Science</span><span class="tag">Feature Engineering</span>
+          </div>
+          <div class="pl">
+            <a href="https://github.com/kaushalrog/-Machine-Learning-Driven-Structure-Property-Correlation-for-Mechanical-Design-of-Alloys" target="_blank" class="plink">→ GitHub</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /pg -->
+  </div>
 </section>
 
-<!-- ══════════════════════════════════════ SKILLS ══ -->
+<!-- ═══ SKILLS ═══ -->
 <section id="skills">
-    <div class="container">
-        <div class="section-header reveal">
-            <div class="section-label mb-3">TECHNICAL EXPERTISE</div>
-            <h2>Skills</h2>
+  <div class="wrap">
+    <div class="sec-cmd rev"><span class="g">$</span> neofetch --skills --verbose</div>
+    <h2 class="sec-title rev">Skills</h2>
+    <div class="swrap">
+
+      <div class="tc rev">
+        <div class="tb"><span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">ml_ai.conf</span></div>
+        <div class="tbd">
+          <div class="sgt">MACHINE LEARNING & AI</div>
+          <div class="sr"><span class="sn">Neural Networks</span><span class="sbr"><span class="f">████████</span>░░</span></div>
+          <div class="sr"><span class="sn">Deep Learning</span><span class="sbr"><span class="f">████████</span>░░</span></div>
+          <div class="sr"><span class="sn">Computer Vision</span><span class="sbr"><span class="f">███████░</span>░░</span></div>
+          <div class="sr"><span class="sn">PyTorch</span><span class="sbr"><span class="f">████████</span>░░</span></div>
+          <div class="sr"><span class="sn">TensorFlow</span><span class="sbr"><span class="f">██████░░</span>░░</span></div>
+          <div class="sr"><span class="sn">scikit-learn</span><span class="sbr"><span class="f">███████░</span>░░</span></div>
+          <div class="sr"><span class="sn">NumPy / Pandas</span><span class="sbr"><span class="f">████████</span>░░</span></div>
+          <div class="sr"><span class="sn">LightGBM</span><span class="sbr"><span class="f">██████░░</span>░░</span></div>
         </div>
+      </div>
 
-        <div class="skills-grid">
-            <div class="card reveal">
-                <div class="section-label mb-4">MACHINE LEARNING & AI</div>
-                <div class="skill-item"><span>Neural Networks</span><span class="skill-level">Advanced</span></div>
-                <div class="skill-item"><span>Deep Learning</span><span class="skill-level">Advanced</span></div>
-                <div class="skill-item"><span>Computer Vision</span><span class="skill-level">Advanced</span></div>
-                <div class="skill-item"><span>PyTorch</span><span class="skill-level">Advanced</span></div>
-                <div class="skill-item"><span>TensorFlow</span><span class="skill-level">Proficient</span></div>
-                <div class="skill-item"><span>Model Training & Evaluation</span><span class="skill-level">Advanced</span></div>
-                <div class="skill-item"><span>Optimization Algorithms</span><span class="skill-level">Intermediate</span></div>
-            </div>
-
-            <div class="card reveal">
-                <div class="section-label mb-4">FULL STACK & PRODUCTION AI</div>
-                <div class="skill-item"><span>React</span><span class="skill-level">Proficient</span></div>
-                <div class="skill-item"><span>Supabase</span><span class="skill-level">Proficient</span></div>
-                <div class="skill-item"><span>PostgreSQL</span><span class="skill-level">Proficient</span></div>
-                <div class="skill-item"><span>REST APIs</span><span class="skill-level">Proficient</span></div>
-                <div class="skill-item"><span>Authentication Systems</span></div>
-                <div class="skill-item"><span>System Architecture</span></div>
-                <div class="skill-item"><span>Production Deployment (Vercel)</span></div>
-            </div>
-
-            <div class="card reveal">
-                <div class="section-label mb-4">PROGRAMMING</div>
-                <div class="skill-item"><span>Python</span><span class="skill-level">Primary</span></div>
-                <div class="skill-item"><span>C++</span><span class="skill-level">Advanced</span></div>
-                <div class="skill-item"><span>JavaScript</span><span class="skill-level">Proficient</span></div>
-                <div class="skill-item"><span>SQL</span><span class="skill-level">Proficient</span></div>
-                <div class="skill-item"><span>Bash / Linux Shell</span></div>
-            </div>
-
-            <div class="card reveal">
-                <div class="section-label mb-4">ROBOTICS & AUTONOMOUS SYSTEMS</div>
-                <div class="skill-item"><span>Autonomous Navigation</span></div>
-                <div class="skill-item"><span>Computer Vision Robotics</span></div>
-                <div class="skill-item"><span>Sensor Integration</span></div>
-                <div class="skill-item"><span>Motion Planning</span></div>
-                <div class="skill-item"><span>Control Systems</span></div>
-                <div class="skill-item"><span>Inverse Kinematics</span></div>
-            </div>
-
-            <div class="card reveal">
-                <div class="section-label mb-4">SYSTEMS & CYBERSECURITY</div>
-                <div class="skill-item"><span>Intrusion Detection Systems</span></div>
-                <div class="skill-item"><span>OS Monitoring</span></div>
-                <div class="skill-item"><span>Linux Systems</span></div>
-                <div class="skill-item"><span>System Programming</span></div>
-                <div class="skill-item"><span>Behavioral Analysis</span></div>
-                <div class="skill-item"><span>Anomaly Detection</span></div>
-            </div>
-
-            <div class="card reveal">
-                <div class="section-label mb-4">TOOLS & PLATFORMS</div>
-                <div class="skill-item"><span>Git / GitHub</span></div>
-                <div class="skill-item"><span>Linux</span></div>
-                <div class="skill-item"><span>Docker</span></div>
-                <div class="skill-item"><span>MATLAB</span></div>
-                <div class="skill-item"><span>Vercel</span></div>
-                <div class="skill-item"><span>OpenCV</span></div>
-            </div>
+      <div class="tc rev">
+        <div class="tb"><span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">programming.conf</span></div>
+        <div class="tbd">
+          <div class="sgt">PROGRAMMING</div>
+          <div class="sr"><span class="sn">Python</span><span class="sbr"><span class="f">█████████</span>░</span></div>
+          <div class="sr"><span class="sn">C++</span><span class="sbr"><span class="f">████████</span>░░</span></div>
+          <div class="sr"><span class="sn">JavaScript</span><span class="sbr"><span class="f">███████░</span>░░</span></div>
+          <div class="sr"><span class="sn">Java</span><span class="sbr"><span class="f">█████░░░</span>░░</span></div>
+          <div class="sr"><span class="sn">SQL</span><span class="sbr"><span class="f">███████░</span>░░</span></div>
+          <div class="sr"><span class="sn">Bash / Shell</span><span class="sbr"><span class="f">███████░</span>░░</span></div>
+          <div class="sr"><span class="sn">MATLAB</span><span class="sbr"><span class="f">██████░░</span>░░</span></div>
         </div>
+      </div>
+
+      <div class="tc rev">
+        <div class="tb"><span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">fullstack.conf</span></div>
+        <div class="tbd">
+          <div class="sgt">FULL STACK & PRODUCTION</div>
+          <div class="sr"><span class="sn">React 18 / Vite</span><span class="sbr"><span class="f">███████░</span>░░</span></div>
+          <div class="sr"><span class="sn">Node.js / Express</span><span class="sbr"><span class="f">██████░░</span>░░</span></div>
+          <div class="sr"><span class="sn">Firebase / Supabase</span><span class="sbr"><span class="f">██████░░</span>░░</span></div>
+          <div class="sr"><span class="sn">PostgreSQL</span><span class="sbr"><span class="f">██████░░</span>░░</span></div>
+          <div class="sr"><span class="sn">REST APIs</span><span class="sbr"><span class="f">███████░</span>░░</span></div>
+          <div class="sr"><span class="sn">Google Gemini AI</span><span class="sbr"><span class="f">██████░░</span>░░</span></div>
+          <div class="sr"><span class="sn">Vercel / Deployment</span><span class="sbr"><span class="f">███████░</span>░░</span></div>
+        </div>
+      </div>
+
+      <div class="tc rev">
+        <div class="tb"><span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">robotics.conf</span></div>
+        <div class="tbd">
+          <div class="sgt">ROBOTICS & AUTONOMOUS SYSTEMS</div>
+          <div class="sr"><span class="sn">Autonomous Navigation</span><span class="sbr"><span class="f">███████░</span>░░</span></div>
+          <div class="sr"><span class="sn">Computer Vision</span><span class="sbr"><span class="f">███████░</span>░░</span></div>
+          <div class="sr"><span class="sn">Inverse Kinematics</span><span class="sbr"><span class="f">███████░</span>░░</span></div>
+          <div class="sr"><span class="sn">Motion Planning</span><span class="sbr"><span class="f">██████░░</span>░░</span></div>
+          <div class="sr"><span class="sn">Control Systems</span><span class="sbr"><span class="f">██████░░</span>░░</span></div>
+          <div class="sr"><span class="sn">Raspberry Pi / Edge</span><span class="sbr"><span class="f">████████</span>░░</span></div>
+          <div class="sr"><span class="sn">OpenCV</span><span class="sbr"><span class="f">████████</span>░░</span></div>
+        </div>
+      </div>
+
+      <div class="tc rev">
+        <div class="tb"><span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">security.conf</span></div>
+        <div class="tbd">
+          <div class="sgt">SYSTEMS & CYBERSECURITY</div>
+          <div class="sr"><span class="sn">Intrusion Detection</span><span class="sbr"><span class="f">████████</span>░░</span></div>
+          <div class="sr"><span class="sn">OS Process Monitoring</span><span class="sbr"><span class="f">████████</span>░░</span></div>
+          <div class="sr"><span class="sn">Kali Linux</span><span class="sbr"><span class="f">██████░░</span>░░</span></div>
+          <div class="sr"><span class="sn">Linux Systems</span><span class="sbr"><span class="f">████████</span>░░</span></div>
+          <div class="sr"><span class="sn">Anomaly Detection</span><span class="sbr"><span class="f">████████</span>░░</span></div>
+          <div class="sr"><span class="sn">Behavioral Analysis</span><span class="sbr"><span class="f">████████</span>░░</span></div>
+        </div>
+      </div>
+
+      <div class="tc rev">
+        <div class="tb"><span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">tools.conf</span></div>
+        <div class="tbd">
+          <div class="sgt">TOOLS & PLATFORMS</div>
+          <div class="sr"><span class="sn">Git / GitHub</span><span class="sbr"><span class="f">████████</span>░░</span></div>
+          <div class="sr"><span class="sn">Linux</span><span class="sbr"><span class="f">████████</span>░░</span></div>
+          <div class="sr"><span class="sn">Docker</span><span class="sbr"><span class="f">██████░░</span>░░</span></div>
+          <div class="sr"><span class="sn">Google Cloud (GCP)</span><span class="sbr"><span class="f">█████░░░</span>░░</span></div>
+          <div class="sr"><span class="sn">Jupyter</span><span class="sbr"><span class="f">████████</span>░░</span></div>
+          <div class="sr"><span class="sn">VS Code</span><span class="sbr"><span class="f">█████████</span>░</span></div>
+          <div class="sr"><span class="sn">MATLAB</span><span class="sbr"><span class="f">██████░░</span>░░</span></div>
+        </div>
+      </div>
+
     </div>
+  </div>
 </section>
 
-<!-- ══════════════════════════════════════ ABOUT ══ -->
+<!-- ═══ ABOUT ═══ -->
 <section id="about">
-    <div class="container">
-        <div class="about-grid">
-            <div class="reveal">
-                <div class="section-label mb-3">BACKGROUND</div>
-                <h2 class="mb-6">About</h2>
-                <div class="about-text">
-                    <p>ML and Robotics Engineer focused on autonomous systems and computer vision. Currently pursuing B.Tech in AI &amp; Data Science at Amrita Vishwa Vidyapeetham.</p>
-                    <p>I build intelligent systems that bridge perception, decision-making, and control. My work spans neural networks, optimization algorithms, cybersecurity systems, and real-time robotics — from bare-metal implementations to production deployments.</p>
-                    <p>I care about engineering depth. Every project is built to understand internals, not just to use libraries.</p>
-                </div>
-            </div>
-            <div class="reveal">
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div>
-                            <div class="section-label mb-2">EDUCATION</div>
-                            <h3>B.Tech in AI &amp; Data Science</h3>
-                            <div class="timeline-meta">Amrita Vishwa Vidyapeetham · 2024 – 2028</div>
-                            <div class="timeline-description">CGPA: 8.4 / 10</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div>
-                            <div class="section-label mb-2">EXPERIENCE</div>
-                            <h3>Technical Photographer</h3>
-                            <div class="timeline-meta">Srishti &amp; Team Media — Amrita</div>
-                            <div class="timeline-description">Technical documentation and visual storytelling for engineering projects.</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div>
-                            <div class="section-label mb-2">CURRENT FOCUS</div>
-                            <h3>Research &amp; Production Systems</h3>
-                            <div class="timeline-meta">2025 – Present</div>
-                            <div class="timeline-description">Advanced optimization algorithms, autonomous navigation, cybersecurity engineering, and production ML deployments.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="wrap">
+    <div class="sec-cmd rev"><span class="g">$</span> cat ~/README.md</div>
+    <div class="agrid">
+
+      <div class="rev">
+        <h2 class="sec-title">About</h2>
+        <div class="abio">
+          <p>ML and Robotics Engineer building systems that bridge perception, decision-making, and control. Currently pursuing B.Tech in AI & Data Science at Amrita Vishwa Vidyapeetham.</p>
+          <p>My work spans from bare-metal neural network implementations to IEEE-published hexapod robotics. I care about engineering depth — every project is built to understand internals, not just consume libraries.</p>
+          <p>Active across ML optimization, autonomous navigation, edge AI, cybersecurity, and full-stack production systems. When not writing code, I document engineering projects through photography.</p>
+          <p class="qte">$ echo $PHILOSOPHY<br>
+          Making machines smarter and myself more confused.<br>
+          Still compiling. Still learning.</p>
         </div>
+      </div>
+
+      <div class="rev">
+        <div class="tl" style="margin-top:4rem">
+          <div class="ti">
+            <div class="tidot"></div>
+            <div class="tcat">EDUCATION</div>
+            <div class="ttit">B.Tech — AI & Data Science</div>
+            <div class="tmeta">Amrita Vishwa Vidyapeetham · 2024–2028</div>
+            <div class="tdesc">CGPA: 8.4 / 10 · Coimbatore, Tamil Nadu</div>
+          </div>
+          <div class="ti">
+            <div class="tidot"></div>
+            <div class="tcat">PUBLICATION</div>
+            <div class="ttit">IEEE 2026 — AntBot</div>
+            <div class="tmeta">IEEE Xplore · 2026</div>
+            <div class="tdesc">Autonomous Hexapod Surveillance Robot. 21-DOF IK, MATLAB-validated gait, computer vision integration.</div>
+          </div>
+          <div class="ti">
+            <div class="tidot"></div>
+            <div class="tcat">EXPERIENCE</div>
+            <div class="ttit">Technical Photographer</div>
+            <div class="tmeta">Srishti & Team Media · Amrita</div>
+            <div class="tdesc">Technical documentation and visual storytelling for engineering projects and campus events.</div>
+          </div>
+          <div class="ti">
+            <div class="tidot"></div>
+            <div class="tcat">CURRENT FOCUS</div>
+            <div class="ttit">Research & Production Systems</div>
+            <div class="tmeta">2025 – Present</div>
+            <div class="tdesc">Edge AI, autonomous navigation, IDS systems, optimization algorithms, and full-stack ML deployments.</div>
+          </div>
+        </div>
+      </div>
+
     </div>
+  </div>
 </section>
 
-<!-- ══════════════════════════════════════ CONTACT ══ -->
+<!-- ═══ CONTACT ═══ -->
 <section id="contact">
-    <div class="container">
-        <div class="contact-content reveal">
-            <div class="section-label mb-4">GET IN TOUCH</div>
-            <h2>Let's Connect</h2>
-            <p>Open to opportunities in ML Engineering, Robotics, Cybersecurity, and AI Research.</p>
-            <div class="contact-grid">
-                <a href="mailto:kaushalreddy15@gmail.com" class="contact-card card">
-                    <div class="section-label">EMAIL</div>
-                    <div class="contact-value">kaushalreddy15@gmail.com</div>
-                    <div class="contact-label">Primary contact</div>
-                </a>
-                <a href="tel:+919642293339" class="contact-card card">
-                    <div class="section-label">PHONE</div>
-                    <div class="contact-value">+91 96422 93339</div>
-                    <div class="contact-label">Direct line</div>
-                </a>
+  <div class="wrap">
+    <div class="cwrap">
+      <div class="sec-cmd rev"><span class="g">$</span> ping kaushal --all-interfaces</div>
+      <h2 class="sec-title rev">Contact</h2>
+      <p class="rev" style="font-size:.83rem;color:var(--dim);margin-bottom:2rem">
+        Open to research collabs, internships, and interesting problems.
+      </p>
+
+      <div class="cgrid rev">
+        <a href="mailto:kaushalreddy15@gmail.com" class="ccard tc">
+          <div class="tb"><span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+            <span class="tn">email</span></div>
+          <div class="tbd">
+            <div class="clbl">EMAIL</div>
+            <div class="cval">kaushalreddy15@gmail.com</div>
+            <div class="csub">Primary contact</div>
+          </div>
+        </a>
+        <a href="tel:+919642293339" class="ccard tc">
+          <div class="tb"><span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+            <span class="tn">phone</span></div>
+          <div class="tbd">
+            <div class="clbl">PHONE</div>
+            <div class="cval">+91 96422 93339</div>
+            <div class="csub">Direct line</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- MESSAGE FORM -->
+      <div class="tc rev mform">
+        <div class="tb"><span class="td dr"></span><span class="td da"></span><span class="td dg"></span>
+          <span class="tn">mail — compose message</span></div>
+        <div class="tbd">
+          <div class="fp">
+            <span class="g">$</span> mail -s "[portfolio contact]" kaushalreddy15@gmail.com
+          </div>
+          <form id="mf" onsubmit="sendMsg(event)">
+            <div class="ff">
+              <label for="cn">From (your name)</label>
+              <input type="text" id="cn" placeholder="John Doe" required>
             </div>
-            <div class="social-links">
-                <a href="https://github.com/kaushalrog" target="_blank" class="social-link">GitHub</a>
-                <a href="https://www.linkedin.com/in/kaushal-s-19234b314" target="_blank" class="social-link">LinkedIn</a>
-                <a href="https://drive.google.com/drive/folders/13eqdqJ4URxu0OCDohW2A_HUsPlX1g-Lr" target="_blank" class="social-link">Photography</a>
+            <div class="ff">
+              <label for="ce">Reply-to email (optional)</label>
+              <input type="email" id="ce" placeholder="john@example.com">
             </div>
+            <div class="ff">
+              <label for="cm">Message body</label>
+              <textarea id="cm" placeholder="Hey Kaushal, I wanted to reach out about..." required></textarea>
+            </div>
+            <button type="submit" id="sbtn">message</button>
+            <div id="sok">Message sent. Your mail client should open.</div>
+          </form>
         </div>
+      </div>
+
+      <div class="srow rev">
+        <a href="https://github.com/kaushalrog" target="_blank" class="slink">GitHub</a>
+        <a href="https://www.linkedin.com/in/kaushal-s-19234b314" target="_blank" class="slink">LinkedIn</a>
+        <a href="https://ieeexplore.ieee.org/abstract/document/11426098" target="_blank" class="slink">IEEE Paper</a>
+        <a href="https://drive.google.com/drive/folders/13eqdqJ4URxu0OCDohW2A_HUsPlX1g-Lr" target="_blank" class="slink">Photography</a>
+        <a href="https://drive.google.com/file/d/1vNouvR0xk24Vo0vjgVY9oO2hzKTIP-wW/view?usp=sharing" target="_blank" class="slink">CV / Resume</a>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ═══ FOOTER ═══ -->
 <footer>
-    <div class="container">
-        <div class="mono" style="font-size:0.875rem">KAUSHAL.S · 2026</div>
-        <div style="font-size:0.875rem;color:var(--text-secondary)">Coimbatore, Tamil Nadu</div>
+  <div class="wrap">
+    <div class="fi">
+      <span class="fb2">kaushal@portfolio:~$&nbsp;<span class="cur" style="width:8px;height:.85em;vertical-align:middle"></span></span>
+      <span>Coimbatore, Tamil Nadu · 2026</span>
+      <span>uptime: ∞ &nbsp;|&nbsp; status: still_compiling</span>
     </div>
+  </div>
 </footer>
 
 <script>
-/* ── CURSOR ── */
-const cg = document.getElementById('cursorGlow');
-let mx=0,my=0,gx=0,gy=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-(function tick(){
-    gx+=(mx-gx)*0.1; gy+=(my-gy)*0.1;
-    cg.style.left=gx+'px'; cg.style.top=gy+'px';
-    requestAnimationFrame(tick);
+/* ── MATRIX RAIN ── */
+(function(){
+  const c=document.getElementById('mc'),ctx=c.getContext('2d');
+  const ch='アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEF<>{}[]|/\\';
+  let w,h,cols,drops;
+  function init(){
+    w=c.width=window.innerWidth;
+    h=c.height=window.innerHeight;
+    cols=Math.floor(w/18);
+    drops=Array(cols).fill(1);
+  }
+  init();
+  window.addEventListener('resize',init);
+  setInterval(()=>{
+    ctx.fillStyle='rgba(3,7,3,0.05)';
+    ctx.fillRect(0,0,w,h);
+    ctx.fillStyle='#00ff41';
+    ctx.font='13px JetBrains Mono,monospace';
+    drops.forEach((y,i)=>{
+      ctx.fillText(ch[Math.floor(Math.random()*ch.length)],i*18,y*18);
+      if(y*18>h&&Math.random()>.975) drops[i]=0;
+      drops[i]++;
+    });
+  },55);
 })();
 
-/* ── SCROLL BAR + NAV ── */
-const sp=document.getElementById('scrollProgress'), nav=document.getElementById('mainNav');
+/* ── CURSOR GLOW ── */
+const cg=document.getElementById('cg');
+let mx=0,my=0,gx=0,gy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function tick(){gx+=(mx-gx)*.08;gy+=(my-gy)*.08;
+  cg.style.left=gx+'px';cg.style.top=gy+'px';requestAnimationFrame(tick)})();
+
+/* ── SCROLL PROGRESS ── */
 window.addEventListener('scroll',()=>{
-    const pct=window.scrollY/(document.documentElement.scrollHeight-innerHeight);
-    sp.style.transform=`scaleX(${pct})`;
-    nav.style.borderBottomColor = window.scrollY>60 ? 'rgba(59,130,246,0.15)' : 'var(--border-primary)';
+  const p=window.scrollY/(document.documentElement.scrollHeight-innerHeight)*100;
+  document.getElementById('prog').style.width=p+'%';
 });
-
-/* ── STAT COUNTERS (run immediately, values already set so page never shows 0) ── */
-window.addEventListener('load',()=>{
-    document.querySelectorAll('.stat-number').forEach(el=>{
-        const target=parseFloat(el.dataset.target);
-        const isDec=target%1!==0;
-        let cur=0;
-        el.textContent = isDec ? '0.0' : '0';
-        const step=target/60;
-        const id=setInterval(()=>{
-            cur+=step;
-            if(cur>=target){
-                el.textContent=isDec?target.toFixed(1):target;
-                clearInterval(id);
-            } else {
-                el.textContent=isDec?cur.toFixed(1):Math.floor(cur);
-            }
-        },22);
-    });
-    /* stat bars */
-    document.querySelectorAll('.stat-bar-fill').forEach(el=>{
-        const w=el.dataset.w||'80';
-        requestAnimationFrame(()=>{ el.style.width=w+'%'; });
-    });
-});
-
-/* ── SCROLL REVEAL (only .reveal elements, not hero) ── */
-const io=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-        if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }
-    });
-},{threshold:0.07});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 /* ── ACTIVE NAV ── */
 const secs=document.querySelectorAll('section[id]');
-const nls=document.querySelectorAll('.nav-link');
+const nls=document.querySelectorAll('.nla');
 window.addEventListener('scroll',()=>{
-    let cur='';
-    secs.forEach(s=>{ if(window.scrollY>=s.offsetTop-200) cur=s.id; });
-    nls.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+cur));
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-200)cur=s.id});
+  nls.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+cur));
 });
 
+/* ── HAMBURGER ── */
+function toggleHam(){
+  document.getElementById('ham').classList.toggle('open');
+  document.getElementById('nl').classList.toggle('open');
+}
+
+/* ── BOOT SEQUENCE ── */
+const boots=[
+  {t:'[  OK  ] Starting portfolio kernel...', c:'bok', d:150},
+  {t:'[  OK  ] Loading ML modules... pytorch tensorflow opencv', c:'bok', d:550},
+  {t:'[  OK  ] Mounting robotics stack... IK gait planning control', c:'bok', d:950},
+  {t:'[ WARN ] still_compiling=true | still_learning=true', c:'bwn', d:1350},
+  {t:'[  OK  ] Edge IDS running... 100% recall <12ms on RPi5', c:'bok', d:1750},
+  {t:'[  OK  ] IEEE publication confirmed. AntBot [2026]', c:'bin', d:2150},
+  {t:'> boot sequence complete. welcome.', c:'bin', d:2550},
+];
+const bootEl=document.getElementById('boot');
+boots.forEach(b=>{
+  setTimeout(()=>{
+    const span=document.createElement('span');
+    span.className='bl '+b.c;
+    span.textContent=b.t;
+    bootEl.appendChild(span);
+    bootEl.appendChild(document.createTextNode('\n'));
+  },b.d);
+});
+
+/* ── HERO REVEAL + STATS ── */
+setTimeout(()=>{
+  const hc=document.getElementById('hc');
+  hc.style.opacity='1';
+
+  // count up
+  document.querySelectorAll('.sv').forEach(el=>{
+    const tgt=parseFloat(el.dataset.t),isDec=tgt%1!==0;
+    let cur=0;const step=tgt/50;
+    const id=setInterval(()=>{
+      cur+=step;
+      if(cur>=tgt){el.textContent=isDec?tgt.toFixed(1):tgt;clearInterval(id);}
+      else el.textContent=isDec?cur.toFixed(1):Math.floor(cur);
+    },22);
+  });
+
+  // stat bars
+  [{f:10,e:0,i:0},{f:9,e:1,i:1},{f:8,e:2,i:2},{f:8,e:2,i:3}].forEach(b=>{
+    document.getElementById('s'+b.i+'f').textContent='█'.repeat(b.f);
+    document.getElementById('s'+b.i+'e').textContent='░'.repeat(b.e);
+  });
+},3200);
+
+/* ── SCROLL REVEAL ── */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});
+},{threshold:0.06});
+document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+
 /* ── PROJECT FILTER ── */
-document.querySelectorAll('.filter-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-        document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        const f=btn.dataset.filter;
-        document.querySelectorAll('.project-card').forEach(card=>{
-            const cat=card.dataset.category||'';
-            card.classList.toggle('hidden', f!=='all' && !cat.includes(f));
-        });
+document.querySelectorAll('.fb').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.f;
+    document.querySelectorAll('.pcard').forEach(card=>{
+      const cat=card.dataset.cat||'';
+      card.classList.toggle('hidden',f!=='all'&&!cat.includes(f));
     });
+  });
 });
 
 /* ── SMOOTH SCROLL ── */
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click',e=>{
-        e.preventDefault();
-        const t=document.querySelector(a.getAttribute('href'));
-        if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
-    });
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+  });
 });
+
+/* ── CONTACT FORM ── */
+function sendMsg(e){
+  e.preventDefault();
+  const name=document.getElementById('cn').value.trim();
+  const email=document.getElementById('ce').value.trim();
+  const msg=document.getElementById('cm').value.trim();
+  const subj=encodeURIComponent('Portfolio Contact — '+name);
+  const body=encodeURIComponent('From: '+name+(email?' <'+email+'>':'')+'\n\n'+msg);
+  window.open('mailto:kaushalreddy15@gmail.com?subject='+subj+'&body='+body);
+  document.getElementById('sok').style.display='block';
+  document.getElementById('mf').reset();
+}
 </script>
 </body>
 </html>
