@@ -2,1410 +2,630 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>KaushalOS 2026 — Personal Distribution</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Kaushal S — AI Engineer building intelligent systems for constrained environments. IEEE Published Researcher.">
+<meta property="og:title" content="Kaushal S — AI Engineer">
+<meta property="og:description" content="Robotics, Edge AI, and Cybersecurity Researcher.">
+<title>Kaushal S | Project ORION</title>
+
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-:root{
-  --acc:#E95420;--acc2:#FF8C42;--bg:#0d0007;
-  --glass:rgba(255,255,255,0.05);--gbor:rgba(255,255,255,0.1);
-  --win-bg:rgba(18,18,24,0.97);--dock-bg:rgba(8,8,12,0.88);
-  --text:#e8e8e0;--dim:#666;
-}
-.theme-security{--acc:#00ff41;--acc2:#00cc35;--bg:#020604}
-.theme-research{--acc:#88C0D0;--acc2:#81A1C1;--bg:#060d1a}
+<!-- Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
 
-html,body{width:100%;height:100%;overflow:hidden;font-family:'Ubuntu',sans-serif;user-select:none}
-body{background:var(--bg);color:var(--text);transition:background .5s}
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:4px;height:4px}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:2px}
+<!-- tsParticles -->
+<script src="https://cdn.jsdelivr.net/npm/@tsparticles/engine@3.1.0/tsparticles.engine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tsparticles/basic@3.1.0/tsparticles.basic.min.js"></script>
 
-/* ── GRID BG ── */
-.gbg{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:linear-gradient(rgba(0,255,65,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,255,65,.025) 1px,transparent 1px);
-  background-size:44px 44px;
-}
-.theme-security .gbg{background-image:linear-gradient(rgba(0,255,65,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,65,.04) 1px,transparent 1px)}
-.theme-research .gbg{background-image:linear-gradient(rgba(136,192,208,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(136,192,208,.025) 1px,transparent 1px)}
-
-/* ══════════════════════════════════
-   BOOT SCREEN
-══════════════════════════════════ */
-#boot{
-  position:fixed;inset:0;z-index:9000;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:#020604;gap:0;
-}
-.boot-pre{
-  font-family:'Ubuntu Mono',monospace;font-size:10px;color:#2a5c2a;
-  letter-spacing:.05em;line-height:1.7;margin-bottom:32px;text-align:left;
-  animation:fadeup .6s ease .2s both;width:380px;
-}
-@media(max-width:480px){.boot-pre{width:90vw;font-size:9px}}
-.boot-card{
-  background:rgba(6,14,6,0.95);border:1px solid rgba(0,255,65,0.22);
-  border-radius:10px;padding:28px 30px 22px;
-  box-shadow:0 0 50px rgba(0,255,65,0.07),inset 0 1px 0 rgba(0,255,65,0.06);
-  animation:fadeup .7s ease .5s both;width:420px;
-}
-@media(max-width:480px){.boot-card{width:92vw;padding:22px 18px 18px}}
-.boot-card-head{font-family:'Ubuntu Mono',monospace;font-size:11px;color:#3a6c3a;margin-bottom:3px;letter-spacing:.04em}
-.boot-card-sub{font-family:'Ubuntu Mono',monospace;font-size:10px;color:#2a5c2a;margin-bottom:22px;letter-spacing:.04em}
-.os-opts{display:flex;gap:10px;margin-bottom:18px}
-@media(max-width:380px){.os-opts{flex-direction:column}}
-.os-opt{
-  flex:1;display:flex;flex-direction:column;align-items:center;gap:9px;
-  padding:18px 8px 14px;border-radius:8px;cursor:pointer;
-  border:1px solid rgba(255,255,255,0.07);
-  background:rgba(255,255,255,0.02);transition:all .2s;position:relative;
-  outline:none;
-}
-.os-opt:hover,.os-opt:focus{border-color:var(--acc);background:rgba(255,255,255,0.06);transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.4)}
-.os-opt.sel{border-color:var(--acc);background:rgba(255,255,255,0.07);box-shadow:0 0 0 2px rgba(255,255,255,0.05)}
-.os-logo{width:50px;height:50px;display:flex;align-items:center;justify-content:center}
-.os-name{font-family:'Ubuntu Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.18em;color:#ccc;text-transform:uppercase}
-.os-sub{font-family:'Ubuntu Mono',monospace;font-size:8px;color:#555;letter-spacing:.08em}
-.boot-bar-wrap{width:100%;height:2px;background:rgba(0,255,65,0.08);border-radius:1px;overflow:hidden;margin-top:4px}
-.boot-bar{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));width:0;transition:width .1s linear}
-.boot-prompt{font-family:'Ubuntu Mono',monospace;font-size:9px;color:#2a5c2a;margin-top:14px;letter-spacing:.04em}
-.cur{display:inline-block;width:7px;height:11px;background:#00ff41;margin-left:2px;vertical-align:middle;animation:blink 1s step-end infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-@keyframes fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeout{to{opacity:0;transform:scale(1.03)}}
-
-/* ══════════════════════════════════
-   DESKTOP WRAPPER
-══════════════════════════════════ */
-#desktop{position:fixed;inset:0;z-index:1;display:none;flex-direction:column}
-#desktop.show{display:flex}
-canvas#wp{position:absolute;inset:0;z-index:0;display:block}
-
-/* ══════════════════════════════════
-   LEFT DOCK — desktop/tablet
-══════════════════════════════════ */
-.ldock{
-  position:absolute;left:0;top:0;bottom:58px;
-  width:82px;z-index:20;
-  display:flex;flex-direction:column;align-items:center;
-  padding:14px 0;gap:3px;overflow-y:auto;overflow-x:visible;
-  background:rgba(6,6,10,0.72);
-  border-right:1px solid rgba(255,255,255,0.04);
-  backdrop-filter:blur(14px);
-}
-.ldock::-webkit-scrollbar{width:0}
-.di{
-  position:relative;width:70px;display:flex;flex-direction:column;
-  align-items:center;gap:3px;padding:8px 5px;border-radius:10px;
-  cursor:pointer;transition:all .18s;outline:none;
-}
-.di:hover,.di:focus{background:rgba(255,255,255,0.08)}
-.di:active{transform:scale(0.93)}
-.di-ico{
-  width:42px;height:42px;border-radius:11px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;transition:transform .18s;flex-shrink:0;
-}
-.di:hover .di-ico,.di:focus .di-ico{transform:scale(1.08)}
-.di-lbl{font-family:'Ubuntu Mono',monospace;font-size:7.5px;color:#666;text-align:center;line-height:1.25;letter-spacing:.02em}
-.di-dot{width:4px;height:4px;background:var(--acc);border-radius:50%;margin-top:1px;display:none}
-.di.open .di-dot{display:block}
-.di-tip{
-  position:absolute;left:80px;top:50%;transform:translateY(-50%);
-  background:rgba(12,12,16,0.97);border:1px solid rgba(255,255,255,0.12);
-  padding:5px 12px;border-radius:5px;font-size:10px;white-space:nowrap;
-  pointer-events:none;opacity:0;transition:opacity .12s;z-index:200;
-  font-family:'Ubuntu Mono',monospace;color:#ccc;
-}
-.di:hover .di-tip{opacity:1}
-/* Dock icon bgs */
-.ico-proj{background:linear-gradient(135deg,#1e3a5f,#2563eb)}
-.ico-term{background:#0d1117;border:1px solid rgba(0,255,65,.3)}
-.ico-cv{background:linear-gradient(135deg,#7f1d1d,#dc2626)}
-.ico-gh{background:#161b22;border:1px solid rgba(255,255,255,0.08)}
-.ico-li{background:#0a66c2}
-.ico-ab{background:linear-gradient(135deg,#312e81,#4f46e5)}
-.ico-sk{background:linear-gradient(135deg,#064e3b,#0d9488)}
-.ico-ct{background:linear-gradient(135deg,#064e3b,#059669)}
-.ico-ieee{background:linear-gradient(135deg,#7c2d12,#c2410c)}
-.ico-ph{background:linear-gradient(135deg,#1e1b4b,#7c3aed)}
-
-/* ══════════════════════════════════
-   RIGHT MODE PANEL — desktop only
-══════════════════════════════════ */
-.rpanel{
-  position:absolute;right:0;top:0;bottom:58px;
-  width:196px;z-index:20;
-  display:flex;flex-direction:column;gap:10px;
-  padding:14px 11px;
-  background:rgba(6,6,10,0.72);
-  border-left:1px solid rgba(255,255,255,0.04);
-  backdrop-filter:blur(14px);
-}
-.rp-modes{display:flex;gap:0;border:1px solid rgba(255,255,255,0.08);border-radius:7px;overflow:hidden}
-.rp-mode{
-  flex:1;padding:10px 4px;display:flex;flex-direction:column;align-items:center;
-  gap:5px;cursor:pointer;transition:background .18s;border-right:1px solid rgba(255,255,255,0.06);
-}
-.rp-mode:last-child{border-right:none}
-.rp-mode.active{background:rgba(255,255,255,0.09)}
-.rp-mode:hover{background:rgba(255,255,255,0.06)}
-.rp-mico{width:30px;height:30px;display:flex;align-items:center;justify-content:center}
-.rp-mn{font-family:'Ubuntu Mono',monospace;font-size:7px;font-weight:700;letter-spacing:.1em;color:#aaa;margin-top:1px}
-.rp-ms{font-family:'Ubuntu Mono',monospace;font-size:6.5px;color:#444}
-.rp-hint{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:7px;padding:10px}
-.rp-hint-body{font-family:'Ubuntu Mono',monospace;font-size:9.5px;color:#444;line-height:1.55}
-.rp-preview{
-  flex:1;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);
-  border-radius:7px;overflow:hidden;display:flex;align-items:center;justify-content:center;
-  min-height:120px;position:relative;
-}
-canvas#rp-cv{width:100%;height:100%;display:block}
-.rp-dots{display:flex;gap:5px;justify-content:center;margin-top:2px}
-.rp-dt{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.12)}
-.rp-dt.active{background:var(--acc)}
-.rp-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.rp-stat{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:5px;padding:7px 8px;text-align:center}
-.rp-stat-v{font-family:'Ubuntu Mono',monospace;font-size:16px;color:var(--acc);font-weight:700}
-.rp-stat-l{font-family:'Ubuntu Mono',monospace;font-size:7px;color:#444;margin-top:1px;text-transform:uppercase}
-
-/* ══════════════════════════════════
-   MOBILE APP GRID
-══════════════════════════════════ */
-.mob-grid{
-  display:none;
-  position:absolute;left:0;right:0;top:36px;bottom:58px;
-  padding:20px 16px;
-  align-content:start;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;overflow-y:auto;z-index:20;
-}
-.mob-icon{
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  padding:14px 6px;border-radius:16px;cursor:pointer;transition:all .15s;
-  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);
-  min-height:90px;justify-content:center;
-}
-.mob-icon:active{transform:scale(0.92);background:rgba(255,255,255,0.08)}
-.mob-icon-img{font-size:30px;line-height:1}
-.mob-icon-lbl{font-family:'Ubuntu Mono',monospace;font-size:9px;color:#888;text-align:center}
-
-/* Mobile top bar */
-.mob-topbar{
-  display:none;position:absolute;top:0;left:0;right:0;height:36px;
-  background:rgba(6,6,10,0.8);backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(255,255,255,0.05);z-index:30;
-  align-items:center;justify-content:space-between;padding:0 14px;
-}
-.mob-topbar-l{font-family:'Ubuntu Mono',monospace;font-size:11px;color:#aaa}
-.mob-topbar-r{display:flex;align-items:center;gap:10px;font-size:12px}
-.mob-clock{font-family:'Ubuntu Mono',monospace;font-size:11px;color:#888}
-
-/* ══════════════════════════════════
-   WINDOWS
-══════════════════════════════════ */
-.win{
-  position:absolute;z-index:100;border-radius:11px;overflow:hidden;
-  display:none;flex-direction:column;
-  box-shadow:0 24px 80px rgba(0,0,0,0.75),0 0 0 1px rgba(255,255,255,0.07);
-  background:var(--win-bg);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  min-width:280px;min-height:180px;
-}
-.win.show{display:flex;animation:wopen .18s ease}
-@keyframes wopen{from{opacity:0;transform:scale(0.94) translateY(8px)}to{opacity:1;transform:none}}
-.win-tb{
-  display:flex;align-items:center;gap:8px;padding:11px 14px;
-  background:rgba(255,255,255,0.035);border-bottom:1px solid rgba(255,255,255,0.06);
-  cursor:grab;flex-shrink:0;
-}
-.win-tb:active{cursor:grabbing}
-.wb{width:12px;height:12px;border-radius:50%;cursor:pointer;flex-shrink:0;transition:filter .15s}
-.wb:hover{filter:brightness(1.5)}
-.wb-r{background:#ff5f57}.wb-a{background:#ffbd2e}.wb-g{background:#28c840}
-.win-title{font-family:'Ubuntu Mono',monospace;font-size:11px;color:#555;flex:1;text-align:center;padding-right:36px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.win-body{flex:1;overflow:auto;position:relative;user-select:text}
-
-/* ── RESIZE HANDLE ── */
-.rh{position:absolute;bottom:0;right:0;width:18px;height:18px;cursor:se-resize;z-index:10;opacity:0;transition:opacity .2s}
-.win:hover .rh{opacity:1}
-.rh svg{position:absolute;bottom:3px;right:3px;width:12px;height:12px}
-
-/* ══════════════════════════════════
-   TASKBAR
-══════════════════════════════════ */
-.taskbar{
-  position:absolute;bottom:0;left:0;right:0;height:48px;z-index:50;
-  display:flex;align-items:center;justify-content:space-between;padding:0 14px;
-  background:rgba(4,4,8,0.92);border-top:1px solid rgba(255,255,255,0.05);
-  backdrop-filter:blur(12px);gap:8px;
-}
-.tb-l{display:flex;align-items:center;gap:6px;min-width:0;flex:1;overflow:hidden}
-.tb-launch{
-  width:32px;height:32px;border-radius:7px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);cursor:pointer;
-  transition:background .15s;
-}
-.tb-launch:hover{background:rgba(255,255,255,0.12)}
-.tb-launch svg{width:15px;height:15px;fill:#666}
-.tb-pills{display:flex;gap:4px;overflow-x:auto;flex:1}
-.tb-pills::-webkit-scrollbar{display:none}
-.tb-pill{
-  display:flex;align-items:center;gap:5px;padding:4px 10px;
-  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);
-  border-radius:5px;cursor:pointer;font-family:'Ubuntu Mono',monospace;font-size:9px;color:#666;
-  transition:all .15s;white-space:nowrap;flex-shrink:0;
-}
-.tb-pill:hover{background:rgba(255,255,255,0.1);color:#aaa}
-.tb-pill.focused{background:rgba(255,255,255,0.12);color:#ccc;border-color:rgba(255,255,255,0.16)}
-.tb-c{flex-shrink:0}
-.tb-term{
-  display:flex;align-items:center;gap:7px;padding:5px 14px;
-  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);
-  border-radius:6px;cursor:pointer;transition:all .18s;
-  font-family:'Ubuntu Mono',monospace;font-size:10px;color:#666;white-space:nowrap;
-}
-.tb-term:hover{background:rgba(255,255,255,0.1);color:#ccc}
-.tb-r{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.tb-sys{font-size:13px;display:flex;gap:6px;align-items:center}
-.tb-clock{font-family:'Ubuntu Mono',monospace;font-size:11px;color:#777;white-space:nowrap}
-.tb-fs{font-size:14px;cursor:pointer;color:#444;transition:color .18s;padding:2px}
-.tb-fs:hover{color:#aaa}
-
-/* ══════════════════════════════════
-   STATUS BAR (bottom)
-══════════════════════════════════ */
-.sbar{
-  position:absolute;bottom:48px;left:0;right:0;height:20px;z-index:49;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 14px;pointer-events:none;
-}
-.sb-l{font-family:'Ubuntu Mono',monospace;font-size:9px;color:#2a5c2a;display:flex;align-items:center;gap:5px}
-.sb-dot{width:5px;height:5px;background:#22c55e;border-radius:50%;animation:sbp 2s infinite}
-@keyframes sbp{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.6)}50%{box-shadow:0 0 0 4px rgba(34,197,94,0)}}
-.sb-r{font-family:'Ubuntu Mono',monospace;font-size:9px;color:#2a5c2a}
-
-/* ══════════════════════════════════
-   CONTEXT MENU
-══════════════════════════════════ */
-.ctx{
-  position:fixed;z-index:9999;background:rgba(14,14,20,0.97);
-  border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:5px;
-  min-width:188px;backdrop-filter:blur(24px);
-  box-shadow:0 10px 40px rgba(0,0,0,0.7);display:none;
-}
-.ctx.show{display:block}
-.ci{
-  padding:7px 14px;font-family:'Ubuntu Mono',monospace;font-size:11px;
-  color:#aaa;cursor:pointer;border-radius:5px;transition:background .1s;
-  display:flex;align-items:center;gap:9px;
-}
-.ci:hover{background:rgba(255,255,255,0.08);color:#eee}
-.cs{height:1px;background:rgba(255,255,255,0.06);margin:4px 0}
-
-/* ══════════════════════════════════
-   TOAST
-══════════════════════════════════ */
-#toast-rack{position:fixed;bottom:68px;right:16px;z-index:9998;display:flex;flex-direction:column;gap:6px;pointer-events:none;align-items:flex-end}
-.toast{
-  background:rgba(14,14,20,0.97);border:1px solid rgba(255,255,255,0.1);
-  border-radius:7px;padding:9px 14px;font-family:'Ubuntu Mono',monospace;font-size:10px;
-  color:#aaa;backdrop-filter:blur(20px);
-  display:flex;align-items:center;gap:8px;max-width:260px;
-  animation:tin .22s ease,tout .28s ease 2.3s forwards;
-}
-@keyframes tin{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
-@keyframes tout{to{opacity:0;transform:translateX(16px)}}
-
-/* ══════════════════════════════════
-   WINDOW CONTENT STYLES
-══════════════════════════════════ */
-
-/* ─ File Manager ─ */
-.fm-bar{display:flex;align-items:center;gap:8px;padding:8px 13px;border-bottom:1px solid rgba(255,255,255,0.05);font-family:'Ubuntu Mono',monospace;font-size:10px;color:#444}
-.fm-path{color:#777;flex:1}
-.fm-filter{display:flex;gap:4px;padding:8px 13px;border-bottom:1px solid rgba(255,255,255,0.04);flex-wrap:wrap}
-.fm-flt{font-family:'Ubuntu Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.13em;padding:3px 8px;border:1px solid rgba(255,255,255,0.07);border-radius:3px;background:transparent;color:#444;cursor:pointer;transition:all .14s;text-transform:uppercase}
-.fm-flt:hover{border-color:rgba(255,255,255,0.18);color:#aaa}
-.fm-flt.active{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.18);color:#ddd}
-.fm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:2px;padding:10px;overflow:auto}
-.pf{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;border-radius:8px;cursor:pointer;transition:background .14s}
-.pf:hover{background:rgba(255,255,255,0.07)}
-.pf:active{background:rgba(255,255,255,0.12)}
-.pf-ico{width:52px;height:52px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px;position:relative;overflow:hidden;flex-shrink:0}
-.pf-ico::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,transparent 50%)}
-.pf-badge{position:absolute;top:-3px;right:-3px;width:14px;height:14px;background:#0ea5e9;border-radius:50%;border:2px solid var(--win-bg);font-size:7px;display:flex;align-items:center;justify-content:center;color:#fff}
-.pf-name{font-family:'Ubuntu Mono',monospace;font-size:8.5px;color:#aaa;text-align:center;line-height:1.3;word-break:break-word}
-.pf.hidden{display:none}
-
-/* ─ Project Detail ─ */
-.pd-hdr{padding:18px 20px 12px;border-bottom:1px solid rgba(255,255,255,0.05)}
-.pd-cat{font-family:'Ubuntu Mono',monospace;font-size:8.5px;color:#444;letter-spacing:.15em;text-transform:uppercase;margin-bottom:5px}
-.pd-name{font-size:17px;font-weight:700;color:#eee;margin-bottom:5px;line-height:1.3}
-.pd-badge{display:inline-block;font-family:'Ubuntu Mono',monospace;font-size:8px;padding:2px 9px;border-radius:3px;background:rgba(14,165,233,0.12);border:1px solid rgba(14,165,233,0.28);color:#7dd3fc;margin-bottom:6px}
-.pd-body{padding:14px 20px}
-.pd-desc{font-size:11.5px;color:#888;line-height:1.78;margin-bottom:12px}
-.pd-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
-.pd-tag{font-family:'Ubuntu Mono',monospace;font-size:8px;padding:3px 8px;border:1px solid rgba(255,255,255,0.09);border-radius:3px;color:#555;text-transform:uppercase;letter-spacing:.08em}
-.pd-links{display:flex;gap:8px;flex-wrap:wrap}
-.pd-link{font-family:'Ubuntu Mono',monospace;font-size:9.5px;padding:6px 14px;border:1px solid rgba(255,255,255,0.12);border-radius:4px;color:#aaa;text-decoration:none;transition:all .14s}
-.pd-link:hover{background:rgba(255,255,255,0.07);color:#eee}
-.pd-link.live{border-color:rgba(34,197,94,0.3);color:#6ee7b7}
-
-/* ─ Terminal ─ */
-.term-wrap{height:100%;display:flex;flex-direction:column;background:#020604;font-family:'Ubuntu Mono',monospace;font-size:12px}
-.term-out{flex:1;overflow-y:auto;padding:12px 14px;line-height:1.7;color:#b0f0b0}
-.term-out::-webkit-scrollbar{width:3px}
-.term-out::-webkit-scrollbar-thumb{background:#1a3d1a}
-.tl{color:#b0f0b0}.tl.cmd{color:#00ff41}.tl.dim{color:#2d5c2d}.tl.err{color:#ff6b6b}
-.tl.cyan{color:#00d4aa}.tl.amb{color:#ffc600}.tl.bold{font-weight:700;color:#00ff41}
-.tl.hi{color:#88C0D0}.tl.wh{color:#fff}
-.term-in-row{display:flex;align-items:center;padding:7px 12px;border-top:1px solid #0a2a0a;flex-shrink:0;gap:4px}
-.term-ps1{color:#00ff41;white-space:nowrap;font-size:11px;font-family:'Ubuntu Mono',monospace}
-.term-in{flex:1;background:transparent;border:none;outline:none;font-family:'Ubuntu Mono',monospace;font-size:12px;color:#b0f0b0;caret-color:#00ff41;-webkit-tap-highlight-color:transparent}
-
-/* ─ About ─ */
-.ab-wrap{padding:20px;overflow:auto;font-family:'Ubuntu Mono',monospace}
-.ab-name{font-size:19px;font-weight:700;color:#eee;margin-bottom:3px}
-.ab-role{font-size:10px;color:#444;letter-spacing:.1em;margin-bottom:18px;text-transform:uppercase}
-.ab-sec{margin-bottom:16px}
-.ab-sec-t{font-size:8.5px;color:#444;letter-spacing:.25em;text-transform:uppercase;margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid rgba(255,255,255,0.05)}
-.ab-text{font-size:11px;color:#777;line-height:1.78}
-.ab-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
-.ab-tag{font-size:8px;padding:2px 8px;border:1px solid rgba(255,255,255,0.08);border-radius:2px;color:#444;text-transform:uppercase;letter-spacing:.08em}
-.tl-item{display:flex;gap:11px;margin-bottom:11px;align-items:flex-start}
-.tl-dot{width:6px;height:6px;background:var(--acc);border-radius:50%;margin-top:4px;flex-shrink:0;box-shadow:0 0 6px var(--acc)}
-.tl-t{font-size:11px;color:#ddd;font-weight:700}
-.tl-s{font-size:9.5px;color:#444;margin-top:1px}
-
-/* ─ Skills ─ */
-.sk-wrap{padding:16px;overflow:auto}
-.sk-group{margin-bottom:16px}
-.sk-group-t{font-family:'Ubuntu Mono',monospace;font-size:9px;color:#444;letter-spacing:.22em;text-transform:uppercase;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.05)}
-.sk-tags{display:flex;flex-wrap:wrap;gap:5px}
-.sk-tag{font-family:'Ubuntu Mono',monospace;font-size:9px;padding:4px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:4px;color:#666;transition:all .15s;cursor:default}
-.sk-tag:hover{border-color:rgba(255,255,255,0.2);color:#aaa}
-.sk-bar-row{display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
-.sk-bar-row:last-child{border-bottom:none}
-.sk-bar-name{font-family:'Ubuntu Mono',monospace;font-size:10px;color:#888;width:130px;flex-shrink:0}
-.sk-bar-track{flex:1;height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
-.sk-bar-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:2px}
-.sk-bar-pct{font-family:'Ubuntu Mono',monospace;font-size:9px;color:#333;width:30px;text-align:right}
-
-/* ─ Resume ─ */
-.rv-wrap{padding:20px;overflow:auto;font-family:'Ubuntu Mono',monospace;display:flex;flex-direction:column;gap:14px}
-.rv-name{font-size:17px;color:#eee;font-weight:700}
-.rv-sub{font-size:9.5px;color:#444;margin-top:2px}
-.rv-dl{display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:7px;text-decoration:none;color:#aaa;transition:all .18s;font-size:10.5px}
-.rv-dl:hover{background:rgba(255,255,255,0.07);color:#eee;transform:translateY(-2px)}
-.rv-dl svg{width:20px;height:20px;fill:currentColor;flex-shrink:0}
-.rv-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.rv-stat{padding:11px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:6px}
-.rv-stat-v{font-size:21px;color:var(--acc);font-weight:700}
-.rv-stat-l{font-size:8.5px;color:#444;margin-top:2px;text-transform:uppercase;letter-spacing:.08em}
-.rv-sec-t{font-size:8.5px;color:#444;letter-spacing:.22em;text-transform:uppercase;margin-bottom:8px}
-.rv-cert{font-size:10px;color:#666;padding:7px 10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:5px;margin-bottom:5px}
-.rv-cert strong{color:#888}
-.rv-cert small{color:#333;display:block;margin-top:2px;font-size:8.5px}
-.rv-profile{font-size:11px;color:#666;line-height:1.75}
-
-/* ─ Contact ─ */
-.ct-wrap{padding:20px;overflow:auto;font-family:'Ubuntu Mono',monospace}
-.ct-t{font-size:14px;color:#eee;margin-bottom:4px;font-weight:700}
-.ct-s{font-size:9.5px;color:#444;margin-bottom:18px}
-.cf-g{margin-bottom:12px}
-.cf-l{font-size:8.5px;color:#444;letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px;display:block}
-.cf-i{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:5px;padding:8px 12px;color:#ddd;font-family:'Ubuntu Mono',monospace;font-size:11px;outline:none;transition:border-color .15s}
-.cf-i:focus{border-color:rgba(255,255,255,0.2)}
-.cf-ta{resize:vertical;min-height:80px}
-.cf-btn{width:100%;font-family:'Ubuntu Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;padding:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);border-radius:5px;color:#ddd;cursor:pointer;transition:all .18s;margin-top:6px}
-.cf-btn:hover{background:rgba(255,255,255,0.12);color:#fff}
-.cf-ok{display:none;font-size:9.5px;color:#6ee7b7;text-align:center;margin-top:8px}
-.ct-links{display:flex;flex-direction:column;gap:7px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.05)}
-.ct-link{font-size:10px;color:#444;text-decoration:none;display:flex;align-items:center;gap:8px;transition:color .15s}
-.ct-link:hover{color:#aaa}
-.ct-link::before{content:'→';color:var(--acc)}
-
-/* ─ IEEE ─ */
-.ie-wrap{padding:20px;overflow:auto;font-family:'Ubuntu Mono',monospace}
-.ie-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;background:rgba(14,165,233,0.1);border:1px solid rgba(14,165,233,0.22);border-radius:4px;margin-bottom:13px}
-.ie-badge span{font-size:9.5px;color:#7dd3fc;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-.ie-title{font-size:13.5px;color:#eee;font-weight:700;line-height:1.4;margin-bottom:7px}
-.ie-meta{font-size:9.5px;color:#444;margin-bottom:14px;line-height:1.65}
-.ie-bullets{display:flex;flex-direction:column;gap:8px;margin-bottom:15px}
-.ie-b{font-size:11px;color:#777;padding-left:14px;position:relative;line-height:1.65}
-.ie-b::before{content:'▸';position:absolute;left:0;color:var(--acc)}
-.ie-links{display:flex;gap:8px;flex-wrap:wrap}
-.ie-link{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border:1px solid rgba(14,165,233,0.28);border-radius:4px;color:#7dd3fc;text-decoration:none;font-size:9.5px;transition:all .18s;letter-spacing:.1em;text-transform:uppercase}
-.ie-link:hover{background:rgba(14,165,233,0.1)}
-.ie-link.gh{border-color:rgba(255,255,255,0.1);color:#666}
-.ie-link.gh:hover{background:rgba(255,255,255,0.05);color:#aaa}
-
-/* ══════════════════════════════════
-   RESPONSIVE OVERRIDES
-══════════════════════════════════ */
-
-/* Tablet 768–1099 */
-@media(min-width:768px) and (max-width:1099px){
-  .ldock{width:66px}
-  .di-lbl,.di-tip{display:none}
-  .rpanel{width:152px}
-  .rp-preview,.rp-dots,.rp-stats{display:none}
-  .rp-hint{display:block}
-}
-
-/* Mobile <768 */
-@media(max-width:767px){
-  .ldock,.rpanel,.sbar,.tb-launch,.tb-pills,.tb-term{display:none!important}
-  .mob-grid{display:grid!important}
-  .mob-topbar{display:flex!important}
-  .taskbar{padding:0 10px}
-  .tb-r{flex:1;justify-content:flex-end}
-  
-  .win{
-    position:fixed!important;
-    left:0!important;top:auto!important;right:0!important;bottom:0!important;
-    width:100%!important;height:88vh!important;
-    border-radius:18px 18px 0 0!important;
-    z-index:500!important;
-    transform:translateY(100%);
-    transition:transform .3s cubic-bezier(.4,0,.2,1);
-    display:flex!important;
-  }
-  .win.show{transform:translateY(0)}
-  .win-tb{cursor:default;padding-bottom:7px}
-  .win-tb::before{content:'';display:block;width:36px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;position:absolute;top:7px;left:50%;transform:translateX(-50%)}
-  .rh{display:none}
-}
-
-/* Large desktop > 1400 */
-@media(min-width:1400px){
-  .ldock{width:90px}
-  .di-ico{width:46px;height:46px}
-}
-</style>
+<!-- Custom Styles -->
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
-<div class="gbg"></div>
+<body class="orion-theme">
 
-<!-- ══════════ BOOT SCREEN ══════════ -->
-<div id="boot">
-  <div class="boot-pre">
-    <div>GNU GRUB version 2.12</div>
-    <div>&nbsp;</div>
-    <div>KaushalOS 2026.1 LTS ─ Personal Distribution</div>
-    <div>&nbsp;</div>
-    <div>Kali 2026.1 ─ Security Mode</div>
-    <div>Arch Linux 2026.06 ─ Research Mode</div>
-    <div>&nbsp;</div>
-    <div>Use the ↑↓ keys to select which entry is highlighted.<br>Press Enter to boot the selected OS.</div>
-  </div>
-  <div class="boot-card">
-    <div class="boot-card-head">Welcome to Kaushal's PC</div>
-    <div class="boot-card-sub">Choose an OS view<span class="cur"></span></div>
-    <div class="os-opts">
-      <!-- Ubuntu -->
-      <div class="os-opt sel" tabindex="0" onclick="selectOS('engineering')" id="os-ub">
-        <div class="os-logo">
-          <svg viewBox="0 0 64 64" width="50" height="50">
-            <circle cx="32" cy="32" r="26" fill="none" stroke="#E95420" stroke-width="8"/>
-            <circle cx="32" cy="7" r="7" fill="#E95420"/>
-            <circle cx="9.5" cy="51" r="7" fill="#E95420"/>
-            <circle cx="54.5" cy="51" r="7" fill="#E95420"/>
-          </svg>
-        </div>
-        <span class="os-name">Ubuntu</span>
-        <span class="os-sub">Engineering</span>
-      </div>
-      <!-- Kali -->
-      <div class="os-opt" tabindex="0" onclick="selectOS('security')" id="os-ka">
-        <div class="os-logo">
-          <svg viewBox="0 0 64 64" width="50" height="50">
-            <rect width="64" height="64" rx="8" fill="#1a1a2e"/>
-            <path d="M32 6 C40 14 54 18 50 30 C60 26 64 40 54 46 C58 58 44 66 36 58 C38 72 22 72 18 60 C8 66 2 52 8 44 C0 38 4 24 14 28 C10 16 24 12 32 6Z" fill="none" stroke="#0ff" stroke-width="1.5"/>
-            <text x="32" y="40" text-anchor="middle" fill="#0ff" font-family="Ubuntu Mono,monospace" font-size="12" font-weight="bold">KALI</text>
-          </svg>
-        </div>
-        <span class="os-name">Kali Linux</span>
-        <span class="os-sub">Security</span>
-      </div>
-      <!-- Arch -->
-      <div class="os-opt" tabindex="0" onclick="selectOS('research')" id="os-ar">
-        <div class="os-logo">
-          <svg viewBox="0 0 64 64" width="50" height="50">
-            <path d="M32 4 L6 60 L14 60 L32 18 L50 60 L58 60 Z" fill="#1793D1"/>
-            <path d="M22 42 L42 42 L38 52 L26 52 Z" fill="#1793D1" opacity="0.4"/>
-          </svg>
-        </div>
-        <span class="os-name">Arch Linux</span>
-        <span class="os-sub">Research</span>
-      </div>
+<!-- BOOT SEQUENCE -->
+<div id="boot-screen">
+  <div class="boot-content">
+    <div class="boot-logo">ORION<span class="blink">_</span></div>
+    <div class="boot-logs" id="boot-logs">
+      <div class="log-line">INITIALIZING ORION...</div>
     </div>
-    <div class="boot-bar-wrap"><div class="boot-bar" id="boot-bar"></div></div>
-    <div class="boot-prompt">Press ENTER to boot selected OS</div>
+    <div class="boot-progress"><div class="boot-bar"></div></div>
   </div>
 </div>
 
-<!-- ══════════ DESKTOP ══════════ -->
-<div id="desktop">
-  <canvas id="wp"></canvas>
+<!-- BACKGROUND LAYERS -->
+<div class="bg-layers">
+  <div class="bg-base"></div>
+  <div class="bg-grid"></div>
+  <div id="particles-container"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+</div>
 
-  <!-- Mobile top bar -->
-  <div class="mob-topbar">
-    <div class="mob-topbar-l" id="mob-mode-lbl">KaushalOS</div>
-    <div class="mob-topbar-r">
-      <span class="mob-clock" id="mob-clock">12:00</span>
-      <span>📶</span><span>🔋</span>
-    </div>
-  </div>
-
-  <!-- LEFT DOCK (desktop/tablet) -->
-  <div class="ldock">
-    <div class="di" onclick="openWin('projects')" tabindex="0" id="di-projects"><div class="di-ico ico-proj">📂</div><div class="di-lbl">Projects</div><div class="di-dot"></div><div class="di-tip">Projects</div></div>
-    <div class="di" onclick="openWin('terminal')" tabindex="0" id="di-terminal"><div class="di-ico ico-term" style="font-family:'Ubuntu Mono',monospace;font-size:14px;color:#00ff41;font-weight:700">&gt;_</div><div class="di-lbl">Terminal</div><div class="di-dot"></div><div class="di-tip">Terminal</div></div>
-    <div class="di" onclick="openWin('resume')" tabindex="0" id="di-resume"><div class="di-ico ico-cv">📄</div><div class="di-lbl">Resume</div><div class="di-dot"></div><div class="di-tip">Resume / CV</div></div>
-    <div class="di" onclick="extLink('https://github.com/kaushalrog')" tabindex="0"><div class="di-ico ico-gh" style="font-size:18px">🐙</div><div class="di-lbl">GitHub</div><div class="di-tip">github.com/kaushalrog</div></div>
-    <div class="di" onclick="extLink('https://www.linkedin.com/in/kaushal-s-19234b314')" tabindex="0"><div class="di-ico ico-li" style="font-size:15px;font-weight:900;color:#fff">in</div><div class="di-lbl">LinkedIn</div><div class="di-tip">LinkedIn Profile</div></div>
-    <div class="di" onclick="openWin('about')" tabindex="0" id="di-about"><div class="di-ico ico-ab">👤</div><div class="di-lbl">About</div><div class="di-dot"></div><div class="di-tip">About Me</div></div>
-    <div class="di" onclick="openWin('skills')" tabindex="0" id="di-skills"><div class="di-ico ico-sk">🧠</div><div class="di-lbl">Skills</div><div class="di-dot"></div><div class="di-tip">Skills</div></div>
-    <div class="di" onclick="openWin('contact')" tabindex="0" id="di-contact"><div class="di-ico ico-ct">📧</div><div class="di-lbl">Contact</div><div class="di-dot"></div><div class="di-tip">Get In Touch</div></div>
-    <div class="di" onclick="openWin('ieee')" tabindex="0" id="di-ieee"><div class="di-ico ico-ieee" style="font-family:'Ubuntu Mono',monospace;font-size:11px;font-weight:700;color:#fb923c">IEEE</div><div class="di-lbl">IEEE Paper</div><div class="di-dot"></div><div class="di-tip">AntBot · IEEE 2026</div></div>
-    <div class="di" onclick="extLink('https://drive.google.com/drive/folders/13eqdqJ4URxu0OCDohW2A_HUsPlX1g-Lr')" tabindex="0"><div class="di-ico ico-ph">📸</div><div class="di-lbl">Photos</div><div class="di-tip">Photography Portfolio</div></div>
-  </div>
-
-  <!-- MOBILE APP GRID -->
-  <div class="mob-grid" id="mob-grid">
-    <div class="mob-icon" onclick="openWin('projects')"><div class="mob-icon-img">📂</div><div class="mob-icon-lbl">Projects</div></div>
-    <div class="mob-icon" onclick="openWin('terminal')"><div class="mob-icon-img" style="font-family:'Ubuntu Mono',monospace;font-size:24px;color:#00ff41">&gt;_</div><div class="mob-icon-lbl">Terminal</div></div>
-    <div class="mob-icon" onclick="openWin('resume')"><div class="mob-icon-img">📄</div><div class="mob-icon-lbl">Resume</div></div>
-    <div class="mob-icon" onclick="extLink('https://github.com/kaushalrog')"><div class="mob-icon-img">🐙</div><div class="mob-icon-lbl">GitHub</div></div>
-    <div class="mob-icon" onclick="extLink('https://www.linkedin.com/in/kaushal-s-19234b314')"><div class="mob-icon-img">💼</div><div class="mob-icon-lbl">LinkedIn</div></div>
-    <div class="mob-icon" onclick="openWin('about')"><div class="mob-icon-img">👤</div><div class="mob-icon-lbl">About</div></div>
-    <div class="mob-icon" onclick="openWin('skills')"><div class="mob-icon-img">🧠</div><div class="mob-icon-lbl">Skills</div></div>
-    <div class="mob-icon" onclick="openWin('contact')"><div class="mob-icon-img">📧</div><div class="mob-icon-lbl">Contact</div></div>
-    <div class="mob-icon" onclick="openWin('ieee')"><div class="mob-icon-img" style="font-family:'Ubuntu Mono',monospace;font-size:16px;color:#fb923c;font-weight:700">IEEE</div><div class="mob-icon-lbl">IEEE Paper</div></div>
-  </div>
-
-  <!-- RIGHT PANEL (desktop) -->
-  <div class="rpanel">
-    <div class="rp-modes">
-      <div class="rp-mode active" id="rp-e" onclick="switchMode('engineering')">
-        <div class="rp-mico"><svg viewBox="0 0 40 40" width="28" height="28"><circle cx="20" cy="20" r="16" fill="none" stroke="#E95420" stroke-width="5"/><circle cx="20" cy="5" r="4.5" fill="#E95420"/><circle cx="6" cy="33" r="4.5" fill="#E95420"/><circle cx="34" cy="33" r="4.5" fill="#E95420"/></svg></div>
-        <div class="rp-mn">UBUNTU</div><div class="rp-ms">Engineering</div>
-      </div>
-      <div class="rp-mode" id="rp-s" onclick="switchMode('security')">
-        <div class="rp-mico"><svg viewBox="0 0 40 40" width="28" height="28"><rect width="40" height="40" rx="5" fill="#0d1117"/><path d="M20 4C26 10 34 12 32 20C38 17 40 26 34 30C36 38 26 44 20 38C14 44 4 38 6 30C0 26 2 17 8 20C6 12 14 10 20 4Z" fill="none" stroke="#0ff" stroke-width="1.2"/><text x="20" y="26" text-anchor="middle" fill="#0ff" font-family="Ubuntu Mono" font-size="9" font-weight="bold">KALI</text></svg></div>
-        <div class="rp-mn">KALI</div><div class="rp-ms">Security</div>
-      </div>
-      <div class="rp-mode" id="rp-r" onclick="switchMode('research')">
-        <div class="rp-mico"><svg viewBox="0 0 40 40" width="28" height="28"><path d="M20 3L4 37L9 37L20 12L31 37L36 37Z" fill="#1793D1"/><path d="M14 26L26 26L24 33L16 33Z" fill="#1793D1" opacity="0.35"/></svg></div>
-        <div class="rp-mn">ARCH</div><div class="rp-ms">Research</div>
-      </div>
-    </div>
-    <div class="rp-hint"><div class="rp-hint-body" id="rp-hint">Engineering — full-stack, production AI, autonomous systems.</div></div>
-    <div class="rp-stats">
-      <div class="rp-stat"><div class="rp-stat-v">8.7</div><div class="rp-stat-l">CGPA</div></div>
-      <div class="rp-stat"><div class="rp-stat-v">1</div><div class="rp-stat-l">IEEE</div></div>
-      <div class="rp-stat"><div class="rp-stat-v">9+</div><div class="rp-stat-l">Projects</div></div>
-      <div class="rp-stat"><div class="rp-stat-v">5</div><div class="rp-stat-l">Certs</div></div>
-    </div>
-    <div class="rp-preview"><canvas id="rp-cv"></canvas></div>
-    <div class="rp-dots"><div class="rp-dt active"></div><div class="rp-dt"></div><div class="rp-dt"></div></div>
-  </div>
-
-  <!-- ══ WINDOWS ══ -->
-
-  <!-- PROJECTS -->
-  <div class="win" id="win-projects" style="width:660px;height:470px;left:100px;top:60px">
-    <div class="win-tb" id="tb-projects"><div class="wb wb-r" onclick="closeWin('projects')"></div><div class="wb wb-a" onclick="minimizeWin('projects')"></div><div class="wb wb-g" onclick="maxWin('projects')"></div><div class="win-title">📂  ~/projects — File Manager</div></div>
-    <div class="win-body" style="display:flex;flex-direction:column">
-      <div class="fm-bar"><span style="cursor:pointer">←</span><span style="cursor:pointer;margin-left:6px">→</span><span class="fm-path">kaushal / projects</span></div>
-      <div class="fm-filter">
-        <button class="fm-flt active" data-pf="all">All</button>
-        <button class="fm-flt" data-pf="ai-ml">AI/ML</button>
-        <button class="fm-flt" data-pf="fullstack">Full-Stack</button>
-        <button class="fm-flt" data-pf="security">Security</button>
-        <button class="fm-flt" data-pf="autonomous">Robotics</button>
-        <button class="fm-flt" data-pf="research">Research</button>
-        <button class="fm-flt" data-pf="transport">Transport</button>
-        <button class="fm-flt" data-pf="materials">Materials</button>
-      </div>
-      <div class="fm-grid" id="proj-grid"></div>
-    </div>
-    <div class="rh"><svg viewBox="0 0 12 12"><path d="M2 10L10 2M5 10L10 5M8 10L10 8" stroke="#666" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-  </div>
-
-  <!-- PROJECT DETAIL -->
-  <div class="win" id="win-projdetail" style="width:480px;height:420px;left:180px;top:120px">
-    <div class="win-tb" id="tb-projdetail"><div class="wb wb-r" onclick="closeWin('projdetail')"></div><div class="wb wb-a" onclick="minimizeWin('projdetail')"></div><div class="wb wb-g" onclick="maxWin('projdetail')"></div><div class="win-title" id="pd-wt">Project</div></div>
-    <div class="win-body"><div id="pd-ct"></div></div>
-    <div class="rh"><svg viewBox="0 0 12 12"><path d="M2 10L10 2M5 10L10 5M8 10L10 8" stroke="#666" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-  </div>
-
-  <!-- TERMINAL -->
-  <div class="win" id="win-terminal" style="width:560px;height:390px;left:140px;top:100px">
-    <div class="win-tb" id="tb-terminal"><div class="wb wb-r" onclick="closeWin('terminal')"></div><div class="wb wb-a" onclick="minimizeWin('terminal')"></div><div class="wb wb-g" onclick="maxWin('terminal')"></div><div class="win-title">kaushal@kaushalos: ~</div></div>
-    <div class="win-body" style="background:#020604"><div class="term-wrap"><div class="term-out" id="term-out"></div><div class="term-in-row"><span class="term-ps1">kaushal@kaushalos:~$&nbsp;</span><input class="term-in" id="term-in" autocomplete="off" spellcheck="false" placeholder="type 'help'"></div></div></div>
-    <div class="rh"><svg viewBox="0 0 12 12"><path d="M2 10L10 2M5 10L10 5M8 10L10 8" stroke="#666" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-  </div>
-
-  <!-- ABOUT -->
-  <div class="win" id="win-about" style="width:450px;height:460px;left:160px;top:80px">
-    <div class="win-tb" id="tb-about"><div class="wb wb-r" onclick="closeWin('about')"></div><div class="wb wb-a" onclick="minimizeWin('about')"></div><div class="wb wb-g" onclick="maxWin('about')"></div><div class="win-title">👤  about.md</div></div>
-    <div class="win-body">
-      <div class="ab-wrap">
-        <div class="ab-name">Kaushal S</div>
-        <div class="ab-role">ML Engineer · Robotics Researcher · IEEE Published · Amrita VV</div>
-        <div class="ab-sec"><div class="ab-sec-t">PROFILE SUMMARY</div><div class="ab-text">Third-year BTech AI undergraduate at Amrita Vishwa Vidyapeetham (CGPA 8.7) with research output in cybersecurity, edge computing, and applied ML. Published in IEEE on autonomous robotics. Experienced in behavioral IDS, intelligent scheduling for distributed edge environments, and hybrid AI for smart-city applications. Combines deep engineering focus with broad cross-domain curiosity spanning computational biology, materials science, and traffic systems.</div></div>
-        <div class="ab-sec"><div class="ab-sec-t">TIMELINE</div>
-          <div class="tl-item"><div class="tl-dot"></div><div><div class="tl-t">B.Tech — Artificial Intelligence</div><div class="tl-s">Amrita Vishwa Vidyapeetham · July 2024–2028 · CGPA 8.7 / 10</div></div></div>
-          <div class="tl-item"><div class="tl-dot"></div><div><div class="tl-t">IEEE Publication — AntBot (Jan 2026)</div><div class="tl-s">Design and Experimental Validation of Hexapod Surveillance Platform</div></div></div>
-          <div class="tl-item"><div class="tl-dot"></div><div><div class="tl-t">WDS-IDS — Behavioral IDS on RPi 5 (Feb 2026)</div><div class="tl-s">100% recall · AUC 1.00 · &lt;12ms edge latency</div></div></div>
-          <div class="tl-item"><div class="tl-dot"></div><div><div class="tl-t">Photographer · Srishti & Team Media</div><div class="tl-s">Amrita Vishwa Vidyapeetham · Aug 2024–Present</div></div></div>
-        </div>
-        <div class="ab-sec"><div class="ab-sec-t">RESEARCH INTERESTS</div>
-          <div class="ab-tags">
-            <span class="ab-tag">Behavioral IDS</span><span class="ab-tag">Edge AI</span>
-            <span class="ab-tag">Autonomous Robotics</span><span class="ab-tag">Smart-City AI</span>
-            <span class="ab-tag">Computational Biology</span><span class="ab-tag">Materials Informatics</span>
-            <span class="ab-tag">Drift Detection</span><span class="ab-tag">Resource Optimization</span>
-          </div>
-        </div>
-        <div class="ab-sec"><div class="ab-sec-t">PHILOSOPHY</div><div class="ab-text" style="color:#2d5c2d;font-style:italic">"Making machines smarter and myself more confused. Still compiling. Still learning."</div></div>
-      </div>
-    </div>
-    <div class="rh"><svg viewBox="0 0 12 12"><path d="M2 10L10 2M5 10L10 5M8 10L10 8" stroke="#666" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-  </div>
-
-  <!-- SKILLS -->
-  <div class="win" id="win-skills" style="width:520px;height:480px;left:140px;top:80px">
-    <div class="win-tb" id="tb-skills"><div class="wb wb-r" onclick="closeWin('skills')"></div><div class="wb wb-a" onclick="minimizeWin('skills')"></div><div class="wb wb-g" onclick="maxWin('skills')"></div><div class="win-title">🧠  skills.conf</div></div>
-    <div class="win-body">
-      <div class="sk-wrap">
-        <div class="sk-group"><div class="sk-group-t">PROGRAMMING LANGUAGES</div>
-          <div class="sk-bar-row"><span class="sk-bar-name">Python</span><div class="sk-bar-track"><div class="sk-bar-fill" style="width:92%"></div></div><span class="sk-bar-pct">92%</span></div>
-          <div class="sk-bar-row"><span class="sk-bar-name">SQL (Advanced)</span><div class="sk-bar-track"><div class="sk-bar-fill" style="width:85%"></div></div><span class="sk-bar-pct">85%</span></div>
-          <div class="sk-bar-row"><span class="sk-bar-name">C++ / C</span><div class="sk-bar-track"><div class="sk-bar-fill" style="width:78%"></div></div><span class="sk-bar-pct">78%</span></div>
-          <div class="sk-bar-row"><span class="sk-bar-name">JavaScript</span><div class="sk-bar-track"><div class="sk-bar-fill" style="width:72%"></div></div><span class="sk-bar-pct">72%</span></div>
-          <div class="sk-bar-row"><span class="sk-bar-name">Bash / Shell</span><div class="sk-bar-track"><div class="sk-bar-fill" style="width:75%"></div></div><span class="sk-bar-pct">75%</span></div>
-          <div class="sk-bar-row"><span class="sk-bar-name">Java</span><div class="sk-bar-track"><div class="sk-bar-fill" style="width:80%"></div></div><span class="sk-bar-pct">80%</span></div>
-        </div>
-        <div class="sk-group"><div class="sk-group-t">MACHINE LEARNING & AI</div>
-          <div class="sk-tags">
-            <span class="sk-tag">Scikit-learn</span><span class="sk-tag">TensorFlow</span><span class="sk-tag">PyTorch</span>
-            <span class="sk-tag">LightGBM</span><span class="sk-tag">Random Forest</span><span class="sk-tag">LSTM</span>
-            <span class="sk-tag">Neural Networks</span><span class="sk-tag">Fuzzy Logic</span><span class="sk-tag">OpenCV</span>
-          </div>
-        </div>
-        <div class="sk-group"><div class="sk-group-t">DATA & ANALYTICS</div>
-          <div class="sk-tags">
-            <span class="sk-tag">Pandas</span><span class="sk-tag">NumPy</span><span class="sk-tag">Google BigQuery</span>
-            <span class="sk-tag">Google Dataflow</span><span class="sk-tag">Data Visualization</span><span class="sk-tag">MATLAB</span>
-          </div>
-        </div>
-        <div class="sk-group"><div class="sk-group-t">CYBERSECURITY</div>
-          <div class="sk-tags">
-            <span class="sk-tag">Intrusion Detection</span><span class="sk-tag">Behavioral Analysis</span>
-            <span class="sk-tag">Drift Detection</span><span class="sk-tag">Kali Linux</span>
-            <span class="sk-tag">Threat Detection</span><span class="sk-tag">Steganography</span>
-          </div>
-        </div>
-        <div class="sk-group"><div class="sk-group-t">EDGE & DISTRIBUTED COMPUTING</div>
-          <div class="sk-tags">
-            <span class="sk-tag">Raspberry Pi 5</span><span class="sk-tag">Edge Computing</span>
-            <span class="sk-tag">Distributed Systems</span><span class="sk-tag">Scheduling Algorithms</span>
-            <span class="sk-tag">Resource Optimization</span><span class="sk-tag">Q-Learning</span>
-          </div>
-        </div>
-        <div class="sk-group"><div class="sk-group-t">FULL STACK & CLOUD</div>
-          <div class="sk-tags">
-            <span class="sk-tag">React 18</span><span class="sk-tag">Node.js</span><span class="sk-tag">Firebase</span>
-            <span class="sk-tag">Google Cloud</span><span class="sk-tag">REST APIs</span><span class="sk-tag">PostgreSQL</span>
-            <span class="sk-tag">Supabase</span><span class="sk-tag">Vercel</span><span class="sk-tag">Git / GitHub</span>
-          </div>
-        </div>
-        <div class="sk-group"><div class="sk-group-t">ENGINEERING CONCEPTS</div>
-          <div class="sk-tags">
-            <span class="sk-tag">OOP</span><span class="sk-tag">Algorithm Design</span><span class="sk-tag">Feature Engineering</span>
-            <span class="sk-tag">Graph Theory</span><span class="sk-tag">System Monitoring</span><span class="sk-tag">Inverse Kinematics</span>
-            <span class="sk-tag">Motion Planning</span><span class="sk-tag">Materials Informatics</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="rh"><svg viewBox="0 0 12 12"><path d="M2 10L10 2M5 10L10 5M8 10L10 8" stroke="#666" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-  </div>
-
-  <!-- RESUME -->
-  <div class="win" id="win-resume" style="width:400px;height:470px;left:170px;top:80px">
-    <div class="win-tb" id="tb-resume"><div class="wb wb-r" onclick="closeWin('resume')"></div><div class="wb wb-a" onclick="minimizeWin('resume')"></div><div class="wb wb-g" onclick="maxWin('resume')"></div><div class="win-title">📄  curriculum-vitae.pdf</div></div>
-    <div class="win-body">
-      <div class="rv-wrap">
-        <div><div class="rv-name">Kaushal S</div><div class="rv-sub">BTech AI · Amrita Vishwa Vidyapeetham · IEEE Researcher · CGPA 8.7</div></div>
-        <div class="rv-profile">Third-year AI undergraduate with research output in cybersecurity, edge computing, and applied ML. IEEE-published on autonomous robotics. Strong cross-domain focus spanning smart-city systems, computational biology, and materials science.</div>
-        <a href="https://drive.google.com/file/d/1vNouvR0xk24Vo0vjgVY9oO2hzKTIP-wW/view?usp=sharing" target="_blank" class="rv-dl">
-          <svg viewBox="0 0 24 24"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 4h14v-2H5v2z"/></svg>
-          <div><div style="font-size:11px;color:#ddd;font-weight:700">Download Full CV</div><div style="font-size:8.5px;color:#444;margin-top:1px">CV_Kaushal.pdf · Google Drive</div></div>
+<!-- NAVIGATION -->
+<nav id="nav">
+  <div class="nav-glass"></div>
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">
+      <i data-lucide="hexagon" class="brand-icon"></i>
+      <span class="brand-text">KAUSHAL_S</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#research"><span class="nav-num">01</span> Research</a></li>
+      <li><a href="#projects"><span class="nav-num">02</span> Projects</a></li>
+      <li><a href="#opensource"><span class="nav-num">03</span> Open Source</a></li>
+      <li><a href="#about"><span class="nav-num">04</span> Profile</a></li>
+      <li><a href="#contact"><span class="nav-num">05</span> Uplink</a></li>
+      <li>
+        <a href="https://drive.google.com/file/d/1vNouvR0xk24Vo0vjgVY9oO2hzKTIP-wW/view?usp=sharing" target="_blank" class="nav-resume">
+          <i data-lucide="file-text"></i> Resume
         </a>
-        <div class="rv-stats">
-          <div class="rv-stat"><div class="rv-stat-v">8.7</div><div class="rv-stat-l">CGPA / 10</div></div>
-          <div class="rv-stat"><div class="rv-stat-v">1</div><div class="rv-stat-l">IEEE Paper</div></div>
-          <div class="rv-stat"><div class="rv-stat-v">9+</div><div class="rv-stat-l">Projects</div></div>
-          <div class="rv-stat"><div class="rv-stat-v">5</div><div class="rv-stat-l">Certs 2026</div></div>
+      </li>
+    </ul>
+    <button class="nav-mobile-btn" aria-label="Menu">
+      <i data-lucide="menu"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main>
+
+  <!-- ════════ HERO: MISSION CONTROL ════════ -->
+  <section id="hero" class="mission-section">
+    <div class="container hero-layout">
+      
+      <!-- Left: Identity -->
+      <div class="hero-identity">
+        <div class="hero-badge">
+          <i data-lucide="satellite"></i> 3rd Year B.Tech AI · Amrita Vishwa Vidyapeetham
         </div>
-        <div><div class="rv-sec-t">CERTIFICATIONS 2026</div>
-          <div class="rv-cert"><strong>AI for Product Management</strong> — Pendo.io<small>Skills: Product Management, Data Analytics · May 2026</small></div>
-          <div class="rv-cert"><strong>Introduction to Cybersecurity</strong> — Cisco<small>Skills: Cybersecurity, Threat Detection · May 2026</small></div>
-          <div class="rv-cert"><strong>Data Analytics in Google Cloud</strong> — Google<small>BigQuery, Cloud Dataflow · May 2026</small></div>
-          <div class="rv-cert"><strong>Software Engineer Intern</strong> — HackerRank<small>ID: 60681A381664 · May 2026</small></div>
-          <div class="rv-cert"><strong>SQL (Advanced)</strong> — HackerRank<small>ID: D879B495DC76 · May 2026</small></div>
+        <h1 class="hero-name">Kaushal S</h1>
+        <h2 class="hero-role">AI Engineer</h2>
+        <p class="hero-desc">
+          Building intelligent systems that operate in constrained environments. 
+          Bridging the gap between theoretical AI and physical execution through robotics, edge computing, and cybersecurity.
+        </p>
+        <div class="hero-actions">
+          <a href="#research" class="btn-neon">
+            <span>Initialize Mission</span>
+            <i data-lucide="arrow-right"></i>
+          </a>
+          <a href="#contact" class="btn-glass">
+            <i data-lucide="radio"></i> Open Comm Channel
+          </a>
         </div>
-        <div class="ct-links" style="border-top:1px solid rgba(255,255,255,0.05);padding-top:12px;margin-top:4px">
-          <a href="https://kaushalrog.github.io/portfolio" target="_blank" class="ct-link">kaushalrog.github.io/portfolio</a>
-          <a href="https://github.com/kaushalrog" target="_blank" class="ct-link">github.com/kaushalrog</a>
-          <a href="mailto:kaushalreddy15@gmail.com" class="ct-link">kaushalreddy15@gmail.com</a>
+      </div>
+
+      <!-- Right: Status Panel -->
+      <div class="mission-panel">
+        <div class="panel-header">
+          <i data-lucide="activity"></i> MISSION STATUS
+          <span class="live-dot"></span>
+        </div>
+        <div class="panel-body">
+          <div class="status-row">
+            <span class="status-label">LATEST_ACHIEVEMENT</span>
+            <span class="status-value highlight-cyan">IEEE Published (2026)</span>
+          </div>
+          <div class="status-row">
+            <span class="status-label">CURRENT_FOCUS</span>
+            <span class="status-value">Edge Intelligence</span>
+          </div>
+          <div class="status-row">
+            <span class="status-label">DOMAINS</span>
+            <span class="status-value">AI + Robotics + Security</span>
+          </div>
+          <div class="status-row">
+            <span class="status-label">AVAILABILITY</span>
+            <span class="status-value highlight-blue">Research & Engineering</span>
+          </div>
+          <div class="status-row">
+            <span class="status-label">LOCATION</span>
+            <span class="status-value">Coimbatore, India</span>
+          </div>
+          
+          <div class="panel-divider"></div>
+          
+          <div class="status-networks">
+            <a href="https://github.com/kaushalrog" target="_blank" class="net-link" aria-label="GitHub"><i data-lucide="github"></i></a>
+            <a href="https://www.linkedin.com/in/kaushal-s-19234b314" target="_blank" class="net-link" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+            <a href="mailto:kaushalreddy15@gmail.com" class="net-link" aria-label="Email"><i data-lucide="mail"></i></a>
+          </div>
         </div>
       </div>
     </div>
-    <div class="rh"><svg viewBox="0 0 12 12"><path d="M2 10L10 2M5 10L10 5M8 10L10 8" stroke="#666" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-  </div>
+  </section>
 
-  <!-- CONTACT -->
-  <div class="win" id="win-contact" style="width:380px;height:460px;left:170px;top:80px">
-    <div class="win-tb" id="tb-contact"><div class="wb wb-r" onclick="closeWin('contact')"></div><div class="wb wb-a" onclick="minimizeWin('contact')"></div><div class="wb wb-g" onclick="maxWin('contact')"></div><div class="win-title">📧  contact.sh</div></div>
-    <div class="win-body">
-      <div class="ct-wrap">
-        <div class="ct-t">Get In Touch</div>
-        <div class="ct-s">Open to internships, research collabs &amp; interesting problems.</div>
-        <form onsubmit="submitContact(event)">
-          <div class="cf-g"><label class="cf-l">Your Name</label><input class="cf-i" id="cf-nm" type="text" placeholder="John Doe" required></div>
-          <div class="cf-g"><label class="cf-l">Email (optional)</label><input class="cf-i" id="cf-em" type="email" placeholder="you@example.com"></div>
-          <div class="cf-g"><label class="cf-l">Message</label><textarea class="cf-i cf-ta" id="cf-ms" placeholder="Hey Kaushal..." required></textarea></div>
-          <button type="submit" class="cf-btn">$ ./send_message.sh</button>
-          <div class="cf-ok" id="cf-ok">[  OK  ] Opening mail client...</div>
-        </form>
-        <div class="ct-links">
-          <a href="mailto:kaushalreddy15@gmail.com" class="ct-link">kaushalreddy15@gmail.com</a>
-          <a href="tel:+919642293339" class="ct-link">+91 96422 93339</a>
-          <a href="https://www.linkedin.com/in/kaushal-s-19234b314" target="_blank" class="ct-link">linkedin.com/in/kaushal-s-19234b314</a>
-          <a href="https://github.com/kaushalrog" target="_blank" class="ct-link">github.com/kaushalrog</a>
-          <a href="https://kaushalrog.github.io/portfolio" target="_blank" class="ct-link">kaushalrog.github.io/portfolio</a>
+
+  <!-- ════════ RESEARCH: MISSION ALPHA ════════ -->
+  <section id="research" class="mission-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="sh-subtitle">MODULE 01 // MISSION ALPHA</div>
+        <h2 class="sh-title">IEEE Publication</h2>
+      </div>
+
+      <div class="glass-card research-module">
+        <div class="rm-backdrop"></div>
+        <div class="rm-content">
+          <div class="rm-meta">
+            <div class="rm-badge"><i data-lucide="book-open"></i> IEEE Xplore</div>
+            <div class="rm-date">January 2026</div>
+            <div class="rm-doi">DOI: 10.1109/ieeexplore.2026.11426098</div>
+          </div>
+          
+          <h3 class="rm-title">Design and Experimental Validation of AntBot: An Accessible Hexapod Platform for Surveillance</h3>
+          <p class="rm-authors">Kaushal S et al. — Amrita Vishwa Vidyapeetham</p>
+
+          <div class="rm-grid">
+            <div class="rm-col">
+              <h4 class="rm-heading"><i data-lucide="target"></i> Problem Statement</h4>
+              <p>Commercial hexapods ($5K-$50K) require proprietary software, limiting university research. Furthermore, disaster zones lack GPS, demanding autonomous navigation without external positioning.</p>
+            </div>
+            <div class="rm-col">
+              <h4 class="rm-heading"><i data-lucide="cpu"></i> Architecture & Approach</h4>
+              <p>Engineered a 21-DOF hexapod with custom inverse kinematics (MATLAB validated). Integrated OpenCV for GPS-denied navigation. Built with commodity hardware for ~5% of commercial cost.</p>
+            </div>
+            <div class="rm-col">
+              <h4 class="rm-heading"><i data-lucide="check-circle"></i> Validation Results</h4>
+              <ul class="rm-list">
+                <li>Stable autonomous locomotion in unstructured terrain</li>
+                <li>Real-world execution of MATLAB-validated tripod gait</li>
+                <li>Persistent surveillance via onboard computer vision</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="rm-footer">
+            <div class="rm-tech">
+              <span class="tech-chip">C++</span>
+              <span class="tech-chip">OpenCV</span>
+              <span class="tech-chip">MATLAB</span>
+              <span class="tech-chip">Raspberry Pi</span>
+            </div>
+            <div class="rm-actions">
+              <a href="https://ieeexplore.ieee.org/abstract/document/11426098" target="_blank" class="btn-neon-small">
+                <i data-lucide="external-link"></i> Access Paper
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="rh"><svg viewBox="0 0 12 12"><path d="M2 10L10 2M5 10L10 5M8 10L10 8" stroke="#666" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-  </div>
+  </section>
 
-  <!-- IEEE -->
-  <div class="win" id="win-ieee" style="width:480px;height:400px;left:160px;top:90px">
-    <div class="win-tb" id="tb-ieee"><div class="wb wb-r" onclick="closeWin('ieee')"></div><div class="wb wb-a" onclick="minimizeWin('ieee')"></div><div class="wb wb-g" onclick="maxWin('ieee')"></div><div class="win-title">🏆  AntBot · IEEE 2026</div></div>
-    <div class="win-body">
-      <div class="ie-wrap">
-        <div class="ie-badge"><span>IEEE PUBLISHED</span><span style="font-size:8.5px;color:#444">January 8, 2026</span></div>
-        <div class="ie-title">Design and Experimental Validation of AntBot: An Accessible Hexapod Platform for Surveillance</div>
-        <div class="ie-meta">Kaushal S et al. · IEEE Xplore · DOI: 10.1109/ieeexplore.2026.11426098<br>Amrita Vishwa Vidyapeetham, Coimbatore, Tamil Nadu</div>
-        <div class="ie-bullets">
-          <div class="ie-b">Presented complete design and experimental validation of AntBot — a low-cost legged surveillance robot inspired by biological locomotion.</div>
-          <div class="ie-b">Addressed practical adoption constraints: cost, control complexity, and mobility in unstructured environments.</div>
-          <div class="ie-b">21-DOF hexapod with inverse kinematics and tripod gait validated via MATLAB simulation.</div>
-          <div class="ie-b">Computer vision integration for autonomous navigation in GPS-denied environments and persistent surveillance.</div>
+
+  <!-- ════════ PROJECTS: FLAGSHIP SYSTEMS ════════ -->
+  <section id="projects" class="mission-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="sh-subtitle">MODULE 02 // ENGINEERING SYSTEMS</div>
+        <h2 class="sh-title">Deployed Projects</h2>
+      </div>
+
+      <div class="projects-layout">
+        
+        <!-- P1: WDS-IDS -->
+        <article class="glass-card project-card theme-sec">
+          <div class="pc-visual">
+            <!-- Cyber SOC visualization -->
+            <div class="cyber-grid"></div>
+            <div class="radar-sweep"></div>
+            <i data-lucide="shield-alert" class="pc-icon"></i>
+          </div>
+          <div class="pc-content">
+            <div class="pc-meta">
+              <span class="pc-cat">CYBERSECURITY // EDGE AI</span>
+            </div>
+            <h3 class="pc-title">WDS-IDS</h3>
+            <p class="pc-desc">Behavioral Intrusion Detection System observing OS-level anomalies rather than inspecting obfuscated HTTP payloads.</p>
+            
+            <div class="pc-specs">
+              <div class="spec-item">
+                <span class="spec-val">100%</span>
+                <span class="spec-lbl">Recall (SRBH-20)</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-val">&lt;12ms</span>
+                <span class="spec-lbl">RPi 5 Latency</span>
+              </div>
+            </div>
+            
+            <div class="pc-footer">
+              <div class="tech-cluster">
+                <span class="tech-chip">Python</span>
+                <span class="tech-chip">scikit-learn</span>
+                <span class="tech-chip">Drift Detection</span>
+              </div>
+              <a href="https://github.com/kaushalrog/ids---System" target="_blank" class="btn-glass-icon"><i data-lucide="github"></i></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- P2: ABiZ -->
+        <article class="glass-card project-card theme-data">
+          <div class="pc-visual">
+            <!-- Data dashboard visual -->
+            <div class="data-bars">
+              <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            </div>
+            <i data-lucide="bar-chart-2" class="pc-icon"></i>
+          </div>
+          <div class="pc-content">
+            <div class="pc-meta">
+              <span class="pc-cat">FULL-STACK // AI</span>
+              <span class="status-dot live"></span>
+            </div>
+            <h3 class="pc-title">ABiZ BI Platform</h3>
+            <p class="pc-desc">Production business intelligence platform aggregating 10+ news sources with Gemini sentiment analysis and market dashboards.</p>
+            
+            <div class="pc-specs">
+              <div class="spec-item">
+                <span class="spec-val">Vercel</span>
+                <span class="spec-lbl">Deployed</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-val">Native</span>
+                <span class="spec-lbl">Android APK</span>
+              </div>
+            </div>
+
+            <div class="pc-footer">
+              <div class="tech-cluster">
+                <span class="tech-chip">React</span>
+                <span class="tech-chip">Node.js</span>
+                <span class="tech-chip">Firebase</span>
+                <span class="tech-chip">Gemini AI</span>
+              </div>
+              <div class="pc-actions">
+                <a href="https://abiz-final-version.vercel.app" target="_blank" class="btn-neon-small">Live ↗</a>
+                <a href="https://github.com/Beatlestrauma/ABiZ_Final_version" target="_blank" class="btn-glass-icon"><i data-lucide="github"></i></a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- P3: TrafficFlow AI -->
+        <article class="glass-card project-card theme-ml">
+          <div class="pc-visual">
+            <!-- Neural network visual -->
+            <div class="node-network">
+              <svg viewBox="0 0 100 100"><path d="M20,50 L50,20 L80,50 L50,80 Z" stroke="rgba(115, 247, 255, 0.4)" fill="none"/><circle cx="20" cy="50" r="4" fill="#73F7FF"/><circle cx="50" cy="20" r="4" fill="#73F7FF"/><circle cx="80" cy="50" r="4" fill="#73F7FF"/><circle cx="50" cy="80" r="4" fill="#73F7FF"/></svg>
+            </div>
+            <i data-lucide="network" class="pc-icon"></i>
+          </div>
+          <div class="pc-content">
+            <div class="pc-meta">
+              <span class="pc-cat">MACHINE LEARNING // SMART CITY</span>
+            </div>
+            <h3 class="pc-title">TrafficFlow AI</h3>
+            <p class="pc-desc">Hybrid model combining LSTM, LightGBM, and Fuzzy Logic for interpretable, adaptive traffic signal optimization.</p>
+            
+            <div class="pc-specs">
+              <div class="spec-item">
+                <span class="spec-val">Hybrid</span>
+                <span class="spec-lbl">Architecture</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-val">CO₂</span>
+                <span class="spec-lbl">Tracking</span>
+              </div>
+            </div>
+
+            <div class="pc-footer">
+              <div class="tech-cluster">
+                <span class="tech-chip">TensorFlow</span>
+                <span class="tech-chip">LightGBM</span>
+                <span class="tech-chip">Fuzzy Logic</span>
+              </div>
+              <a href="https://github.com/kaushalrog/TrafficFlowAI" target="_blank" class="btn-glass-icon"><i data-lucide="github"></i></a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Other Systems -->
+      <div class="sub-systems-grid">
+        <a href="https://github.com/kaushalrog?tab=repositories" target="_blank" class="glass-panel sys-item">
+          <i data-lucide="cpu" class="sys-icon"></i>
+          <div class="sys-info">
+            <h4>AI-DWECS</h4>
+            <p>Q-Learning edge scheduler</p>
+          </div>
+        </a>
+        <a href="https://github.com/kaushalrog?tab=repositories" target="_blank" class="glass-panel sys-item">
+          <i data-lucide="dna" class="sys-icon"></i>
+          <div class="sys-info">
+            <h4>SVD Genomic Steg</h4>
+            <p>DNA-based steganography</p>
+          </div>
+        </a>
+        <a href="https://github.com/kaushalrog/mcdip-admm-ct-reconstruction" target="_blank" class="glass-panel sys-item">
+          <i data-lucide="scan" class="sys-icon"></i>
+          <div class="sys-info">
+            <h4>MCDIP-ADMM</h4>
+            <p>Unsupervised CT reconstruction</p>
+          </div>
+        </a>
+        <a href="https://github.com/kaushalrog/kerala_metro_scheduling" target="_blank" class="glass-panel sys-item">
+          <i data-lucide="train" class="sys-icon"></i>
+          <div class="sys-info">
+            <h4>Kerala Metro AI</h4>
+            <p>Headway minimization</p>
+          </div>
+        </a>
+        <a href="https://github.com/kaushalrog/-Machine-Learning-Driven-Structure-Property-Correlation-for-Mechanical-Design-of-Alloys" target="_blank" class="glass-panel sys-item">
+          <i data-lucide="layers" class="sys-icon"></i>
+          <div class="sys-info">
+            <h4>ML Alloy Predictor</h4>
+            <p>Mechanical property prediction</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════ OPEN SOURCE: MISSION CONTRIBUTIONS ════════ -->
+  <section id="opensource" class="mission-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="sh-subtitle">MODULE 03 // COMMUNITY</div>
+        <h2 class="sh-title">Mission Contributions</h2>
+      </div>
+
+      <div class="os-grid">
+        <!-- OS1 -->
+        <div class="glass-card os-card">
+          <div class="os-top">
+            <div class="os-repo">KhronosGroup / Vulkan-Loader</div>
+            <div class="os-lang lang-c">C</div>
+          </div>
+          <p class="os-impact">Fixed 5 bugs: buffer overflow, unchecked return values, wrong-type sizeof errors in the official Vulkan graphics loader.</p>
+          <div class="os-stats">
+            <span><i data-lucide="git-merge"></i> Merged</span>
+            <span><i data-lucide="shield-check"></i> Memory Safety</span>
+          </div>
         </div>
-        <div class="ie-links">
-          <a href="https://ieeexplore.ieee.org/abstract/document/11426098" target="_blank" class="ie-link">↗ View on IEEE Xplore</a>
-          <a href="https://github.com/kaushalrog?tab=repositories" target="_blank" class="ie-link gh">→ GitHub</a>
+
+        <!-- OS2 -->
+        <div class="glass-card os-card">
+          <div class="os-top">
+            <div class="os-repo">mitre / cti</div>
+            <div class="os-lang lang-py">Python</div>
+          </div>
+          <p class="os-impact">Engineered a validation script with 8 integrity checks and a GitHub Actions CI pipeline for the ATT&CK Cyber Threat Intelligence repo.</p>
+          <div class="os-stats">
+            <span><i data-lucide="git-pull-request"></i> CI/CD</span>
+            <span><i data-lucide="terminal"></i> Automation</span>
+          </div>
+        </div>
+
+        <!-- OS3 -->
+        <div class="glass-card os-card">
+          <div class="os-top">
+            <div class="os-repo">redcanaryco / atomic-red-team</div>
+            <div class="os-lang lang-rb">Ruby / Py</div>
+          </div>
+          <p class="os-impact">Resolved 12 bugs across Python and Ruby layers of the adversary simulation framework used globally by security operations.</p>
+          <div class="os-stats">
+            <span><i data-lucide="bug"></i> Bug Fixes</span>
+            <span><i data-lucide="shield"></i> Security Testing</span>
+          </div>
+        </div>
+
+        <!-- OS4 -->
+        <div class="glass-card os-card">
+          <div class="os-top">
+            <div class="os-repo">pbakaus / impeccable</div>
+            <div class="os-lang lang-js">JavaScript</div>
+          </div>
+          <p class="os-impact">Added advanced DOM inspection-based detector rules utilizing getComputedStyle for the web performance analysis tool.</p>
+          <div class="os-stats">
+            <span><i data-lucide="zap"></i> Performance</span>
+            <span><i data-lucide="code"></i> DOM Parsing</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="os-footer text-center">
+        <a href="https://github.com/kaushalrog" target="_blank" class="btn-glass">
+          <i data-lucide="github"></i> View Telemetry on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════ ABOUT: ENGINEERING PROFILE ════════ -->
+  <section id="about" class="mission-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="sh-subtitle">MODULE 04 // OPERATOR</div>
+        <h2 class="sh-title">Engineering Profile</h2>
+      </div>
+
+      <div class="profile-dashboard">
+        
+        <!-- Left Col -->
+        <div class="profile-bio glass-panel">
+          <div class="panel-header"><i data-lucide="user"></i> BIOGRAPHY & PHILOSOPHY</div>
+          <div class="panel-body">
+            <p class="bio-text">
+              I specialize in making intelligent systems operate efficiently on constrained hardware. Whether it's an edge device, an embedded sensor, or a hexapod robot, I believe in bridging theoretical AI with physical execution.
+            </p>
+            
+            <div class="philosophy-grid">
+              <div class="phil-item">
+                <i data-lucide="cpu"></i>
+                <h5>Constraints Breed Creativity</h5>
+                <p>A Raspberry Pi forces better architectural decisions than an A100 cluster.</p>
+              </div>
+              <div class="phil-item">
+                <i data-lucide="eye"></i>
+                <h5>Interpretability Matters</h5>
+                <p>If you can't explain the model's decision, you don't fully understand it.</p>
+              </div>
+              <div class="phil-item">
+                <i data-lucide="rocket"></i>
+                <h5>Ship, Then Polish</h5>
+                <p>Working demos deployed in reality beat perfect theoretical models.</p>
+              </div>
+              <div class="phil-item">
+                <i data-lucide="users"></i>
+                <h5>Open Source Paradigm</h5>
+                <p>Reviewing production C code for buffer overflows is the ultimate textbook.</p>
+              </div>
+            </div>
+
+            <div class="current-focus">
+              <h5><i data-lucide="radar"></i> CURRENT SENSOR SWEEP</h5>
+              <p>Exploring computational biology, materials informatics, and evaluating if reinforcement learning can outperform heuristic schedulers in edge environments. Also learning Rust for systems programming.</p>
+            </div>
+            
+            <div class="other-interests">
+              <h5><i data-lucide="camera"></i> CREATIVE TELEMETRY</h5>
+              <p>Event photographer for Srishti & Team Media. Managing composition, lighting, and technical documentation. <a href="https://drive.google.com/drive/folders/13eqdqJ4URxu0OCDohW2A_HUsPlX1g-Lr" target="_blank">View visual logs ↗</a></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Col -->
+        <div class="profile-specs">
+          
+          <div class="glass-panel spec-panel">
+            <div class="panel-header"><i data-lucide="graduation-cap"></i> EDUCATION</div>
+            <div class="panel-body">
+              <div class="edu-item">
+                <div class="edu-title">B.Tech — Artificial Intelligence</div>
+                <div class="edu-org">Amrita Vishwa Vidyapeetham</div>
+                <div class="edu-meta">2024 – 2028 <span class="edu-gpa">CGPA: 8.7/10</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-panel spec-panel">
+            <div class="panel-header"><i data-lucide="network"></i> SYSTEM CAPABILITIES</div>
+            <div class="panel-body skill-network">
+              <!-- No progress bars. Node cluster visualization concept -->
+              <div class="skill-cluster">
+                <div class="cluster-name">CORE</div>
+                <div class="cluster-nodes">
+                  <span class="node">Python</span>
+                  <span class="node">C++</span>
+                  <span class="node">SQL</span>
+                  <span class="node">Linux</span>
+                </div>
+              </div>
+              <div class="skill-cluster">
+                <div class="cluster-name">AI / ML</div>
+                <div class="cluster-nodes">
+                  <span class="node">OpenCV</span>
+                  <span class="node">scikit-learn</span>
+                  <span class="node">TensorFlow</span>
+                  <span class="node">LightGBM</span>
+                </div>
+              </div>
+              <div class="skill-cluster">
+                <div class="cluster-name">INFRA</div>
+                <div class="cluster-nodes">
+                  <span class="node">React</span>
+                  <span class="node">Node.js</span>
+                  <span class="node">Docker</span>
+                  <span class="node">Firebase</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-panel spec-panel">
+            <div class="panel-header"><i data-lucide="award"></i> CERTIFICATIONS</div>
+            <div class="panel-body">
+              <ul class="cert-list">
+                <li><span class="c-name">Data Analytics (GCP)</span><span class="c-org">Google</span></li>
+                <li><span class="c-name">SQL (Advanced)</span><span class="c-org">HackerRank</span></li>
+                <li><span class="c-name">Software Engineer Intern</span><span class="c-org">HackerRank</span></li>
+                <li><span class="c-name">Intro to Cybersecurity</span><span class="c-org">Cisco</span></li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
-    <div class="rh"><svg viewBox="0 0 12 12"><path d="M2 10L10 2M5 10L10 5M8 10L10 8" stroke="#666" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-  </div>
+  </section>
 
-  <!-- TASKBAR -->
-  <div class="taskbar">
-    <div class="tb-l">
-      <div class="tb-launch"><svg viewBox="0 0 16 16"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="1" y="10" width="5" height="5" rx="1"/><rect x="10" y="1" width="5" height="5" rx="1"/><rect x="10" y="10" width="5" height="5" rx="1"/></svg></div>
-      <div class="tb-pills" id="tb-pills"></div>
-    </div>
-    <div class="tb-c">
-      <div class="tb-term" onclick="openWin('terminal')">
-        <span style="color:#00ff41;font-family:'Ubuntu Mono',monospace;font-size:11px;font-weight:700">&gt;_</span>
-        <span>Terminal</span>
+
+  <!-- ════════ CONTACT: UPLINK ════════ -->
+  <section id="contact" class="mission-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="sh-subtitle">MODULE 05 // COMM CHANNEL</div>
+        <h2 class="sh-title">Establish Uplink</h2>
+        <p class="sh-desc">Open for research collaborations, internships, and engineering challenges. Awaiting transmission.</p>
+      </div>
+
+      <div class="uplink-grid">
+        <div class="glass-panel uplink-form-wrapper">
+          <form class="uplink-form" onsubmit="transmitSignal(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>OPERATOR NAME</label>
+                <input type="text" id="u-name" required placeholder="Enter designation">
+              </div>
+              <div class="form-group">
+                <label>RETURN FREQUENCY (EMAIL)</label>
+                <input type="email" id="u-email" required placeholder="name@domain.com">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>DIRECTIVE (SUBJECT)</label>
+              <input type="text" id="u-subj" required placeholder="Research / Internship / Query">
+            </div>
+            <div class="form-group">
+              <label>PAYLOAD (MESSAGE)</label>
+              <textarea id="u-msg" required placeholder="Enter transmission data..."></textarea>
+            </div>
+            <button type="submit" class="btn-transmit">
+              <i data-lucide="radio-tower"></i> TRANSMIT SIGNAL
+            </button>
+            <div id="u-status" class="transmit-status">Transmission staged. Launching local mail client...</div>
+          </form>
+        </div>
       </div>
     </div>
-    <div class="tb-r">
-      <div class="tb-sys"><span title="Network">📶</span><span title="Sound">🔊</span></div>
-      <div class="tb-clock" id="tb-clk">12:00 AM</div>
-      <div class="tb-fs" onclick="toggleFS()" title="Fullscreen">⛶</div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="mission-footer">
+  <div class="container footer-grid">
+    <div class="f-brand">
+      <i data-lucide="hexagon"></i> KAUSHAL_S
+    </div>
+    <div class="f-copy">
+      SYSTEM TERMINAL // COIMBATORE, INDIA // © 2026
+    </div>
+    <div class="f-links">
+      <a href="https://github.com/kaushalrog" target="_blank"><i data-lucide="github"></i></a>
+      <a href="https://www.linkedin.com/in/kaushal-s-19234b314" target="_blank"><i data-lucide="linkedin"></i></a>
+      <a href="https://ieeexplore.ieee.org/abstract/document/11426098" target="_blank"><i data-lucide="book-open"></i></a>
+      <a href="https://buymeacoffee.com/kaushalrog" target="_blank"><i data-lucide="coffee"></i></a>
     </div>
   </div>
+</footer>
 
-  <!-- STATUS BAR -->
-  <div class="sbar">
-    <div class="sb-l"><span class="sb-dot"></span><span id="sb-txt">● Active — Engineering Mode</span></div>
-    <div class="sb-r">Establishing Secure Session...</div>
-  </div>
-
-  <!-- CONTEXT MENU -->
-  <div class="ctx" id="ctx">
-    <div class="ci" onclick="openWin('projects')">📂 &nbsp;Projects</div>
-    <div class="ci" onclick="openWin('terminal')">&gt;_ &nbsp;Terminal</div>
-    <div class="ci" onclick="openWin('skills')">🧠 &nbsp;Skills</div>
-    <div class="ci" onclick="openWin('about')">👤 &nbsp;About Kaushal</div>
-    <div class="cs"></div>
-    <div class="ci" onclick="openWin('resume')">📄 &nbsp;View Resume</div>
-    <div class="ci" onclick="openWin('ieee')">🏆 &nbsp;IEEE Paper</div>
-    <div class="cs"></div>
-    <div class="ci" onclick="switchMode('engineering')">⚙ &nbsp;Mode: Engineering</div>
-    <div class="ci" onclick="switchMode('security')">🐉 &nbsp;Mode: Security</div>
-    <div class="ci" onclick="switchMode('research')">🔬 &nbsp;Mode: Research</div>
-  </div>
-
-  <!-- TOAST RACK -->
-  <div id="toast-rack"></div>
-</div>
-
-<script>
-/* ════════════════════════════════════
-   PROJECT DATA (complete from CV)
-════════════════════════════════════ */
-const PROJS=[
-{id:'abiz',name:'ABiZ',emoji:'🏢',bg:'linear-gradient(135deg,#1e1060,#4338ca)',cats:['fullstack','ai-ml'],
- cat:'Full-Stack AI · Production · Live',
- desc:'Business intelligence platform: React 18 + Node.js + Firebase + Google Gemini AI. Real-time news from 10+ sources, AI market sentiment analysis, gamified quizzes, leaderboards. Deployed on Vercel with Android APK via Capacitor.',
- tags:['React 18','Vite','Node.js','Firebase','Gemini AI','Capacitor','Tailwind CSS','Recharts','Framer Motion'],
- links:[{n:'GitHub',u:'https://github.com/Beatlestrauma/ABiZ_Final_version'},{n:'↗ Live Demo',u:'https://abiz-final-version.vercel.app',live:true}]},
-{id:'ids',name:'WDS-IDS',emoji:'🔒',bg:'linear-gradient(135deg,#041a0e,#0a3320)',cats:['security','autonomous'],
- cat:'Cybersecurity · Edge AI · Behavioral · RPi 5',badge:'100% Recall · AUC 1.00 · <12ms on RPi 5',
- desc:'Weighted Drift Score IDS using OS-level telemetry (CPU, memory, disk I/O, MySQL) without payload inspection. Adaptive threshold tracking behavioral deviation, temporal acceleration, and prediction inconsistency. Validated on SRBH-20 dataset with five-fold CV.',
- tags:['Python','Raspberry Pi 5','Drift Detection','Behavioral Analysis','SRBH-20','OS Telemetry'],
- links:[{n:'GitHub',u:'https://github.com/kaushalrog/ids---System'}]},
-{id:'antbot',name:'AntBot',emoji:'🦾',bg:'linear-gradient(135deg,#1a0e04,#7c2d12)',cats:['autonomous','research'],
- cat:'Autonomous Robotics · IEEE Published 2026',badge:'IEEE Xplore · Jan 8 2026',
- desc:'Low-cost legged surveillance robot inspired by biological locomotion. 21-DOF hexapod with inverse kinematics and tripod gait validated in MATLAB. Computer vision for autonomous navigation in GPS-denied environments with persistent surveillance missions.',
- tags:['C++','Python','OpenCV','MATLAB','Inverse Kinematics','Raspberry Pi','Tripod Gait'],
- links:[{n:'↗ IEEE Xplore',u:'https://ieeexplore.ieee.org/abstract/document/11426098',live:true}]},
-{id:'dwecs',name:'AI-DWECS',emoji:'⚡',bg:'linear-gradient(135deg,#100a1a,#4f46e5)',cats:['ai-ml','autonomous'],
- cat:'Reinforcement Learning · Edge Computing',
- desc:'AI-driven edge computing framework for intelligent task scheduling and adaptive workload distribution across distributed edge nodes. Q-Learning strategies for real-time resource allocation targeting latency reduction, computational efficiency, and scalable workload balancing.',
- tags:['Python','Q-Learning','Distributed Systems','Scheduling','Resource Optimization','RL'],
- links:[{n:'GitHub',u:'https://github.com/kaushalrog?tab=repositories'}]},
-{id:'traffic',name:'TrafficFlow AI',emoji:'🚦',bg:'linear-gradient(135deg,#041824,#0c4a6e)',cats:['ai-ml','transport'],
- cat:'Hybrid AI · Smart City · Transport',
- desc:'Hybrid fuzzy-AI architecture combining LSTM, Sequential NN, Random Forest, LightGBM, and Fuzzy Logic for congestion classification. Fuzzy-enhanced adaptive signal timing optimization with real-time monitoring dashboards tracking congestion index, travel time, and CO2 emissions.',
- tags:['TensorFlow','LightGBM','LSTM','Fuzzy Logic','Python','Graph Theory','Random Forest'],
- links:[{n:'GitHub',u:'https://github.com/kaushalrog/TrafficFlowAI'}]},
-{id:'svd',name:'SVD Genomic Steg',emoji:'🧬',bg:'linear-gradient(135deg,#041818,#134e4a)',cats:['security','research'],
- cat:'Research · Bioinformatics · Steganography',
- desc:'Genomic steganography framework for secure information hiding using Singular Value Decomposition (SVD). Encoding and decoding mechanisms for hidden data extraction combining cybersecurity and computational biology. Privacy-preserving information concealment with mathematical modeling.',
- tags:['Python','SVD','Steganography','Bioinformatics','Matrix Decomposition','NumPy'],
- links:[{n:'GitHub',u:'https://github.com/kaushalrog?tab=repositories'}]},
-{id:'mcdip',name:'MCDIP-ADMM',emoji:'🏥',bg:'linear-gradient(135deg,#180828,#4c1d95)',cats:['research','ai-ml'],
- cat:'Research · Medical Imaging · Optimization',
- desc:'Unsupervised low-dose CT reconstruction using ADMM with Multi-Code Deep Image Prior ensemble to reduce overfitting in inverse imaging problems. No paired training data required. Addresses underdetermined reconstruction in medical imaging.',
- tags:['PyTorch','ADMM','Medical Imaging','Deep Image Prior','Jupyter','Optimization'],
- links:[{n:'GitHub',u:'https://github.com/kaushalrog/mcdip-admm-ct-reconstruction'}]},
-{id:'metro',name:'Kerala Metro AI',emoji:'🚇',bg:'linear-gradient(135deg,#1c1404,#78350f)',cats:['ai-ml','transport'],
- cat:'Transport AI · Scheduling Optimization',
- desc:'AI-driven metro train scheduling minimizing headway and optimizing induction planning for Kerala Metro multi-line operations. Algorithmic scheduling improving operational efficiency with data-driven route optimization.',
- tags:['Python','Scheduling Algorithms','Optimization','Pandas','NumPy','Operations Research'],
- links:[{n:'GitHub',u:'https://github.com/kaushalrog/kerala_metro_scheduling'}]},
-{id:'alloy',name:'ML Alloy Predictor',emoji:'⚗️',bg:'linear-gradient(135deg,#0e180e,#166534)',cats:['ai-ml','materials','research'],
- cat:'Materials AI · Informatics · Research',
- desc:'ML pipelines predicting mechanical properties of engineering alloys from composition and microstructure features. Feature engineering on material datasets for structure-property correlation. AI interpretability techniques reducing reliance on trial-and-error physical testing.',
- tags:['Python','scikit-learn','Pandas','NumPy','Materials Informatics','Feature Engineering','Regression'],
- links:[{n:'GitHub',u:'https://github.com/kaushalrog/-Machine-Learning-Driven-Structure-Property-Correlation-for-Mechanical-Design-of-Alloys'}]},
-];
-
-/* ════════════════════════════════════
-   RENDER PROJECT GRID
-════════════════════════════════════ */
-function renderProjects(f='all'){
-  const g=document.getElementById('proj-grid');
-  g.innerHTML='';
-  PROJS.forEach(p=>{
-    const show=f==='all'||p.cats.includes(f);
-    const el=document.createElement('div');
-    el.className='pf'+(show?'':' hidden');
-    el.innerHTML=`<div class="pf-ico" style="background:${p.bg}">${p.emoji}${p.badge?'<div class="pf-badge">★</div>':''}</div><div class="pf-name">${p.name}</div>`;
-    el.addEventListener('click',()=>openProjDetail(p));
-    g.appendChild(el);
-  });
-}
-renderProjects();
-document.querySelectorAll('.fm-flt').forEach(b=>{
-  b.addEventListener('click',()=>{
-    document.querySelectorAll('.fm-flt').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');renderProjects(b.dataset.pf);
-  });
-});
-function openProjDetail(p){
-  document.getElementById('pd-wt').textContent=p.name;
-  document.getElementById('pd-ct').innerHTML=`
-    <div class="pd-hdr">
-      <div class="pd-cat">${p.cat}</div>
-      <div class="pd-name">${p.emoji} ${p.name}</div>
-      ${p.badge?`<div class="pd-badge">${p.badge}</div>`:''}
-    </div>
-    <div class="pd-body">
-      <p class="pd-desc">${p.desc}</p>
-      <div class="pd-tags">${p.tags.map(t=>`<span class="pd-tag">${t}</span>`).join('')}</div>
-      <div class="pd-links">${p.links.map(l=>`<a href="${l.u}" target="_blank" class="pd-link${l.live?' live':''}">${l.n}</a>`).join('')}</div>
-    </div>`;
-  openWin('projdetail');
-}
-
-/* ════════════════════════════════════
-   WINDOW MANAGER
-════════════════════════════════════ */
-let zTop=200;
-const WIN_META={
-  projects:{ico:'📂',lbl:'Projects'},terminal:{ico:'>_',lbl:'Terminal'},
-  resume:{ico:'📄',lbl:'Resume'},about:{ico:'👤',lbl:'About'},
-  skills:{ico:'🧠',lbl:'Skills'},contact:{ico:'📧',lbl:'Contact'},
-  ieee:{ico:'🏆',lbl:'IEEE'},projdetail:{ico:'📁',lbl:'Project'},
-};
-const isMob=()=>window.innerWidth<768;
-const isTabs=()=>window.innerWidth>=768&&window.innerWidth<1100;
-
-function openWin(id){
-  const w=document.getElementById('win-'+id);
-  if(!w) return;
-  if(isMob()){
-    // reset mobile styles
-    ['left','top','right','bottom','width','height'].forEach(s=>w.style.removeProperty(s));
-  } else {
-    // Center on tablet if not already positioned
-    if(isTabs()&&(w.style.left==='0px'||!w.style.left)){
-      const ww=Math.min(parseInt(w.style.width)||480,window.innerWidth-230);
-      const wh=Math.min(parseInt(w.style.height)||400,window.innerHeight-80);
-      w.style.width=ww+'px';w.style.height=wh+'px';
-      w.style.left=Math.max(70,(window.innerWidth-ww)/2-40)+'px';
-      w.style.top=Math.max(10,(window.innerHeight-wh)/2)+'px';
-    }
-    w.style.removeProperty('transform');
-  }
-  w.classList.add('show');
-  focusWin(id);
-  const di=document.getElementById('di-'+id);
-  if(di) di.classList.add('open');
-  updatePills();
-  toast(WIN_META[id]?.ico||'🗂','Opening '+( WIN_META[id]?.lbl||id)+'...');
-}
-function closeWin(id){
-  const w=document.getElementById('win-'+id);
-  if(!w) return;
-  if(isMob()) w.style.transform='translateY(100%)';
-  else{w.style.opacity='0';w.style.transform='scale(0.95)';w.style.transition='all .14s ease';}
-  setTimeout(()=>{
-    w.classList.remove('show');
-    w.style.cssText=w.getAttribute('data-orig-style')||w.style.cssText;
-    w.style.opacity='';w.style.transform='';w.style.transition='';
-  },isMob()?320:140);
-  const di=document.getElementById('di-'+id);
-  if(di) di.classList.remove('open');
-  updatePills();
-}
-function minimizeWin(id){
-  const w=document.getElementById('win-'+id);
-  if(w){w.classList.remove('show');if(isMob())w.style.transform='translateY(100%)'; }
-  updatePills();
-}
-function maxWin(id){
-  const w=document.getElementById('win-'+id);
-  if(!w) return;
-  const lx=isMob()?0:82,rx=isMob()?0:(window.innerWidth<1100?152:196);
-  w.style.left=lx+'px';w.style.top='0';
-  w.style.width=(window.innerWidth-lx-rx)+'px';
-  w.style.height=(window.innerHeight-68)+'px';
-  w.style.transform='';
-  focusWin(id);
-}
-function focusWin(id){
-  document.querySelectorAll('.win').forEach(w=>{ if(+w.style.zIndex<200) w.style.zIndex=100; });
-  const w=document.getElementById('win-'+id);
-  if(w) w.style.zIndex=++zTop;
-  document.querySelectorAll('.tb-pill').forEach(p=>p.classList.toggle('focused',p.dataset.id===id));
-}
-function extLink(u){window.open(u,'_blank')}
-
-/* Store original styles */
-document.querySelectorAll('.win').forEach(w=>{w.setAttribute('data-orig-style',w.getAttribute('style')||'')});
-
-/* Drag */
-document.querySelectorAll('.win-tb').forEach(bar=>{
-  let ox,oy,drag=false;
-  const win=bar.closest('.win');
-  bar.addEventListener('mousedown',e=>{
-    if(e.target.classList.contains('wb')||isMob()) return;
-    drag=true;ox=e.clientX-win.offsetLeft;oy=e.clientY-win.offsetTop;
-    focusWin(win.id.replace('win-',''));
-    document.addEventListener('mousemove',mv);document.addEventListener('mouseup',up,{once:true});
-  });
-  function mv(e){if(!drag)return;win.style.left=Math.max(80,Math.min(window.innerWidth-120,e.clientX-ox))+'px';win.style.top=Math.max(0,Math.min(window.innerHeight-60,e.clientY-oy))+'px';}
-  function up(){drag=false;document.removeEventListener('mousemove',mv);}
-});
-
-/* Focus on click */
-document.querySelectorAll('.win').forEach(w=>{w.addEventListener('mousedown',()=>focusWin(w.id.replace('win-','')))});
-
-/* Resize handles */
-document.querySelectorAll('.rh').forEach(rh=>{
-  const win=rh.closest('.win');
-  let rs=false,sx,sy,sw,sh;
-  rh.addEventListener('mousedown',e=>{rs=true;sx=e.clientX;sy=e.clientY;sw=win.offsetWidth;sh=win.offsetHeight;e.preventDefault();document.addEventListener('mousemove',rd);document.addEventListener('mouseup',()=>{rs=false;document.removeEventListener('mousemove',rd)},{once:true});});
-  function rd(e){if(!rs)return;win.style.width=Math.max(300,sw+(e.clientX-sx))+'px';win.style.height=Math.max(180,sh+(e.clientY-sy))+'px';}
-});
-
-/* Mobile swipe-down to close */
-document.querySelectorAll('.win').forEach(win=>{
-  let sy=0;
-  win.addEventListener('touchstart',e=>{sy=e.touches[0].clientY},{passive:true});
-  win.addEventListener('touchmove',e=>{
-    const dy=e.touches[0].clientY-sy;
-    if(dy>0){win.style.transform=`translateY(${dy}px)`;win.style.transition='none';}
-  },{passive:true});
-  win.addEventListener('touchend',e=>{
-    const dy=e.changedTouches[0].clientY-sy;
-    win.style.transition='transform .3s cubic-bezier(.4,0,.2,1)';
-    if(dy>90) closeWin(win.id.replace('win-',''));
-    else win.style.transform='';
-  });
-});
-
-/* Taskbar pills */
-function updatePills(){
-  const rack=document.getElementById('tb-pills');
-  rack.innerHTML='';
-  document.querySelectorAll('.win.show').forEach(w=>{
-    const id=w.id.replace('win-','');
-    const m=WIN_META[id];if(!m)return;
-    const p=document.createElement('div');
-    p.className='tb-pill';p.dataset.id=id;
-    p.innerHTML=`<span>${m.ico}</span>${m.lbl}`;
-    p.addEventListener('click',()=>{ if(w.style.display==='none'||!w.classList.contains('show')){w.classList.add('show');} focusWin(id); });
-    rack.appendChild(p);
-  });
-}
-
-/* ════════════════════════════════════
-   TERMINAL ENGINE
-════════════════════════════════════ */
-const CMDS={
-  whoami:`<span class="tl bold">Kaushal S</span>
-<span class="tl">BTech Artificial Intelligence · Amrita Vishwa Vidyapeetham</span>
-<span class="tl dim">Researcher · ML Engineer · IEEE Published · CGPA 8.7</span>`,
-  neofetch:`<span class="tl dim">       /\\       </span><span class="tl cyan"> kaushal@kaushalos</span>
-<span class="tl dim">      /  \\      </span><span class="tl dim"> ──────────────────────</span>
-<span class="tl dim">     /\\   \\     </span><span class="tl"> OS: KaushalOS 2026.1 LTS</span>
-<span class="tl dim">    /      \\    </span><span class="tl"> Host: Amrita Vishwa Vidyapeetham</span>
-<span class="tl dim">   /   ,,   \\   </span><span class="tl"> Kernel: AI &amp; Data Science</span>
-<span class="tl dim">  /   |  |   \\  </span><span class="tl"> Year: 3rd Year BTech (2024-2028)</span>
-<span class="tl dim"> /-''    ''-\\  </span><span class="tl"> Shell: Python 3.12 + Bash</span>
-<span class="tl amb">               </span><span class="tl"> CGPA: 8.7 / 10</span>
-<span class="tl">               </span><span class="tl"> Publication: IEEE 2026 — AntBot</span>
-<span class="tl">               </span><span class="tl"> Email: kaushalreddy15@gmail.com</span>`,
-  ls:`<span class="tl cyan">projects/</span>  <span class="tl cyan">skills/</span>  <span class="tl cyan">certs/</span>  <span class="tl cyan">research/</span>  <span class="tl">about.txt</span>  <span class="tl">cgpa.txt</span>  <span class="tl">resume.pdf</span>`,
-  'ls ~/projects':['abiz','wds-ids','antbot','ai-dwecs','trafficflow-ai','svd-genomic-steg','mcdip-admm','kerala-metro','ml-alloy-predictor'].map(n=>`<span class="tl cyan">${n}/</span>`).join('  '),
-  'ls ~/skills':`<span class="tl amb">Languages:</span>  <span class="tl">python</span>  <span class="tl">sql</span>  <span class="tl">c++</span>  <span class="tl">javascript</span>  <span class="tl">bash</span>  <span class="tl">java</span>
-<span class="tl amb">ML/AI:</span>      <span class="tl">scikit-learn</span>  <span class="tl">tensorflow</span>  <span class="tl">lightgbm</span>  <span class="tl">pytorch</span>  <span class="tl">opencv</span>
-<span class="tl amb">Data:</span>       <span class="tl">pandas</span>  <span class="tl">numpy</span>  <span class="tl">bigquery</span>  <span class="tl">dataflow</span>
-<span class="tl amb">Security:</span>   <span class="tl">kali-linux</span>  <span class="tl">intrusion-detection</span>  <span class="tl">drift-detection</span>
-<span class="tl amb">Cloud:</span>      <span class="tl">google-cloud</span>  <span class="tl">firebase</span>  <span class="tl">vercel</span>  <span class="tl">raspberry-pi</span>
-<span class="tl amb">Stack:</span>      <span class="tl">react-18</span>  <span class="tl">node.js</span>  <span class="tl">postgresql</span>  <span class="tl">git</span>`,
-  'ls ~/certs':`<span class="tl">ai-product-management_pendo.pdf</span>
-<span class="tl">intro-cybersecurity_cisco.pdf</span>
-<span class="tl">data-analytics-gcp_google.pdf</span>
-<span class="tl">software-engineer-intern_hackerrank.pdf  <span class="tl dim">(ID: 60681A381664)</span></span>
-<span class="tl">sql-advanced_hackerrank.pdf  <span class="tl dim">(ID: D879B495DC76)</span></span>`,
-  'ls ~/research':`<span class="tl hi">AntBot-IEEE-2026.pdf</span>  <span class="tl">wds-ids/</span>  <span class="tl">ai-dwecs/</span>  <span class="tl">svd-genomic-steg/</span>`,
-  'cat about.txt':`<span class="tl wh">Name:</span>    <span class="tl">Kaushal S</span>
-<span class="tl wh">Role:</span>    <span class="tl">ML Engineer · Robotics Researcher</span>
-<span class="tl wh">Inst:</span>    <span class="tl">Amrita Vishwa Vidyapeetham, Coimbatore</span>
-<span class="tl wh">Year:</span>    <span class="tl">3rd Year BTech AI (July 2024–2028)</span>
-<span class="tl wh">CGPA:</span>    <span class="tl">8.7 / 10</span>
-<span class="tl wh">Email:</span>   <span class="tl">kaushalreddy15@gmail.com</span>
-<span class="tl wh">Phone:</span>   <span class="tl">+91 96422 93339</span>
-<span class="tl wh">GitHub:</span>  <span class="tl">github.com/kaushalrog</span>
-<span class="tl wh">Web:</span>     <span class="tl">kaushalrog.github.io/portfolio</span>
-<span class="tl dim">"Making machines smarter and myself more confused."</span>`,
-  'cat cgpa.txt':`<span class="tl bold" style="font-size:20px;color:var(--acc)">8.7</span> <span class="tl dim">/ 10.0</span>  <span class="tl dim">— Amrita Vishwa Vidyapeetham</span>`,
-  'ping ieee':`<span class="tl">PING ieeexplore.ieee.org (IEEE Xplore)</span>
-<span class="tl cyan">Title: Design and Experimental Validation of AntBot</span>
-<span class="tl dim">DOI:   10.1109/ieeexplore.2026.11426098</span>
-<span class="tl dim">Date:  January 8, 2026</span>
-<span class="tl dim">URL:   https://ieeexplore.ieee.org/abstract/document/11426098</span>
-<span class="tl">5 packets transmitted, 5 received, 0% loss ✓</span>`,
-  'cat resume.pdf':`<span class="tl dim">[Binary PDF — use: open resume.pdf]</span>
-<span class="tl">Drive: https://drive.google.com/file/d/1vNouvR0xk24Vo0vjgVY9oO2hzKTIP-wW/view</span>`,
-  help:`<span class="tl cyan">KaushalOS Shell — Available Commands</span>
-<span class="tl">  whoami          → identity &amp; role</span>
-<span class="tl">  neofetch        → system information</span>
-<span class="tl">  ls              → home directory</span>
-<span class="tl">  ls ~/projects   → all projects</span>
-<span class="tl">  ls ~/skills     → all skills</span>
-<span class="tl">  ls ~/certs      → certifications</span>
-<span class="tl">  ls ~/research   → research output</span>
-<span class="tl">  cat about.txt   → full bio</span>
-<span class="tl">  cat cgpa.txt    → academic score</span>
-<span class="tl">  cat resume.pdf  → resume info</span>
-<span class="tl">  ping ieee       → IEEE publication</span>
-<span class="tl">  clear           → clear terminal</span>
-<span class="tl">  open [app]      → open a window</span>`,
-};
-
-const tout=document.getElementById('term-out');
-const tin=document.getElementById('term-in');
-let history=[],hIdx=-1;
-
-function tprint(html){const d=document.createElement('div');d.innerHTML=html;tout.appendChild(d);tout.scrollTop=9999;}
-function tline(txt,cls=''){return `<span class="tl${cls?' '+cls:''}">${txt}</span>`;}
-
-tprint(tline('KaushalOS 2026.1 LTS — Secure Terminal','dim'));
-tprint(tline(`kaushalreddy15@gmail.com | github.com/kaushalrog`,'dim'));
-tprint(tline(`Type 'help' for available commands.`,'dim'));
-tprint('');
-
-tin.addEventListener('keydown',e=>{
-  if(e.key==='ArrowUp'){e.preventDefault();if(hIdx<history.length-1){hIdx++;tin.value=history[hIdx]||'';}}
-  if(e.key==='ArrowDown'){e.preventDefault();if(hIdx>0){hIdx--;tin.value=history[hIdx]||'';} else {hIdx=-1;tin.value='';}}
-  if(e.key!=='Enter') return;
-  const cmd=tin.value.trim();tin.value='';hIdx=-1;
-  if(cmd) history.unshift(cmd);
-  tprint(tline(`kaushal@kaushalos:~$ ${cmd}`,'cmd'));
-  const lo=cmd.toLowerCase();
-  if(lo==='clear'){tout.innerHTML='';return;}
-  if(lo.startsWith('open ')){const app=lo.slice(5).trim();openWin(app);tprint(tline(`Opening ${app}...`,'dim'));}
-  else if(CMDS[lo]) tprint(CMDS[lo]);
-  else if(lo==='') {}
-  else tprint(tline(`bash: ${cmd}: command not found. Try 'help'`,'err'));
-  tprint('');
-});
-document.getElementById('win-terminal').addEventListener('click',()=>tin.focus());
-
-/* ════════════════════════════════════
-   CANVAS ANIMATIONS
-════════════════════════════════════ */
-const WPC=document.getElementById('wp');
-const WPX=WPC.getContext('2d');
-const RPC=document.getElementById('rp-cv');
-const RPX=RPC.getContext('2d');
-let mode='engineering',t=0,rafId=null;
-
-function resizeC(){
-  WPC.width=window.innerWidth;WPC.height=window.innerHeight;
-  RPC.width=RPC.offsetWidth||160;RPC.height=RPC.offsetHeight||130;
-}
-resizeC();window.addEventListener('resize',()=>{resizeC();if(mode==='security')initMat();if(mode==='research')initStars();});
-
-/* SPHERE */
-function sphere(ctx,W,H,T){
-  ctx.clearRect(0,0,W,H);
-  const cx=W/2,cy=H/2,R=Math.min(W,H)*.38;
-  // outer glow
-  const og=ctx.createRadialGradient(cx,cy,R*.3,cx,cy,R*2);
-  og.addColorStop(0,'rgba(233,84,32,0.12)');og.addColorStop(1,'transparent');
-  ctx.fillStyle=og;ctx.fillRect(0,0,W,H);
-  // clip
-  ctx.save();ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);ctx.clip();
-  // gradient
-  const sg=ctx.createRadialGradient(cx-R*.28,cy-R*.28,0,cx,cy,R);
-  sg.addColorStop(0,'#ff9a56');sg.addColorStop(.35,'#e95420');sg.addColorStop(.75,'#b03010');sg.addColorStop(1,'#4a0e04');
-  ctx.fillStyle=sg;ctx.fillRect(cx-R,cy-R,R*2,R*2);
-  // lat lines
-  ctx.globalAlpha=.28;
-  for(let i=1;i<9;i++){const py=cy-R+i*R*.222;const rx=Math.sqrt(Math.max(0,R*R-(py-cy)**2));ctx.beginPath();ctx.arc(cx,py,rx,0,Math.PI*2);ctx.strokeStyle='rgba(0,0,0,.6)';ctx.lineWidth=.9;ctx.stroke();}
-  // lon lines (rotating)
-  for(let i=0;i<12;i++){
-    const th=(i/12)*Math.PI+T*.2;
-    ctx.beginPath();
-    for(let j=0;j<=40;j++){const ph=(j/40)*Math.PI;const x=cx+R*Math.sin(ph)*Math.cos(th);const y=cy-R*Math.cos(ph);j===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}
-    ctx.strokeStyle='rgba(0,0,0,.5)';ctx.lineWidth=.9;ctx.stroke();
-  }
-  // specular
-  ctx.globalAlpha=1;
-  const sp=ctx.createRadialGradient(cx-R*.38,cy-R*.38,0,cx-R*.15,cy-R*.15,R*.62);
-  sp.addColorStop(0,'rgba(255,220,180,.48)');sp.addColorStop(.5,'rgba(255,180,120,.12)');sp.addColorStop(1,'transparent');
-  ctx.fillStyle=sp;ctx.fillRect(cx-R,cy-R,R*2,R*2);
-  ctx.restore();
-  ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);ctx.strokeStyle='rgba(233,84,32,.2)';ctx.lineWidth=1.5;ctx.stroke();
-}
-
-/* MATRIX */
-const MC='アイウエオカキクケコ0123456789ABCDEF<>{}';
-let mat=[];
-function initMat(){mat=Array.from({length:Math.floor(WPC.width/15)},()=>Math.random()*50);}
-initMat();
-function matrix(ctx,W,H){
-  ctx.fillStyle='rgba(2,6,4,0.05)';ctx.fillRect(0,0,W,H);
-  ctx.font='13px Ubuntu Mono,monospace';
-  mat.forEach((y,i)=>{
-    ctx.globalAlpha=Math.random()*.6+.3;
-    ctx.fillStyle='#00ff41';
-    ctx.fillText(MC[Math.floor(Math.random()*MC.length)],i*15,y*15);
-    if(y*15>H&&Math.random()>.975)mat[i]=0;mat[i]+=.6;
-  });
-  ctx.globalAlpha=1;
-}
-
-/* CONSTELLATION */
-let stars=[];
-function initStars(){stars=Array.from({length:90},()=>({x:Math.random()*WPC.width,y:Math.random()*WPC.height,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*2+.5}));}
-initStars();
-function constellation(ctx,W,H){
-  ctx.clearRect(0,0,W,H);
-  stars.forEach(s=>{s.x+=s.vx;s.y+=s.vy;if(s.x<0||s.x>W)s.vx*=-1;if(s.y<0||s.y>H)s.vy*=-1;});
-  for(let i=0;i<stars.length;i++)for(let j=i+1;j<stars.length;j++){
-    const dx=stars[i].x-stars[j].x,dy=stars[i].y-stars[j].y,d=Math.sqrt(dx*dx+dy*dy);
-    if(d<110){ctx.beginPath();ctx.moveTo(stars[i].x,stars[i].y);ctx.lineTo(stars[j].x,stars[j].y);ctx.strokeStyle=`rgba(136,192,208,${(1-d/110)*.28})`;ctx.lineWidth=.6;ctx.stroke();}
-  }
-  stars.forEach(s=>{ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='rgba(136,192,208,0.75)';ctx.fill();});
-}
-
-function animate(){
-  t+=.016;
-  const W=WPC.width,H=WPC.height,rw=RPC.width,rh=RPC.height;
-  if(mode==='engineering'){sphere(WPX,W,H,t);sphere(RPX,rw,rh,t);}
-  else if(mode==='security'){matrix(WPX,W,H);matrix(RPX,rw,rh);}
-  else{constellation(WPX,W,H);constellation(RPX,rw,rh);}
-  rafId=requestAnimationFrame(animate);
-}
-
-/* ════════════════════════════════════
-   MODE SWITCHING
-════════════════════════════════════ */
-const MODES={
-  engineering:{body:'',sb:'● Active — Engineering Mode',hint:'Engineering — full-stack, production AI, autonomous systems.',rp:'rp-e'},
-  security:{body:'theme-security',sb:'● Active — Security Mode',hint:'Security — behavioral IDS, Kali Linux, cybersecurity research.',rp:'rp-s'},
-  research:{body:'theme-research',sb:'● Active — Research Mode',hint:'Research — IEEE robotics, ML, edge computing, bioinformatics.',rp:'rp-r'},
-};
-function switchMode(m){
-  mode=m;
-  const md=MODES[m];
-  document.body.className=md.body;
-  document.getElementById('sb-txt').textContent=md.sb;
-  document.getElementById('rp-hint').textContent=md.hint;
-  if(document.getElementById('mob-mode-lbl')) document.getElementById('mob-mode-lbl').textContent='KaushalOS — '+(m[0].toUpperCase()+m.slice(1));
-  document.querySelectorAll('.rp-mode').forEach(el=>el.classList.toggle('active',el.id===md.rp));
-  if(m==='security')initMat();
-  if(m==='research')initStars();
-  toast('🔄','Switched to '+(m[0].toUpperCase()+m.slice(1))+' Mode');
-}
-
-/* ════════════════════════════════════
-   BOOT SEQUENCE
-════════════════════════════════════ */
-let selOS='engineering',bootSel=0;
-const osArr=['engineering','security','research'];
-const osEls=['os-ub','os-ka','os-ar'];
-let bootBarVal=0,bootBarInt=null;
-
-function startBootBar(){
-  bootBarInt=setInterval(()=>{
-    bootBarVal=Math.min(100,bootBarVal+Math.random()*8+2);
-    document.getElementById('boot-bar').style.width=bootBarVal+'%';
-    if(bootBarVal>=100){clearInterval(bootBarInt);}
-  },80);
-}
-startBootBar();
-
-function setOSSel(idx){
-  bootSel=idx;selOS=osArr[idx];
-  osEls.forEach((id,i)=>document.getElementById(id).classList.toggle('sel',i===idx));
-}
-setOSSel(0);
-
-document.querySelectorAll('.os-opt').forEach((el,i)=>{
-  el.addEventListener('mouseenter',()=>setOSSel(i));
-  el.addEventListener('focus',()=>setOSSel(i));
-});
-
-document.addEventListener('keydown',e=>{
-  if(!document.getElementById('boot').style.display || document.getElementById('boot').style.display==='none') return;
-  if(e.key==='ArrowDown'){setOSSel((bootSel+1)%3);}
-  if(e.key==='ArrowUp'){setOSSel((bootSel+2)%3);}
-  if(e.key==='Enter'){selectOS(selOS);}
-});
-
-function selectOS(m){
-  const boot=document.getElementById('boot');
-  const desk=document.getElementById('desktop');
-  boot.style.animation='fadeout .45s ease forwards';
-  setTimeout(()=>{
-    boot.style.display='none';
-    desk.classList.add('show');
-    resizeC();
-    switchMode(m);
-    if(rafId) cancelAnimationFrame(rafId);
-    animate();
-    setTimeout(()=>{toast('👋','Welcome to KaushalOS! Click any icon to explore.');},700);
-    setTimeout(()=>{toast('💡','Right-click desktop for quick actions.');},2200);
-  },450);
-}
-
-/* Right-click context menu */
-WPC.addEventListener('contextmenu',e=>{
-  e.preventDefault();
-  const ctx=document.getElementById('ctx');
-  ctx.style.left=Math.min(e.clientX,window.innerWidth-200)+'px';
-  ctx.style.top=Math.min(e.clientY,window.innerHeight-300)+'px';
-  ctx.classList.add('show');
-});
-document.addEventListener('click',()=>document.getElementById('ctx').classList.remove('show'));
-document.addEventListener('touchstart',()=>document.getElementById('ctx').classList.remove('show'),{passive:true});
-
-/* ════════════════════════════════════
-   UTILITIES
-════════════════════════════════════ */
-/* Clock */
-function updateClock(){
-  const now=new Date();let h=now.getHours(),m=now.getMinutes();
-  const ap=h>=12?'PM':'AM';h=h%12||12;
-  const s=`${h}:${String(m).padStart(2,'0')} ${ap}`;
-  document.getElementById('tb-clk').textContent=s;
-  const mc=document.getElementById('mob-clock');if(mc)mc.textContent=s;
-}
-updateClock();setInterval(updateClock,1000);
-
-/* Toast */
-function toast(ico,msg,dur=2600){
-  const rack=document.getElementById('toast-rack');
-  if(!rack) return;
-  const t=document.createElement('div');
-  t.className='toast';t.innerHTML=`<span>${ico}</span><span>${msg}</span>`;
-  rack.appendChild(t);
-  setTimeout(()=>t.remove(),dur);
-}
-
-/* Fullscreen */
-function toggleFS(){if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});else document.exitFullscreen();}
-
-/* Contact form */
-function submitContact(e){
-  e.preventDefault();
-  const n=document.getElementById('cf-nm').value.trim();
-  const em=document.getElementById('cf-em').value.trim();
-  const ms=document.getElementById('cf-ms').value.trim();
-  const sub=encodeURIComponent('Portfolio Contact — '+n);
-  const body=encodeURIComponent('From: '+n+(em?' <'+em+'>':'')+'\n\n'+ms);
-  window.open('mailto:kaushalreddy15@gmail.com?subject='+sub+'&body='+body);
-  document.getElementById('cf-ok').style.display='block';
-  e.target.reset();
-}
-
-/* Keyboard shortcuts */
-document.addEventListener('keydown',e=>{
-  if(!document.getElementById('desktop').classList.contains('show'))return;
-  if(e.ctrlKey||e.metaKey){
-    if(e.key==='t'){e.preventDefault();openWin('terminal');}
-    if(e.key==='p'){e.preventDefault();openWin('projects');}
-  }
-});
-</script>
+<script src="script.js"></script>
 </body>
 </html>
