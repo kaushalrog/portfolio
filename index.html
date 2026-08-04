@@ -6,407 +6,531 @@
 <meta name="description" content="Kaushal S — Systems Engineer. Building autonomous systems that survive outside controlled environments.">
 <title>Kaushal S | Systems Engineer</title>
 
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230A0A0A'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='58' font-weight='700' fill='%23D8FF3D' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kaushal S | Systems Engineer">
+<meta property="og:description" content="Building autonomous systems that survive outside controlled environments.">
+<meta property="og:url" content="https://kaushalrog.github.io/portfolio/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kaushal S | Systems Engineer">
+<meta name="twitter:description" content="Building autonomous systems that survive outside controlled environments.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
 <script src="https://unpkg.com/lucide@latest"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
 
 <link rel="stylesheet" href="style.css">
 </head>
-<body class="orion-theme">
+<body class="engineering-theme">
 
-<!-- BACKGROUND LAYERS -->
-<div class="bg-layers">
-  <div class="bg-base"></div>
-  <div class="bg-grid"></div>
-  <div class="bg-noise"></div>
-  <div id="particles-container"></div>
-  <div class="bg-glow bg-glow-1"></div>
-  <div class="bg-glow bg-glow-2"></div>
-</div>
-
-<!-- BOOT SEQUENCE -->
-<div id="boot-screen">
-  <div class="boot-content">
-    <div class="boot-logo">ORION<span class="blink">_</span></div>
-    <div id="boot-logs" class="boot-logs"></div>
-    <div class="boot-progress"><div class="boot-bar"></div></div>
-  </div>
-</div>
+<!-- PROGRESS BAR -->
+<div class="scroll-progress"></div>
 
 <!-- NAVIGATION -->
-<nav id="nav">
-  <div class="nav-glass"></div>
-  <div class="nav-inner">
+<nav class="nav-minimal">
+  <div class="nav-container">
     <div class="nav-brand">
-      <i data-lucide="hexagon" class="brand-icon"></i>
-      KAUSHAL_S
+      <span class="brand-name">Kaushal S</span>
     </div>
     <ul class="nav-links">
-      <li><a href="#observe"><span class="nav-num">01</span> Observe</a></li>
-      <li><a href="#model"><span class="nav-num">02</span> Model</a></li>
-      <li><a href="#build"><span class="nav-num">03</span> Build</a></li>
-      <li><a href="#validate"><span class="nav-num">04</span> Validate</a></li>
-      <li><a href="#deploy"><span class="nav-num">05</span> Deploy</a></li>
-      <li><a href="#contribute"><span class="nav-num">06</span> Contribute</a></li>
-      <li><a href="https://drive.google.com/file/d/1vNouvR0xk24Vo0vjgVY9oO2hzKTIP-wW/view" target="_blank" class="nav-resume"><i data-lucide="file-text"></i> Resume</a></li>
+      <li><a href="#manifesto">Manifesto</a></li>
+      <li><a href="#philosophy">Atlas</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#systems">Systems</a></li>
+      <li><a href="#lab">Lab</a></li>
+      <li><a href="https://drive.google.com/file/d/1vNouvR0xk24Vo0vjgVY9oO2hzKTIP-wW/view?usp=sharing" target="_blank" class="nav-resume">Resume ↗</a></li>
     </ul>
-    <button class="nav-mobile-btn"><i data-lucide="menu"></i></button>
+    <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false"><i data-lucide="menu"></i></button>
   </div>
 </nav>
 
 <main>
-  <!-- ════════ HERO ════════ -->
-  <section id="hero" class="mission-section container">
-    <div class="hero-layout">
-      <div class="hero-identity">
-        <div class="hero-badge">
-          <i data-lucide="satellite"></i>
-          Systems Engineer · Amrita Vishwa Vidyapeetham
-        </div>
-        <h1 class="hero-name">Kaushal S</h1>
-        <h2 class="hero-role">AI Systems Engineer</h2>
-        <p class="hero-desc">
-          Building autonomous systems that survive outside controlled environments.<br><br>
-          Researcher • Builder • Open Source Contributor • IEEE Author
-        </p>
-        
-        <div class="hero-metrics glass-panel">
-          <div class="metric">
-            <span class="m-val">18+</span>
-            <span class="m-lbl">Projects</span>
-          </div>
-          <div class="metric">
-            <span class="m-val">1</span>
-            <span class="m-lbl">IEEE Pub</span>
-          </div>
-          <div class="metric">
-            <span class="m-val">30+</span>
-            <span class="m-lbl">Commits</span>
-          </div>
-          <div class="metric">
-            <span class="m-val">5+</span>
-            <span class="m-lbl">Domains</span>
-          </div>
+  <!-- ════════ SILENCE HERO ════════ -->
+  <header class="hero">
+    <div class="container hero-center">
+      <div class="hero-content">
+        <h1 class="hero-title reveal-text">KAUSHAL S</h1>
+        <h2 class="hero-statement reveal-text">
+          Building autonomous systems<br>that survive outside<br>controlled environments.
+        </h2>
+        <div class="hero-roles reveal-fade">
+          <span>Researcher</span><span class="dot"></span>
+          <span>Builder</span><span class="dot"></span>
+          <span>IEEE Author</span>
         </div>
       </div>
-      
-      <!-- Iconic Visual Placeholder -->
-      <div class="hero-visual glass-panel iconic-visual">
-        <div class="photo-overlay"></div>
-        <span class="v-label">[YOUR NIGHT SKY / LONG EXPOSURE PHOTOGRAPHY HERE]</span>
+    </div>
+    <!-- Photography: Massive visual break -->
+    <div class="hero-visual-footer reveal-fade">
+      <span class="v-label">[YOUR NIGHT SKY / LONG EXPOSURE PHOTOGRAPHY]</span>
+    </div>
+  </header>
+
+  <!-- ════════ ENGINEERING PRINCIPLES ════════ -->
+  <section id="manifesto" class="lifecycle-stage section-alt">
+    <div class="container">
+      <div class="manifesto-grid">
+        <div class="manifesto-title">
+          <span class="stage-num accent-text">01 // MANIFESTO</span>
+          <h2>Engineering Principles</h2>
+        </div>
+        <div class="manifesto-list">
+          <div class="principle">
+            <span class="p-num">01</span>
+            <h3>Evidence before assumptions.</h3>
+          </div>
+          <div class="principle">
+            <span class="p-num">02</span>
+            <h3>Systems before features.</h3>
+          </div>
+          <div class="principle">
+            <span class="p-num">03</span>
+            <h3>Constraints create innovation.</h3>
+          </div>
+          <div class="principle">
+            <span class="p-num">04</span>
+            <h3>Research drives engineering.</h3>
+          </div>
+          <div class="principle">
+            <span class="p-num">05</span>
+            <h3>Ship. Measure. Improve.</h3>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ════════ STAGE 01: OBSERVE ════════ -->
-  <section id="observe" class="mission-section container">
-    <div class="section-header text-center">
-      <div class="sh-subtitle">MODULE 01 // OBSERVE</div>
-      <h2 class="sh-title">Engineering Manifesto</h2>
-    </div>
-
-    <div class="manifesto-grid">
-      <div class="glass-card phil-card">
-        <div class="p-num">01</div>
-        <h3>Evidence before assumptions.</h3>
-      </div>
-      <div class="glass-card phil-card">
-        <div class="p-num">02</div>
-        <h3>Systems before features.</h3>
-      </div>
-      <div class="glass-card phil-card">
-        <div class="p-num">03</div>
-        <h3>Constraints create innovation.</h3>
-      </div>
-      <div class="glass-card phil-card">
-        <div class="p-num">04</div>
-        <h3>Research drives engineering.</h3>
-      </div>
-      <div class="glass-card phil-card">
-        <div class="p-num">05</div>
-        <h3>Ship. Measure. Improve.</h3>
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════ STAGE 02: MODEL (ATLAS LENS) ════════ -->
-  <section id="model" class="mission-section container">
-    <div class="atlas-lens-container glass-panel">
-      <div class="lens-content text-center">
+  <!-- ════════ PHILOSOPHY / ATLAS LENS ════════ -->
+  <section id="philosophy" class="lifecycle-stage atlas-lens-section">
+    <div class="container">
+      <div class="silence-block">
         <h2 class="massive-text">I don't build applications.</h2>
-        <h2 class="massive-text highlight-cyan">I build systems.</h2>
-        
-        <div class="system-list">
-          <span class="sys-node">TrafficFlow AI</span> <i data-lucide="arrow-down"></i>
-          <span class="sys-node">AntBot</span> <i data-lucide="arrow-down"></i>
-          <span class="sys-node">WDS-IDS</span> <i data-lucide="arrow-down"></i>
-          <span class="sys-node highlight-blue">Atlas</span>
-        </div>
-
-        <p class="lens-desc">They all solve the exact same problem: <strong>Organizing complexity into reliable systems.</strong></p>
+        <h2 class="massive-text muted">I build systems.</h2>
       </div>
 
-      <div class="atlas-interactive">
+      <div class="system-list">
+        <span>TrafficFlow AI</span> <span>↓</span>
+        <span>AntBot</span> <span>↓</span>
+        <span>WDS-IDS</span> <span>↓</span>
+        <span>Atlas</span>
+      </div>
+
+      <div class="silence-block mt-large">
+        <p class="lead-text">They all solve the exact same problem:<br><strong>Organizing complexity into reliable systems.</strong></p>
+      </div>
+
+      <div class="atlas-interactive mt-large">
         <div class="atlas-header">
-          <i data-lucide="network"></i> ATLAS KNOWLEDGE ARCHITECTURE
+          <span class="stage-num">ATLAS KNOWLEDGE ARCHITECTURE</span>
         </div>
         <div class="atlas-graph-placeholder">
-          <span class="v-label">[BUILD TINY INTERACTIVE GRAPH HERE]<br>Knowledge → Evidence → Claim → Source</span>
+          <svg class="atlas-graph-svg" viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="atlasArrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/>
+              </marker>
+            </defs>
+            <line x1="105" y1="110" x2="255" y2="110" stroke="var(--line)" stroke-width="1.5" marker-end="url(#atlasArrow2)"/>
+            <line x1="355" y1="110" x2="505" y2="110" stroke="var(--line)" stroke-width="1.5" marker-end="url(#atlasArrow2)"/>
+            <circle class="atlas-pulse" r="3" fill="var(--accent)">
+              <animateMotion dur="3s" repeatCount="indefinite" path="M105,110 L505,110"/>
+            </circle>
+            <g class="atlas-node">
+              <circle cx="65" cy="110" r="46" fill="none" stroke="var(--text)" stroke-width="1.5"/>
+              <text x="65" y="106" text-anchor="middle" class="atlas-node-title">Knowledge</text>
+              <text x="65" y="122" text-anchor="middle" class="atlas-node-sub">raw notes</text>
+            </g>
+            <g class="atlas-node">
+              <circle cx="305" cy="110" r="46" fill="none" stroke="var(--text)" stroke-width="1.5"/>
+              <text x="305" y="106" text-anchor="middle" class="atlas-node-title">Evidence</text>
+              <text x="305" y="122" text-anchor="middle" class="atlas-node-sub">linked source</text>
+            </g>
+            <g class="atlas-node">
+              <circle cx="545" cy="110" r="46" fill="none" stroke="var(--accent)" stroke-width="1.8"/>
+              <text x="545" y="106" text-anchor="middle" class="atlas-node-title accent-text">Claim</text>
+              <text x="545" y="122" text-anchor="middle" class="atlas-node-sub">verified</text>
+            </g>
+            <line x1="591" y1="110" x2="650" y2="110" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <text x="650" y="106" text-anchor="start" class="atlas-node-title" font-size="12">Source</text>
+            <text x="650" y="122" text-anchor="start" class="atlas-node-sub">citation</text>
+          </svg>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ════════ STAGE 03: BUILD (RESEARCH) ════════ -->
-  <section id="build" class="mission-section container">
-    <div class="section-header">
-      <div class="sh-subtitle">MODULE 02 // BUILD</div>
-      <h2 class="sh-title">IEEE Publication: AntBot</h2>
-      <p class="sh-desc">Design and Experimental Validation of an Accessible Hexapod Platform.</p>
+  <!-- ════════ RESEARCH (VISUAL PROOF PIPELINE) ════════ -->
+  <section id="research" class="lifecycle-stage accent-research">
+    <div class="container">
+      <div class="stage-header text-center">
+        <span class="stage-num accent-text">02 // RESEARCH</span>
+        <h2 class="stage-title">IEEE Publication: AntBot</h2>
+        <p class="stage-desc mx-auto">From an expensive problem to an accessible hardware solution.</p>
+      </div>
+
+      <div class="proof-pipeline">
+        <!-- Step 1 -->
+        <div class="proof-step">
+          <div class="proof-visual">
+            <svg class="proof-svg" viewBox="0 0 160 130" xmlns="http://www.w3.org/2000/svg">
+              <line x1="20" y1="110" x2="150" y2="110" stroke="var(--line)" stroke-width="1"/>
+              <rect x="30" y="20" width="34" height="90" fill="none" stroke="var(--text-muted)" stroke-width="1.2"/>
+              <text x="47" y="14" text-anchor="middle" class="proof-svg-lbl">$5k–$50k</text>
+              <text x="47" y="123" text-anchor="middle" class="proof-svg-sub">Commercial</text>
+              <rect x="96" y="88" width="34" height="22" fill="var(--accent)" fill-opacity="0.15" stroke="var(--accent)" stroke-width="1.4"/>
+              <text x="113" y="82" text-anchor="middle" class="proof-svg-lbl accent-text">AntBot</text>
+              <text x="113" y="123" text-anchor="middle" class="proof-svg-sub">Accessible</text>
+            </svg>
+          </div>
+          <div class="proof-text">
+            <h4>The Problem</h4>
+            <p>Commercial hexapods ($5,000-$50k) gatekeep research. We engineered one for education.</p>
+          </div>
+        </div>
+        <div class="pipeline-connector">↓</div>
+        
+        <!-- Step 2 -->
+        <div class="proof-step">
+          <div class="proof-visual">
+            <svg class="proof-svg" viewBox="0 0 160 130" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="var(--text-muted)" stroke-width="1">
+              <rect x="55" y="45" width="50" height="40" stroke-opacity="0.9"/>
+              <line x1="55" y1="55" x2="55" y2="75" stroke-opacity="0.4"/>
+              <line x1="105" y1="55" x2="105" y2="75" stroke-opacity="0.4"/>
+              <g stroke-opacity="0.7">
+                <line x1="55" y1="50" x2="18" y2="20"/><line x1="55" y1="65" x2="10" y2="65"/><line x1="55" y1="80" x2="18" y2="110"/>
+                <line x1="105" y1="50" x2="142" y2="20"/><line x1="105" y1="65" x2="150" y2="65"/><line x1="105" y1="80" x2="142" y2="110"/>
+              </g>
+              <g fill="var(--accent)" stroke="none">
+                <circle cx="18" cy="20" r="2.5"/><circle cx="10" cy="65" r="2.5"/><circle cx="18" cy="110" r="2.5"/>
+                <circle cx="142" cy="20" r="2.5"/><circle cx="150" cy="65" r="2.5"/><circle cx="142" cy="110" r="2.5"/>
+              </g>
+              <circle cx="80" cy="65" r="3" fill="var(--text)" stroke="none"/>
+            </svg>
+          </div>
+          <div class="proof-text">
+            <h4>CAD & Mechanics</h4>
+            <p>Designed custom 21-DOF structural integrity models capable of carrying computer vision payloads.</p>
+          </div>
+        </div>
+        <div class="pipeline-connector">↓</div>
+
+        <!-- Step 3 -->
+        <div class="proof-step">
+          <div class="proof-visual">
+            <svg class="proof-svg" viewBox="0 0 160 130" xmlns="http://www.w3.org/2000/svg" fill="none">
+              <line x1="15" y1="15" x2="15" y2="110" stroke="var(--line)"/>
+              <line x1="15" y1="110" x2="150" y2="110" stroke="var(--line)"/>
+              <path d="M15,62 C35,20 55,20 75,62 C95,104 115,104 135,62 L150,45" stroke="var(--accent)" stroke-width="1.4"/>
+              <path d="M15,62 C35,104 55,104 75,62 C95,20 115,20 135,62 L150,80" stroke="var(--text-muted)" stroke-width="1.4" stroke-opacity="0.8"/>
+              <text x="20" y="122" class="proof-svg-sub">θ (leg joint angle) vs. gait phase</text>
+            </svg>
+          </div>
+          <div class="proof-text">
+            <h4>Inverse Kinematics</h4>
+            <p>Validated mathematical models in MATLAB to generate stable tripod gaits across unstructured terrain.</p>
+          </div>
+        </div>
+        <div class="pipeline-connector">↓</div>
+
+        <!-- Step 4 -->
+        <div class="proof-step">
+          <div class="proof-visual">
+            <svg class="proof-svg" viewBox="0 0 160 130" xmlns="http://www.w3.org/2000/svg">
+              <line x1="15" y1="105" x2="150" y2="105" stroke="var(--line)" stroke-width="1"/>
+              <g fill="var(--accent)">
+                <circle cx="35" cy="100" r="3.5"><animate attributeName="opacity" values="1;0.2;1" dur="1.2s" repeatCount="indefinite"/></circle>
+                <circle cx="80" cy="100" r="3.5"><animate attributeName="opacity" values="0.2;1;0.2" dur="1.2s" repeatCount="indefinite"/></circle>
+                <circle cx="125" cy="100" r="3.5"><animate attributeName="opacity" values="1;0.2;1" dur="1.2s" repeatCount="indefinite"/></circle>
+              </g>
+              <g fill="var(--text-muted)">
+                <circle cx="35" cy="70" r="3.5"><animate attributeName="opacity" values="0.2;1;0.2" dur="1.2s" repeatCount="indefinite"/></circle>
+                <circle cx="80" cy="70" r="3.5"><animate attributeName="opacity" values="1;0.2;1" dur="1.2s" repeatCount="indefinite"/></circle>
+                <circle cx="125" cy="70" r="3.5"><animate attributeName="opacity" values="0.2;1;0.2" dur="1.2s" repeatCount="indefinite"/></circle>
+              </g>
+              <text x="80" y="30" text-anchor="middle" class="proof-svg-sub">alternating tripod gait</text>
+            </svg>
+          </div>
+          <div class="proof-text">
+            <h4>Real-World Validation</h4>
+            <p>Execution in GPS-denied environments utilizing OpenCV for spatial awareness.</p>
+          </div>
+        </div>
+        <div class="pipeline-connector">↓</div>
+
+        <!-- Step 5 -->
+        <div class="proof-step final-step">
+          <div class="proof-text text-center">
+            <h4>IEEE Published Result</h4>
+            <a href="https://ieeexplore.ieee.org/abstract/document/11426098" target="_blank" class="btn-primary mt-small">Read IEEE Paper ↗</a>
+            <a href="https://github.com/kaushalrog" target="_blank" class="btn-secondary mt-small ml-small">View Repository →</a>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <!-- Visual Proof Pipeline -->
-    <div class="proof-pipeline">
-      <div class="proof-step glass-card">
-        <div class="proof-visual"><span class="v-label">[PHOTO: Commercial Hexapod vs AntBot]</span></div>
-        <div class="proof-text">
-          <h4>The Problem</h4>
-          <p>Commercial hexapods ($5k-$50k) gatekeep research. We engineered one for education.</p>
-        </div>
-      </div>
-      <div class="pipeline-connector"><i data-lucide="arrow-down"></i></div>
-      
-      <div class="proof-step glass-card">
-        <div class="proof-visual"><span class="v-label">[CAD: Hexapod Chassis]</span></div>
-        <div class="proof-text">
-          <h4>CAD & Mechanics</h4>
-          <p>Designed custom 21-DOF structural integrity models for computer vision payloads.</p>
-        </div>
-      </div>
-      <div class="pipeline-connector"><i data-lucide="arrow-down"></i></div>
-
-      <div class="proof-step glass-card">
-        <div class="proof-visual"><span class="v-label">[MATLAB: Inverse Kinematics Plot]</span></div>
-        <div class="proof-text">
-          <h4>Inverse Kinematics</h4>
-          <p>Validated mathematical models in MATLAB to generate stable tripod gaits.</p>
-        </div>
-      </div>
-      <div class="pipeline-connector"><i data-lucide="arrow-down"></i></div>
-
-      <div class="proof-step glass-card">
-        <div class="proof-visual"><span class="v-label">[GIF: Robot Walking in Reality]</span></div>
-        <div class="proof-text">
-          <h4>Real-World Validation</h4>
-          <p>Execution in GPS-denied environments utilizing OpenCV for spatial awareness.</p>
-        </div>
-      </div>
-      
-      <div class="cs-links mt-small text-center">
-        <a href="https://ieeexplore.ieee.org/abstract/document/11426098" target="_blank" class="btn-neon">Read IEEE Paper ↗</a>
-        <a href="https://github.com/kaushalrog" target="_blank" class="btn-glass">View Code →</a>
+    
+    <!-- Photography Break -->
+    <div class="container mt-large">
+      <div class="full-width-visual small-height">
+        <span class="v-label">[YOUR ROBOTICS PHOTOGRAPHY]</span>
       </div>
     </div>
   </section>
 
-  <!-- ════════ STAGE 04: VALIDATE (SYSTEMS & FAILURES) ════════ -->
-  <section id="validate" class="mission-section container">
-    <div class="section-header">
-      <div class="sh-subtitle">MODULE 03 // VALIDATE</div>
-      <h2 class="sh-title">Engineering Systems</h2>
-    </div>
+  <!-- ════════ SYSTEMS & FAILURES ════════ -->
+  <section id="systems" class="lifecycle-stage section-alt accent-systems">
+    <div class="container">
+      <div class="stage-header">
+        <span class="stage-num accent-text">03 // SYSTEMS</span>
+        <h2 class="stage-title">Engineering Systems</h2>
+      </div>
 
-    <div class="projects-layout">
-      
       <!-- ABiZ -->
-      <article class="glass-card project-card theme-data">
-        <div class="pc-visual">
-          <i data-lucide="bar-chart-2" class="pc-icon"></i>
-          <div class="data-bars">
-            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-          </div>
-          <span class="v-label-overlay">[ABiZ ARCHITECTURE DIAGRAM]</span>
+      <article class="case-study layout-split mb-large">
+        <div class="cs-media">
+          <svg class="cs-diagram-svg" viewBox="0 0 260 140" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="55" width="70" height="34" fill="none" stroke="var(--text)" stroke-width="1.2"/>
+            <text x="45" y="76" text-anchor="middle" class="cs-diagram-lbl">React UI</text>
+            <line x1="80" y1="72" x2="105" y2="72" stroke="var(--accent)" stroke-width="1.4"/>
+            <rect x="105" y="55" width="70" height="34" fill="none" stroke="var(--text)" stroke-width="1.2"/>
+            <text x="140" y="76" text-anchor="middle" class="cs-diagram-lbl">Node.js API</text>
+            <line x1="175" y1="72" x2="200" y2="72" stroke="var(--accent)" stroke-width="1.4"/>
+            <rect x="200" y="55" width="50" height="34" fill="none" stroke="var(--accent)" stroke-width="1.4"/>
+            <text x="225" y="76" text-anchor="middle" class="cs-diagram-lbl accent-text">Firebase</text>
+            <text x="140" y="40" text-anchor="middle" class="cs-diagram-sub">real-time sync</text>
+          </svg>
         </div>
-        <div class="pc-content">
-          <h3 class="pc-title">ABiZ Business Intelligence</h3>
-          <p class="pc-desc">Engineered a high-performance BI platform. Scaled a robust backend using Node.js and Firebase, handling real-time data sync, and built dynamic visualization pipelines in React for analytics at scale.</p>
-          <div class="pc-footer">
-            <a href="https://github.com/kaushalrog/ABiZ_Final_version" target="_blank" class="btn-neon-small"><i data-lucide="github"></i> Repository</a>
-          </div>
+        <div class="cs-content">
+          <h3>ABiZ</h3>
+          <p>Engineered a high-performance business intelligence platform. Built a robust backend using Node.js and Firebase for real-time data synchronization, and designed dynamic visualization pipelines in React for analytics at scale.</p>
+          <a href="https://github.com/kaushalrog/ABiZ_Final_version" class="text-link mt-small">Repository ↗</a>
         </div>
       </article>
 
       <!-- TrafficFlow AI -->
-      <article class="glass-card project-card theme-ml">
-        <div class="pc-visual">
-          <i data-lucide="cpu" class="pc-icon"></i>
-          <div class="node-network"></div>
-          <span class="v-label-overlay">[FUZZY LOGIC DIAGRAM]</span>
+      <article class="case-study layout-split mb-large">
+        <div class="cs-content">
+          <h3>TrafficFlow AI</h3>
+          <p>Black-box deep learning is rejected by city planners. I built a hybrid architecture: LSTM for flow, LightGBM for tabular events, and Fuzzy Logic for human-readable rules (e.g., "IF congestion is HIGH, THEN extend green light").</p>
+          <a href="https://github.com/kaushalrog/TrafficFlowAI" class="text-link mt-small">Repository ↗</a>
         </div>
-        <div class="pc-content">
-          <h3 class="pc-title">TrafficFlow AI</h3>
-          <p class="pc-desc">Black-box deep learning is rejected by city planners. Built a hybrid architecture: LSTM (flow) + LightGBM (tabular) + Fuzzy Logic (human-readable rules). Outperforms pure DL while remaining interpretable.</p>
-          <div class="pc-footer">
-            <a href="https://github.com/kaushalrog/TrafficFlowAI" target="_blank" class="btn-neon-small"><i data-lucide="github"></i> Repository</a>
-          </div>
+        <div class="cs-media">
+          <svg class="cs-diagram-svg" viewBox="0 0 260 140" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="20" width="76" height="26" fill="none" stroke="var(--text)" stroke-width="1"/>
+            <text x="46" y="37" text-anchor="middle" class="cs-diagram-lbl">LSTM (flow)</text>
+            <rect x="8" y="57" width="76" height="26" fill="none" stroke="var(--text)" stroke-width="1"/>
+            <text x="46" y="74" text-anchor="middle" class="cs-diagram-lbl">LightGBM</text>
+            <rect x="8" y="94" width="76" height="26" fill="none" stroke="var(--text)" stroke-width="1"/>
+            <text x="46" y="111" text-anchor="middle" class="cs-diagram-lbl">Fuzzy Rules</text>
+            <path d="M84,33 C110,33 110,70 140,70" stroke="var(--text-muted)" fill="none" stroke-width="1"/>
+            <path d="M84,70 C110,70 110,70 140,70" stroke="var(--text-muted)" fill="none" stroke-width="1"/>
+            <path d="M84,107 C110,107 110,70 140,70" stroke="var(--text-muted)" fill="none" stroke-width="1"/>
+            <rect x="140" y="52" width="110" height="36" fill="var(--accent)" fill-opacity="0.12" stroke="var(--accent)" stroke-width="1.4"/>
+            <text x="195" y="66" text-anchor="middle" class="cs-diagram-lbl accent-text">Hybrid Decision</text>
+            <text x="195" y="80" text-anchor="middle" class="cs-diagram-sub">interpretable output</text>
+          </svg>
         </div>
       </article>
 
       <!-- Failure Log: WDS-IDS -->
-      <article class="glass-panel failure-log">
+      <article class="failure-log mt-large">
         <div class="failure-header">
           <span class="f-badge">Things That Didn't Work</span>
           <h3>My First IDS Model</h3>
         </div>
+        
         <div class="failure-timeline">
           <div class="f-step">
             <span class="f-label">The Attempt</span>
             <p>Trained a generic deep learning model on raw HTTP payload signatures.</p>
           </div>
-          <div class="f-step failure-state">
+          <div class="f-step">
             <span class="f-label">The Result</span>
-            <p>18% accuracy in real-world drift scenarios. Attackers obfuscated payloads effortlessly.</p>
+            <p class="error-text">18% accuracy in real-world drift scenarios. Attackers obfuscated payloads effortlessly.</p>
           </div>
           <div class="f-step">
             <span class="f-label">The Pivot</span>
-            <p>Abandoned payload inspection. Shifted to monitoring OS-level behavioral changes on the host.</p>
+            <p>Abandoned payload inspection. Shifted to monitoring OS-level behavioral changes (CPU spikes, memory allocation) on the host.</p>
           </div>
-          <div class="f-step success-state">
+          <div class="f-step success">
             <span class="f-label">Final Build (WDS-IDS)</span>
-            <p>100% Recall (SRBH-20). Engineered inference for &lt;12ms on a Raspberry Pi 5.</p>
-            <a href="https://github.com/kaushalrog/ids---System" target="_blank" class="btn-neon-small mt-small">Repository ↗</a>
+            <p>100% Recall on SRBH-20. Engineered to run inference in &lt;12ms on a Raspberry Pi 5.</p>
+            <a href="https://github.com/kaushalrog/ids---System" class="text-link">Repository ↗</a>
           </div>
         </div>
       </article>
 
-    </div>
-  </section>
-
-  <!-- ════════ STAGE 05: DEPLOY (LAB NOTEBOOK) ════════ -->
-  <section id="deploy" class="mission-section container">
-    <div class="section-header">
-      <div class="sh-subtitle">MODULE 04 // DEPLOY</div>
-      <h2 class="sh-title">Lab Notebook</h2>
-    </div>
-
-    <div class="notebook-grid">
-      <div class="glass-card nb-card">
-        <span class="nb-id">Lab 005</span>
-        <h4>Edge AI Inference</h4>
-        <p>Deploying models to Raspberry Pi 5. Pruning networks to sub-15ms latency without dropping recall.</p>
-      </div>
-      <div class="glass-card nb-card">
-        <span class="nb-id">Lab 004</span>
-        <h4>Atlas Ontology</h4>
-        <p>Structuring engineering knowledge into a graph database. Mapping research evidence dependencies.</p>
-      </div>
-      <div class="glass-card nb-card">
-        <span class="nb-id">Lab 003</span>
-        <h4>MPC Controllers</h4>
-        <p>Evaluating if reinforcement learning can outperform heuristic schedulers in constrained environments.</p>
-      </div>
-      <div class="glass-card nb-card">
-        <span class="nb-id">Lab 002</span>
-        <h4>Fuzzy Logic</h4>
-        <p>Discovering city planners hate black boxes. Writing human-readable logic rules to override neural networks.</p>
-      </div>
-      <div class="glass-card nb-card">
-        <span class="nb-id">Lab 001</span>
-        <h4>Inverse Kinematics</h4>
-        <p>First attempts mathematically modeling a 21-DOF hexapod. Lots of math errors and robot collisions.</p>
+      <!-- Additional Systems -->
+      <div class="mini-grid mt-large">
+        <div class="mini-item">
+          <span class="stage-num accent-text">AI-DWECS</span>
+          <p>Q-learning task scheduler for 5G mobile edge computing. Balances deadline satisfaction against energy consumption on heterogeneous edge servers.</p>
+          <a href="https://github.com/kaushalrog/AIDWECS-Edge-Scheduler" class="text-link">Repository ↗</a>
+        </div>
+        <div class="mini-item">
+          <span class="stage-num accent-text">SVD Genomic Steganography</span>
+          <p>SVD-based steganography embedding sensitive patient metadata directly inside genomic sequence data.</p>
+          <a href="https://github.com/kaushalrog/svd-genomic-steganography" class="text-link">Repository ↗</a>
+        </div>
+        <div class="mini-item">
+          <span class="stage-num accent-text">MCDIP-ADMM CT Reconstruction</span>
+          <p>Unsupervised low-dose CT reconstruction combining ADMM optimization with a Multi-Code Deep Image Prior ensemble.</p>
+          <a href="https://github.com/kaushalrog/mcdip-admm-ct-reconstruction" class="text-link">Repository ↗</a>
+        </div>
+        <div class="mini-item">
+          <span class="stage-num accent-text">Kerala Metro Scheduling</span>
+          <p>AI assistant for metro control-center operators supporting live scheduling decisions.</p>
+          <a href="https://github.com/kaushalrog/kerala_metro_scheduling" class="text-link">Repository ↗</a>
+        </div>
+        <div class="mini-item">
+          <span class="stage-num accent-text">ML Alloy Structure–Property</span>
+          <p>Predicts alloy phase structure from composition and processing parameters for mechanical design.</p>
+          <a href="https://github.com/kaushalrog/-Machine-Learning-Driven-Structure-Property-Correlation-for-Mechanical-Design-of-Alloys" class="text-link">Repository ↗</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ════════ STAGE 06: CONTRIBUTE ════════ -->
-  <section id="contribute" class="mission-section container">
-    <div class="section-header">
-      <div class="sh-subtitle">MODULE 05 // CONTRIBUTE</div>
-      <h2 class="sh-title">Open Source Engineering</h2>
-    </div>
+  <!-- ════════ LAB NOTEBOOK ════════ -->
+  <section id="lab" class="lifecycle-stage accent-os">
+    <div class="container">
+      <div class="stage-header">
+        <span class="stage-num accent-text">04 // NOTEBOOK</span>
+        <h2 class="stage-title">Lab Notebook</h2>
+        <p class="stage-desc">A chronological log of curiosity and engineering experiments.</p>
+      </div>
 
-    <div class="os-grid">
-      <div class="glass-card os-card">
-        <div class="os-top">
-          <span class="os-repo">KhronosGroup/Vulkan-Loader</span>
-          <span class="os-lang lang-c">C</span>
+      <div class="notebook-list">
+        <div class="notebook-entry">
+          <span class="n-id">Lab 005</span>
+          <div class="n-content">
+            <h4>Experimenting with Edge AI inference pipelines</h4>
+            <p>Deploying models onto Raspberry Pi 5. Pruning neural networks to achieve sub-15ms latency without dropping recall.</p>
+          </div>
         </div>
-        <p class="os-impact">Fixed 5 critical memory bugs including buffer overflows and unchecked return values in the official graphics infrastructure loader used globally.</p>
-      </div>
-      <div class="glass-card os-card">
-        <div class="os-top">
-          <span class="os-repo">mitre/cti</span>
-          <span class="os-lang lang-py">Python</span>
+        <div class="notebook-entry">
+          <span class="n-id">Lab 004</span>
+          <div class="n-content">
+            <h4>Building Atlas Ontology</h4>
+            <p>Structuring engineering knowledge into a graph database. Mapping dependencies between research evidence and system claims.</p>
+          </div>
         </div>
-        <p class="os-impact">Engineered a validation script with 8 integrity checks and built the GitHub Actions CI pipeline for the ATT&CK threat intelligence repository.</p>
-      </div>
-      <div class="glass-card os-card">
-        <div class="os-top">
-          <span class="os-repo">redcanaryco/atomic-red-team</span>
-          <span class="os-lang lang-rb">Ruby/Py</span>
+        <div class="notebook-entry">
+          <span class="n-id">Lab 003</span>
+          <div class="n-content">
+            <h4>Reading MPC (Model Predictive Control) papers</h4>
+            <p>Evaluating if reinforcement learning can actually outperform heuristic schedulers in highly constrained edge environments.</p>
+          </div>
         </div>
-        <p class="os-impact">Resolved 12 structural bugs across execution layers to stabilize the adversary simulation framework for security teams worldwide.</p>
-      </div>
-      <div class="glass-card os-card">
-        <div class="os-top">
-          <span class="os-repo">pbakaus/impeccable</span>
-          <span class="os-lang lang-js">JavaScript</span>
+        <div class="notebook-entry">
+          <span class="n-id">Lab 002</span>
+          <div class="n-content">
+            <h4>Trying Fuzzy Logic for traffic control</h4>
+            <p>Discovering that city planners hate black boxes. Writing human-readable logic rules to override neural network outputs.</p>
+          </div>
         </div>
-        <p class="os-impact">Authored advanced DOM inspection detector rules utilizing computed styles to identify anti-patterns.</p>
+        <div class="notebook-entry">
+          <span class="n-id">Lab 001</span>
+          <div class="n-content">
+            <h4>Learning Inverse Kinematics in MATLAB</h4>
+            <p>First attempts at mathematically modeling a 21-DOF hexapod. Lots of math errors and robot collisions.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ════════ DOMAINS NETWORK ════════ -->
-  <section class="mission-section container">
-    <div class="glass-panel domain-panel">
-      <div class="section-header text-center mb-0">
-        <div class="sh-subtitle">MODULE 06 // CAPABILITIES</div>
-        <h2 class="sh-title">Tech Stack & Domains</h2>
+  <section id="domains" class="lifecycle-stage section-alt">
+    <div class="container">
+      <div class="stage-header text-center">
+        <span class="stage-num">05 // DOMAINS</span>
+        <h2 class="stage-title">Research & Engineering Areas</h2>
       </div>
-      
-      <div class="domain-network-visual">
-        <span class="v-label">[VISUAL NETWORK DIAGRAM]<br>AI — Robotics — Control Systems — Cybersecurity — Knowledge Engineering</span>
+      <div class="network-placeholder">
+        <svg class="domain-svg" viewBox="0 0 500 280" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="var(--line)" stroke-width="1">
+            <line x1="250" y1="140" x2="250" y2="40"/>
+            <line x1="250" y1="140" x2="410" y2="90"/>
+            <line x1="250" y1="140" x2="410" y2="200"/>
+            <line x1="250" y1="140" x2="250" y2="250"/>
+            <line x1="250" y1="140" x2="90" y2="200"/>
+            <line x1="250" y1="140" x2="90" y2="90"/>
+          </g>
+          <circle cx="250" cy="140" r="34" fill="var(--accent)" fill-opacity="0.15" stroke="var(--accent)" stroke-width="1.6"/>
+          <text x="250" y="136" text-anchor="middle" class="domain-node-title accent-text">Systems</text>
+          <text x="250" y="150" text-anchor="middle" class="domain-node-title accent-text">Engineering</text>
+
+          <circle cx="250" cy="40" r="26" fill="none" stroke="var(--text)" stroke-width="1.2"/>
+          <text x="250" y="45" text-anchor="middle" class="domain-node-sub">AI</text>
+
+          <circle cx="410" cy="90" r="26" fill="none" stroke="var(--text)" stroke-width="1.2"/>
+          <text x="410" y="94" text-anchor="middle" class="domain-node-sub">Robotics</text>
+
+          <circle cx="410" cy="200" r="26" fill="none" stroke="var(--text)" stroke-width="1.2"/>
+          <text x="410" y="204" text-anchor="middle" class="domain-node-sub" font-size="9">Control Sys.</text>
+
+          <circle cx="250" cy="250" r="26" fill="none" stroke="var(--text)" stroke-width="1.2"/>
+          <text x="250" y="254" text-anchor="middle" class="domain-node-sub" font-size="9">Cybersecurity</text>
+
+          <circle cx="90" cy="200" r="26" fill="none" stroke="var(--text)" stroke-width="1.2"/>
+          <text x="90" y="204" text-anchor="middle" class="domain-node-sub" font-size="9">Knowledge Eng.</text>
+
+          <circle cx="90" cy="90" r="26" fill="none" stroke="var(--text)" stroke-width="1.2"/>
+          <text x="90" y="94" text-anchor="middle" class="domain-node-sub">Edge</text>
+        </svg>
       </div>
 
-      <div class="tech-grid">
-        <div class="tech-box">
-          <h5>Core</h5>
-          <p>Python, C++, SQL, Linux</p>
+      <div class="tech-stack-container mt-large">
+        <div class="stage-header text-center" style="margin-bottom: 40px;">
+          <span class="stage-num">06 // STACK</span>
+          <h2 class="stage-title">Capabilities & Tools</h2>
         </div>
-        <div class="tech-box">
-          <h5>AI / ML</h5>
-          <p>OpenCV, scikit-learn, TensorFlow, LightGBM</p>
-        </div>
-        <div class="tech-box">
-          <h5>Infra / Web</h5>
-          <p>React, Node.js, Docker, Firebase</p>
-        </div>
-        <div class="tech-box">
-          <h5>Certifications</h5>
-          <p>Data Analytics (GCP), SQL (HackerRank), Cybersecurity (Cisco)</p>
+        <div class="manifesto-list" style="max-width: 800px; margin: 0 auto;">
+          <div class="principle">
+            <span class="p-num">01</span>
+            <h3><strong>Core:</strong> Python, C++, SQL, Linux</h3>
+          </div>
+          <div class="principle">
+            <span class="p-num">02</span>
+            <h3><strong>AI / ML:</strong> OpenCV, scikit-learn, TensorFlow, LightGBM</h3>
+          </div>
+          <div class="principle">
+            <span class="p-num">03</span>
+            <h3><strong>Infra / Web:</strong> React, Node.js, Docker, Firebase</h3>
+          </div>
+          <div class="principle">
+            <span class="p-num">04</span>
+            <h3><strong>Certifications:</strong> Data Analytics (GCP), SQL Advanced (HackerRank), Cybersecurity (Cisco)</h3>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ════════ PHOTOGRAPHY FOOTER ════════ -->
+  <div class="massive-footer-photo">
+    <span class="v-label">[YOUR CAMPUS ARCHITECTURE / EVENT PHOTOGRAPHY]</span>
+  </div>
+
 </main>
 
-<footer class="mission-footer">
-  <div class="container footer-grid">
-    <div class="f-brand">
-      <i data-lucide="hexagon"></i> KAUSHAL_S
+<footer class="minimal-footer">
+  <div class="container footer-content">
+    <div class="footer-left">
+      <strong>Kaushal S</strong>
+      <div class="footer-links">
+        <a href="mailto:kaushalreddy15@gmail.com">Email</a>
+        <a href="https://github.com/kaushalrog" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/kaushal-s-19234b314" target="_blank">LinkedIn</a>
+      </div>
     </div>
-    <div class="f-copy">SYSTEMS ENGINEER // COIMBATORE, INDIA</div>
-    <div class="f-links">
-      <a href="mailto:kaushalreddy15@gmail.com"><i data-lucide="mail"></i></a>
-      <a href="https://github.com/kaushalrog" target="_blank"><i data-lucide="github"></i></a>
-      <a href="https://www.linkedin.com/in/kaushal-s-19234b314" target="_blank"><i data-lucide="linkedin"></i></a>
+    <div class="footer-right">
+      <span>Systems Engineer · Coimbatore, India</span>
     </div>
   </div>
 </footer>
