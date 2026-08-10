@@ -1,0 +1,368 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   KAUSHAL GP — DESIGN SYSTEM
+   One accent. Thin borders. Huge editorial type. Tiny mono labels.
+   ============================================================ */
+
+@theme {
+  /* --- surface ------------------------------------------------ */
+  --color-void: #08090a;
+  --color-surface: #101214;
+  --color-surface-2: #16191c;
+  --color-glass: rgba(255, 255, 255, 0.04);
+  --color-line: rgba(255, 255, 255, 0.09);
+  --color-line-strong: rgba(255, 255, 255, 0.18);
+
+  /* --- ink ---------------------------------------------------- */
+  --color-ink: #f2f1ed;
+  --color-muted: #858585;
+  --color-faint: #767a7e;
+
+  /* --- signal -------------------------------------------------
+     Accent is the brand red. It measures 5.4:1 on the void background, so
+     it stays legible at the 9-10px label sizes it is mostly used at, and
+     near-black text on an accent fill measures 5.9:1.
+
+     Because red is now the brand, danger moves to amber — otherwise the
+     labs lose the ability to say "this one is flagged". */
+  --color-accent: #ff3b30;
+  --color-accent-dim: rgba(255, 59, 48, 0.13);
+  --color-warn: #ffa61f;
+  --color-ok: #3fe07f;
+
+  /* --- type --------------------------------------------------- */
+  --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* --- motion ------------------------------------------------- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-precise: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    background: var(--color-void);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-void);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-void);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  /* Focus rings only for keyboard users; pointer clicks stay clean. */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Thin, telemetry-like scrollbar. */
+  ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-void);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line-strong);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-muted);
+  }
+}
+
+/* ============================================================
+   TYPOGRAPHY PRIMITIVES
+   ============================================================ */
+
+@utility display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 13vw, 12rem);
+  line-height: 0.84;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+}
+
+@utility display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 8vw, 6.5rem);
+  line-height: 0.88;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+@utility display-md {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  line-height: 0.92;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+}
+
+@utility display-sm {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 0.96;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* The tiny technical label that carries the whole theme. */
+@utility label-tech {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  line-height: 1.4;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+@utility label-tech-sm {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  line-height: 1.4;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+}
+
+@utility mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+@utility body-lead {
+  font-size: clamp(1rem, 1.6vw, 1.1875rem);
+  line-height: 1.6;
+  font-weight: 300;
+  color: color-mix(in oklab, var(--color-ink) 82%, transparent);
+}
+
+/* ============================================================
+   SURFACES
+   ============================================================ */
+
+@utility panel {
+  background: var(--color-glass);
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(12px);
+}
+
+@utility hairline-t {
+  border-top: 1px solid var(--color-line);
+}
+
+@utility hairline-b {
+  border-bottom: 1px solid var(--color-line);
+}
+
+/* Faint engineering grid, used sparingly as a backdrop. */
+@utility grid-field {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+
+@layer components {
+  /* Keyboard users get to the content without tabbing the whole nav. */
+  .skip-link {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    z-index: 300;
+    transform: translate(-50%, -120%);
+    padding: 0.75rem 1.25rem;
+    background: var(--color-accent);
+    color: var(--color-void);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    transition: transform 180ms var(--ease-precise);
+  }
+
+  .skip-link:focus {
+    transform: translate(-50%, 0);
+  }
+
+  /* --- status dot --------------------------------------------- */
+  .status-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: var(--color-ok);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-ok) 70%, transparent);
+    animation: pulse-ring 2.4s var(--ease-precise) infinite;
+  }
+
+  /* --- primary action ----------------------------------------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.8125rem 1.375rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border: 1px solid var(--color-line-strong);
+    color: var(--color-ink);
+    background: transparent;
+    transition:
+      background 220ms var(--ease-precise),
+      border-color 220ms var(--ease-precise),
+      color 220ms var(--ease-precise);
+  }
+
+  .btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: var(--color-accent-dim);
+  }
+
+  .btn-solid {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-void);
+    font-weight: 600;
+  }
+
+  .btn-solid:hover {
+    background: color-mix(in oklab, var(--color-accent) 82%, white);
+    border-color: color-mix(in oklab, var(--color-accent) 82%, white);
+    color: var(--color-void);
+  }
+
+  /* --- spec sheet row ----------------------------------------- */
+  .spec-row {
+    display: grid;
+    grid-template-columns: minmax(6.5rem, 30%) 1fr;
+    gap: 1rem;
+    padding: 0.6875rem 0;
+    border-bottom: 1px solid var(--color-line);
+    align-items: baseline;
+  }
+
+  .spec-key {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
+
+  .spec-val {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* --- inline link -------------------------------------------- */
+  .link-tech {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    border-bottom: 1px solid transparent;
+    transition:
+      color 180ms var(--ease-precise),
+      border-color 180ms var(--ease-precise);
+  }
+
+  .link-tech:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+}
+
+/* ============================================================
+   MOTION
+   ============================================================ */
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-ok) 55%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 7px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes sweep-line {
+  from {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  to {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+/* Anything decorative stops when the user asks for calm. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
