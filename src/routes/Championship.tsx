@@ -94,7 +94,7 @@ export default function Championship() {
                         </span>
                         <div className="min-w-0">
                           <h3
-                            className={`font-display text-[1.375rem] leading-none tracking-wide ${
+                            className={`display-sm ${
                               'tone' in stage ? stage.tone : 'text-ink'
                             }`}
                           >
@@ -120,7 +120,7 @@ export default function Championship() {
           <HairlineGrid className="md:grid-cols-2 xl:grid-cols-3">
             <div className="p-6">
               <p className="label-tech mb-3 text-accent">IEEE Publication</p>
-              <p className="font-display text-[1.375rem] leading-tight tracking-wide">
+              <p className="display-flat">
                 AntBot — Accessible Hexapod Platform
               </p>
               <p className="mt-3 text-[0.8125rem] leading-relaxed text-muted">
@@ -138,7 +138,7 @@ export default function Championship() {
 
             <div className="p-6">
               <p className="label-tech mb-3 text-accent">Conference submission</p>
-              <p className="font-display text-[1.375rem] leading-tight tracking-wide">
+              <p className="display-flat">
                 BDA 2026 — BITS Pilani Goa
               </p>
               <p className="mt-3 text-[0.8125rem] leading-relaxed text-muted">

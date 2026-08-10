@@ -30,7 +30,7 @@ export default function Archive() {
               onClick={() => setOpen(i)}
               className={`label-tech shrink-0 border px-3 py-2 transition-colors ${
                 open === i
-                  ? 'border-accent bg-accent text-void'
+                  ? 'border-accent bg-accent text-page'
                   : 'border-line text-muted hover:text-ink'
               }`}
             >
@@ -57,7 +57,7 @@ export default function Archive() {
                 >
                   <span className="label-tech shrink-0 text-accent">{round.round}</span>
                   <span className="min-w-0 flex-1">
-                    <span className="block font-display text-[1.75rem] leading-none tracking-wide transition-colors group-hover:text-accent md:text-[2.5rem]">
+                    <span className="block display-md transition-colors group-hover:text-accent">
                       {round.label}
                     </span>
                   </span>
@@ -79,9 +79,9 @@ export default function Archive() {
                           <div key={entry.title} className="relative pt-6">
                             <span
                               aria-hidden
-                              className="absolute top-1 left-0 h-3.5 w-3.5 border border-accent bg-void"
+                              className="absolute top-1 left-0 h-3.5 w-3.5 border border-accent bg-page"
                             />
-                            <h3 className="font-display text-[1.375rem] leading-tight tracking-wide">
+                            <h3 className="display-flat">
                               {entry.title}
                             </h3>
                             <p className="mt-3 max-w-md text-[0.875rem] leading-relaxed text-muted">

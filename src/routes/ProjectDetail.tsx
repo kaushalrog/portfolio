@@ -183,7 +183,7 @@ export default function ProjectDetail() {
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <div>
-                      <h3 className="font-display text-[1.5rem] leading-none tracking-wide text-accent">
+                      <h3 className="display-sm text-accent">
                         {section.heading}
                       </h3>
                       <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink/85">
@@ -210,7 +210,7 @@ export default function ProjectDetail() {
                   className="group p-6 transition-colors hover:bg-surface md:p-7"
                 >
                   <p className="label-tech text-accent">{paper.ref} · Research Archive</p>
-                  <p className="mt-3 font-display text-[1.375rem] leading-tight tracking-wide transition-colors group-hover:text-accent">
+                  <p className="mt-3 display-flat transition-colors group-hover:text-accent">
                     {paper.shortTitle}
                   </p>
                   <p className="label-tech-sm mt-2.5 normal-case">{paper.venue}</p>
@@ -223,7 +223,7 @@ export default function ProjectDetail() {
                   className="group p-6 transition-colors hover:bg-surface md:p-7"
                 >
                   <p className="label-tech text-accent">Challenge {c.ref}</p>
-                  <p className="mt-3 font-display text-[1.375rem] leading-tight tracking-wide transition-colors group-hover:text-accent">
+                  <p className="mt-3 display-flat transition-colors group-hover:text-accent">
                     {c.title}
                   </p>
                   <p className="label-tech-sm mt-2.5 normal-case">Problem → attempt → solution</p>
@@ -246,7 +246,7 @@ export default function ProjectDetail() {
             </div>
             <Link to={`/garage/${next.id}`} className="group text-right">
               <p className="label-tech">Next bay</p>
-              <p className="mt-2 font-display text-[1.75rem] leading-none tracking-wide transition-colors group-hover:text-accent">
+              <p className="mt-2 display-sm transition-colors group-hover:text-accent">
                 {next.code} · {next.name} →
               </p>
             </Link>

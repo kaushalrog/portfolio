@@ -33,7 +33,7 @@ export default function RouteTransition() {
         <div className="h-full w-full origin-left bg-accent [animation:sweep-line_420ms_var(--ease-out-expo)_forwards]" />
       </div>
       <div className="flex justify-center">
-        <span className="label-tech mt-3 bg-void/80 px-3 py-1 text-accent backdrop-blur-sm">
+        <span className="label-tech mt-3 bg-page/80 px-3 py-1 text-accent backdrop-blur-sm">
           {label}
         </span>
       </div>

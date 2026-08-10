@@ -191,7 +191,7 @@ export default function Terminal() {
         onClick={() => setOpen(true)}
         aria-label="Open terminal"
         title="Terminal — Ctrl+`"
-        className="label-tech-sm fixed right-4 bottom-24 z-[92] hidden h-9 w-9 items-center justify-center border border-line bg-void/90 text-muted backdrop-blur transition-colors hover:border-accent hover:text-accent lg:bottom-6 lg:flex"
+        className="label-tech-sm fixed right-4 bottom-24 z-[92] hidden h-9 w-9 items-center justify-center border border-line bg-page/90 text-muted backdrop-blur transition-colors hover:border-accent hover:text-accent lg:bottom-6 lg:flex"
       >
         {'>_'}
       </button>
@@ -199,7 +199,7 @@ export default function Terminal() {
   }
 
   return (
-    <div className="fixed right-4 bottom-6 z-[92] hidden w-[34rem] max-w-[calc(100vw-2rem)] flex-col border border-line-strong bg-void/97 backdrop-blur-xl lg:flex">
+    <div className="fixed right-4 bottom-6 z-[92] hidden w-[34rem] max-w-[calc(100vw-2rem)] flex-col border border-line-strong bg-page/97 backdrop-blur-xl lg:flex">
       <div className="flex items-center justify-between border-b border-line px-4 py-2">
         <span className="label-tech-sm text-accent">TERMINAL</span>
         <button

@@ -75,7 +75,7 @@ export default function AbstentionLab() {
                     y="110"
                     width="120"
                     height="40"
-                    fill={on ? 'rgba(200,255,0,0.10)' : 'rgba(255,255,255,0.02)'}
+                    fill={on ? 'var(--color-accent-dim)' : 'rgba(0,0,0,0.025)'}
                     stroke={on ? 'var(--color-accent)' : 'var(--color-line-strong)'}
                     strokeWidth="1.2"
                   />
@@ -135,7 +135,7 @@ export default function AbstentionLab() {
             {/* composite bus */}
             <line x1="220" y1="62" x2="500" y2="62" stroke="var(--color-line)" strokeWidth="1" />
             <line x1="500" y1="62" x2="560" y2="62" stroke="var(--color-line-strong)" strokeWidth="1" />
-            <rect x="560" y="26" width="120" height="36" fill="rgba(200,255,0,0.06)" stroke="var(--color-accent)" strokeWidth="1.2" />
+            <rect x="560" y="26" width="120" height="36" fill="var(--color-accent-dim)" stroke="var(--color-accent)" strokeWidth="1.2" />
             <text x="620" y="48" textAnchor="middle" fill="var(--color-accent)" style={{ fontFamily: 'var(--font-mono)', fontSize: '8.5px', letterSpacing: '0.1em' }}>
               COMPOSITE UQ
             </text>

@@ -40,7 +40,7 @@ function Entry({ entry, open, onToggle }: { entry: ResearchEntry; open: boolean;
         <span className="label-tech shrink-0 pt-1.5 text-accent">{entry.ref}</span>
 
         <span className="min-w-0 flex-1">
-          <span className="block font-display text-[1.75rem] leading-none tracking-wide transition-colors group-hover:text-accent md:text-[2.25rem]">
+          <span className="block display-md transition-colors group-hover:text-accent">
             {entry.shortTitle}
           </span>
           <span className="label-tech-sm mt-3 block normal-case">{entry.title}</span>

@@ -60,7 +60,7 @@ export default function ContradictionLab() {
             onClick={() => setPoison(null)}
             className={`label-tech-sm border px-2.5 py-1.5 transition-colors ${
               poison === null
-                ? 'border-accent bg-accent text-void'
+                ? 'border-accent bg-accent text-page'
                 : 'border-line text-muted hover:text-ink'
             }`}
           >
@@ -75,7 +75,7 @@ export default function ContradictionLab() {
               }}
               className={`label-tech-sm border px-2.5 py-1.5 transition-colors ${
                 poison === d.id
-                  ? 'border-warn bg-warn text-void'
+                  ? 'border-warn bg-warn text-page'
                   : 'border-line text-muted hover:text-ink'
               }`}
             >
@@ -158,7 +158,7 @@ export default function ContradictionLab() {
                         background:
                           i === j
                             ? 'transparent'
-                            : `rgba(255,166,31,${(c * 0.5).toFixed(3)})`,
+                            : `rgba(194,65,12,${(c * 0.5).toFixed(3)})`,
                         color: i === j ? 'var(--color-faint)' : 'var(--color-ink)',
                       }}
                     >

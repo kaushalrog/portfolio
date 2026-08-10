@@ -30,7 +30,8 @@ export function PageHeader({
       <Container>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <p className="label-tech mb-5 text-accent">{code}</p>
+            <span aria-hidden className="rule-accent mb-5" />
+            <p className="label-tech mb-4 text-accent">{code}</p>
             <h1 className="display-lg">{title}</h1>
             {lede && <p className="body-lead mt-6 max-w-2xl">{lede}</p>}
           </div>
@@ -55,8 +56,13 @@ export function SectionHeader({
   return (
     <div className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-line pb-4">
       <div>
-        {index && <p className="label-tech mb-2.5 text-accent">{index}</p>}
-        <h2 className="display-sm">{title}</h2>
+        {index && (
+          <p className="label-tech mb-2.5 flex items-center gap-2.5 text-accent">
+            <span aria-hidden className="inline-block h-3 w-[3px] skew-x-[-18deg] bg-accent" />
+            {index}
+          </p>
+        )}
+        <h2 className="display-md">{title}</h2>
         {caption && <p className="label-tech mt-2">{caption}</p>}
       </div>
       {action}

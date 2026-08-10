@@ -11,7 +11,7 @@ export default function MobileNav({ onOpenPalette }: { onOpenPalette: () => void
   return (
     <nav
       aria-label="Mobile primary"
-      className="fixed inset-x-0 bottom-0 z-[95] border-t border-line bg-void/95 backdrop-blur-xl lg:hidden"
+      className="inverted fixed inset-x-0 bottom-0 z-[95] border-t border-line lg:hidden"
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
       <div className="grid grid-cols-5">

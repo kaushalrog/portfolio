@@ -102,8 +102,8 @@ export default function InstructionLab() {
               className={`label-tech-sm border px-2.5 py-1.5 transition-colors ${
                 preset === i
                   ? p.kind === 'attack'
-                    ? 'border-warn bg-warn text-void'
-                    : 'border-ok bg-ok text-void'
+                    ? 'border-warn bg-warn text-page'
+                    : 'border-ok bg-ok text-page'
                   : 'border-line text-muted hover:text-ink'
               }`}
             >
@@ -133,7 +133,7 @@ export default function InstructionLab() {
                   <span
                     aria-hidden
                     className={`flex h-4 w-4 shrink-0 items-center justify-center border text-[0.5625rem] ${
-                      on ? 'border-accent bg-accent text-void' : 'border-line-strong text-transparent'
+                      on ? 'border-accent bg-accent text-page' : 'border-line-strong text-transparent'
                     }`}
                   >
                     ✓

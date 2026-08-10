@@ -4,11 +4,11 @@ import { Container } from './ui';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-line py-10">
+    <footer className="inverted border-t border-line py-12">
       <Container>
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="font-display text-[1.5rem] leading-none tracking-wide">
+            <p className="display-sm">
               {profile.team}
             </p>
             <p className="label-tech mt-3">

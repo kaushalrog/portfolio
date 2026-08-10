@@ -92,7 +92,7 @@ export default function Engineering() {
       />
 
       {/* bay selector */}
-      <div className="sticky top-14 z-40 border-b border-line bg-void/90 backdrop-blur-xl lg:top-0">
+      <div className="sticky top-14 z-40 border-b border-line bg-page/90 backdrop-blur-xl lg:top-0">
         <Container className="flex gap-1 overflow-x-auto py-3">
           {BAYS.map((b) => (
             <button
@@ -100,7 +100,7 @@ export default function Engineering() {
               onClick={() => setOpen(b.id)}
               className={`label-tech shrink-0 border px-3 py-2 transition-colors ${
                 open === b.id
-                  ? 'border-accent bg-accent text-void'
+                  ? 'border-accent bg-accent text-page'
                   : 'border-line text-muted hover:text-ink'
               }`}
             >

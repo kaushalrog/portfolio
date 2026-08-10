@@ -27,7 +27,7 @@ export default function OffTrack() {
       <header className="border-b border-line py-16 md:py-24">
         <Container>
           <p className="label-tech mb-6 text-muted">Off Track</p>
-          <h1 className="font-display text-[clamp(3rem,9vw,7rem)] leading-[0.88] tracking-[0.01em] uppercase">
+          <h1 className="display-xl">
             Away from
             <br />
             the engineering

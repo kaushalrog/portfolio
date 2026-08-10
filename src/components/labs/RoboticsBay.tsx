@@ -122,8 +122,8 @@ export default function RoboticsBay() {
                 {/* tibia */}
                 <line x1={kneeX} y1={kneeY} x2={footX} y2={footY} stroke="var(--color-accent)" strokeWidth="2.2" />
                 {/* joints */}
-                <circle cx={ox} cy={oz} r="4.5" fill="var(--color-void)" stroke="var(--color-ink)" strokeWidth="1.5" />
-                <circle cx={kneeX} cy={kneeY} r="4" fill="var(--color-void)" stroke="var(--color-ink)" strokeWidth="1.5" />
+                <circle cx={ox} cy={oz} r="4.5" fill="var(--color-page)" stroke="var(--color-ink)" strokeWidth="1.5" />
+                <circle cx={kneeX} cy={kneeY} r="4" fill="var(--color-page)" stroke="var(--color-ink)" strokeWidth="1.5" />
                 <circle cx={footX} cy={footY} r="3.5" fill="var(--color-accent)" />
 
                 <text x={ox + 8} y={oz - 8} fill="var(--color-muted)" style={{ fontFamily: 'var(--font-mono)', fontSize: '8px' }}>
@@ -179,7 +179,7 @@ export default function RoboticsBay() {
                 onClick={() => setGait(g)}
                 className={`label-tech-sm border px-2.5 py-1.5 transition-colors ${
                   gait === g
-                    ? 'border-accent bg-accent text-void'
+                    ? 'border-accent bg-accent text-page'
                     : 'border-line text-muted hover:text-ink'
                 }`}
               >
@@ -191,7 +191,7 @@ export default function RoboticsBay() {
           <div className="border border-line p-6">
             <svg viewBox="0 0 260 160" className="mx-auto h-auto w-full max-w-xs">
               {/* chassis */}
-              <rect x="105" y="40" width="50" height="80" rx="3" fill="rgba(255,255,255,0.03)" stroke="var(--color-line-strong)" strokeWidth="1.2" />
+              <rect x="105" y="40" width="50" height="80" rx="3" fill="rgba(0,0,0,0.035)" stroke="var(--color-line-strong)" strokeWidth="1.2" />
 
               {LEG_POSITIONS.map((leg, i) => {
                 const inA = TRIPOD_A.includes(i);

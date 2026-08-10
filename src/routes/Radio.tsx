@@ -99,7 +99,7 @@ export default function Radio() {
                 {profile.approach.map((line) => (
                   <li
                     key={line}
-                    className="font-display text-[2rem] leading-none tracking-wide md:text-[2.5rem]"
+                    className="display-md"
                   >
                     {line}
                   </li>

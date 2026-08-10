@@ -67,7 +67,7 @@ export default function BootSequence({ onDone }: { onDone: () => void }) {
     <div
       role="status"
       aria-label="Initialising"
-      className={`fixed inset-0 z-[200] flex items-center justify-center bg-void px-6 transition-opacity duration-[400ms] ${
+      className={`fixed inset-0 z-[200] flex items-center justify-center bg-page px-6 transition-opacity duration-[400ms] ${
         leaving ? 'pointer-events-none opacity-0' : 'opacity-100'
       }`}
     >
@@ -80,7 +80,7 @@ export default function BootSequence({ onDone }: { onDone: () => void }) {
 
       <div className="w-full max-w-[26rem]">
         <div className="mb-1 flex items-baseline justify-between">
-          <span className="font-display text-[1.75rem] leading-none tracking-wide">
+          <span className="display-sm">
             {profile.team}
           </span>
           <span className="label-tech-sm">SEASON {profile.season}</span>

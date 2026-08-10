@@ -11,9 +11,9 @@ import { useMemo, useState } from 'react';
 
 const BANDS = [
   { from: 0, to: 0.4, label: 'NORMAL', tone: 'var(--color-ok)', action: 'no action' },
-  { from: 0.4, to: 0.45, label: 'WARNING', tone: '#e0c23f', action: 'investigate' },
+  { from: 0.4, to: 0.45, label: 'WARNING', tone: '#a16207', action: 'investigate' },
   { from: 0.45, to: 0.6, label: 'ALERT', tone: 'var(--color-warn)', action: 'block / log' },
-  { from: 0.6, to: 1, label: 'CRITICAL', tone: '#ff2d1a', action: 'immediate response' },
+  { from: 0.6, to: 1, label: 'CRITICAL', tone: '#991b1b', action: 'immediate response' },
 ];
 
 const CONFUSION = {
@@ -198,7 +198,7 @@ export default function DriftLab() {
                 onClick={() => setThreshold(t)}
                 className={`label-tech-sm border px-2.5 py-1.5 transition-colors ${
                   Math.abs(threshold - t) < 0.005
-                    ? 'border-accent bg-accent text-void'
+                    ? 'border-accent bg-accent text-page'
                     : 'border-line text-muted hover:text-ink'
                 }`}
               >

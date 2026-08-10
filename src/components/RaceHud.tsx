@@ -60,7 +60,7 @@ export default function RaceHud() {
       </div>
 
       {/* Bottom rail */}
-      <div className="absolute inset-x-0 bottom-0 border-t border-accent/15 bg-void/70 backdrop-blur-sm">
+      <div className="absolute inset-x-0 bottom-0 border-t border-accent/15 bg-page/70 backdrop-blur-sm">
         <div className="mx-auto flex max-w-[112rem] items-center gap-5 px-5 py-1.5 md:px-10">
           <span className="label-tech-sm text-accent/70">● LIVE</span>
           <span className="label-tech-sm hidden sm:inline">SESSION {clock}</span>

@@ -51,7 +51,7 @@ export default function Paddock() {
           <div className="grid gap-10 lg:grid-cols-[minmax(0,19rem)_minmax(0,1fr)_minmax(0,13rem)] lg:gap-8 xl:gap-12">
             {/* left — identity */}
             <div className="flex flex-col justify-center">
-              <h1 className="font-display text-[clamp(3.25rem,8vw,5.5rem)] leading-[0.86] tracking-[0.01em] uppercase">
+              <h1 className="display-xl">
                 Kaushal
                 <span className="flex items-center gap-4">
                   S
@@ -63,7 +63,7 @@ export default function Paddock() {
                 {profile.disciplines.map((d) => (
                   <li
                     key={d}
-                    className="font-display text-[1.375rem] leading-tight tracking-wide text-muted"
+                    className="display-flat text-muted"
                   >
                     {d}
                   </li>
@@ -106,7 +106,7 @@ export default function Paddock() {
               { v: profile.season, k: 'Current season' },
             ].map((s) => (
               <div key={s.k} className="px-4 py-8 md:py-10">
-                <p className="font-display text-[2.75rem] leading-none text-accent md:text-[3.5rem]">
+                <p className="font-display text-[2.5rem] font-black italic leading-none tracking-tight text-accent md:text-[3.25rem]">
                   {s.v}
                 </p>
                 <p className="label-tech-sm mt-3">{s.k}</p>
@@ -202,7 +202,7 @@ export default function Paddock() {
               'Research',
             ].map((step, i, arr) => (
               <li key={step} className="flex items-center gap-3">
-                <span className="font-display text-[1.5rem] leading-none tracking-wide md:text-[2rem]">
+                <span className="display-sm">
                   {step}
                 </span>
                 {i < arr.length - 1 && (

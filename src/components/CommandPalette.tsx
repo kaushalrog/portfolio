@@ -113,7 +113,7 @@ export default function CommandPalette({
 
   return (
     <div
-      className="fixed inset-0 z-[160] flex items-start justify-center bg-void/85 backdrop-blur-sm sm:pt-[12vh]"
+      className="fixed inset-0 z-[160] flex items-start justify-center bg-page/85 backdrop-blur-sm sm:pt-[12vh]"
       onClick={() => onOpenChange(false)}
     >
       <div
@@ -154,7 +154,7 @@ export default function CommandPalette({
               return (
                 <div key={entry.id}>
                   {showGroup && (
-                    <p className="label-tech-sm border-b border-line bg-void px-5 py-2">
+                    <p className="label-tech-sm border-b border-line bg-page px-5 py-2">
                       {entry.group}
                     </p>
                   )}

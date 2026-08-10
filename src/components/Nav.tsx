@@ -18,7 +18,7 @@ function DriverModeToggle() {
           aria-checked={mode === m}
           onClick={() => setMode(m)}
           className={`label-tech-sm px-2.5 py-1.5 transition-colors ${
-            mode === m ? 'bg-accent text-void' : 'text-faint hover:text-ink'
+            mode === m ? 'bg-accent text-page' : 'text-faint hover:text-ink'
           }`}
         >
           {m === 'standard' ? 'STD' : 'RACE'}
@@ -38,14 +38,19 @@ export default function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
     <>
       {/* ═══════════════ DESKTOP RAIL ═══════════════ */}
       <aside
-        className="fixed inset-y-0 left-0 z-[100] hidden flex-col border-r border-line bg-void lg:flex"
+        className="inverted fixed inset-y-0 left-0 z-[100] hidden flex-col border-r border-line lg:flex"
         style={{ width: RAIL_W }}
       >
         <NavLink to="/" className="group block border-b border-line px-6 py-7">
-          <span className="block font-display text-[1.75rem] leading-none tracking-wider transition-colors group-hover:text-accent">
+          <span aria-hidden className="stripe mb-3">
+            <span />
+            <span />
+            <span />
+          </span>
+          <span className="display-sm block transition-colors group-hover:text-accent">
             {profile.team}
           </span>
-          <span className="label-tech-sm mt-2 block text-accent">SEASON {profile.season}</span>
+          <span className="label-tech-sm mt-1.5 block text-accent">SEASON {profile.season}</span>
         </NavLink>
 
         <nav aria-label="Primary" className="flex-1 overflow-y-auto py-4">
@@ -88,10 +93,10 @@ export default function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
       </aside>
 
       {/* ═══════════════ MOBILE / TABLET TOP BAR ═══════════════ */}
-      <header className="fixed inset-x-0 top-0 z-[100] border-b border-line bg-void/90 backdrop-blur-xl lg:hidden">
+      <header className="inverted fixed inset-x-0 top-0 z-[100] border-b border-line lg:hidden">
         <div className="flex h-14 items-center gap-4 px-5">
           <NavLink to="/" className="flex shrink-0 items-baseline gap-2.5">
-            <span className="font-display text-[1.0625rem] leading-none tracking-wider">
+            <span className="font-display text-[1.0625rem] font-black italic leading-none tracking-tight uppercase">
               {profile.team}
             </span>
             <span className="label-tech-sm hidden text-accent sm:inline">{profile.season}</span>
@@ -112,7 +117,7 @@ export default function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
       </header>
 
       {open && (
-        <div className="fixed inset-0 top-14 z-[99] overflow-y-auto bg-void lg:hidden">
+        <div className="inverted fixed inset-0 top-14 z-[99] overflow-y-auto lg:hidden">
           <nav aria-label="Mobile" className="flex flex-col px-5 py-4">
             {navItems.map((item, i) => (
               <NavLink

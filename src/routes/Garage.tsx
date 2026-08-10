@@ -18,7 +18,7 @@ function Bay({ project, large }: { project: Project; large?: boolean }) {
           <span className="label-tech text-accent">{project.code}</span>
           <h3
             className={`mt-3 transition-colors group-hover:text-accent ${
-              large ? 'display-sm' : 'font-display text-[1.625rem] leading-none tracking-wide'
+              large ? 'display-sm' : 'display-flat'
             }`}
           >
             {project.name}
@@ -90,7 +90,7 @@ export default function Garage() {
           <button
             onClick={() => setParams({})}
             className={`label-tech-sm border px-2.5 py-1.5 transition-colors ${
-              !component ? 'border-accent bg-accent text-void' : 'border-line text-muted hover:text-ink'
+              !component ? 'border-accent bg-accent text-page' : 'border-line text-muted hover:text-ink'
             }`}
           >
             All
@@ -103,7 +103,7 @@ export default function Garage() {
                 onClick={() => setParams({ component: c.id })}
                 className={`label-tech-sm border px-2.5 py-1.5 transition-colors ${
                   component === c.id
-                    ? 'border-accent bg-accent text-void'
+                    ? 'border-accent bg-accent text-page'
                     : 'border-line text-muted hover:text-ink'
                 }`}
               >

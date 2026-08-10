@@ -74,7 +74,7 @@ export default function Telemetry() {
               { k: 'On GitHub since', v: t ? t.memberSince.slice(0, 4) : '—' },
             ].map((s) => (
               <div key={s.k} className="px-4 py-8 md:py-10">
-                <p className="font-display text-[2.75rem] leading-none text-accent md:text-[3.5rem]">
+                <p className="font-display text-[2.5rem] font-black italic leading-none tracking-tight text-accent md:text-[3.25rem]">
                   {s.v}
                 </p>
                 <p className="label-tech-sm mt-3">{s.k}</p>

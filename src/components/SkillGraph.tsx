@@ -138,12 +138,12 @@ export default function SkillGraph() {
                   y={p.y}
                   width={NODE_W}
                   height={NODE_H}
-                  fill={isSelected ? 'rgba(200,255,0,0.14)' : 'rgba(255,255,255,0.025)'}
+                  fill={isSelected ? 'rgba(225,6,0,0.10)' : 'rgba(0,0,0,0.03)'}
                   stroke={
                     isSelected
                       ? 'var(--color-accent)'
                       : isRelated
-                        ? 'rgba(200,255,0,0.4)'
+                        ? 'rgba(225,6,0,0.45)'
                         : 'var(--color-line-strong)'
                   }
                   strokeWidth={isSelected ? 1.5 : 1}
@@ -175,7 +175,7 @@ export default function SkillGraph() {
 
       <aside id={`skill-${node.id}`} className="scroll-mt-24 border border-line p-5">
         <p className="label-tech mb-2 text-accent">Node</p>
-        <h3 className="font-display text-[1.75rem] leading-none tracking-wide">{node.label}</h3>
+        <h3 className="display-sm">{node.label}</h3>
 
         {node.parents.length > 0 && (
           <p className="label-tech-sm mt-3 normal-case">

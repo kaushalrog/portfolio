@@ -45,9 +45,9 @@ export default function K01() {
 
   const isOn = (id: ComponentId) => hovered === id;
   const stroke = (id: ComponentId) =>
-    isOn(id) ? 'var(--color-accent)' : 'var(--color-line-strong)';
+    isOn(id) ? 'var(--color-accent)' : 'rgba(0,0,0,0.62)';
   const fill = (id: ComponentId) =>
-    isOn(id) ? 'rgba(200,255,0,0.10)' : 'rgba(255,255,255,0.022)';
+    isOn(id) ? 'var(--color-accent-dim)' : 'rgba(0,0,0,0.025)';
 
   const activate = (id: ComponentId) => navigate(componentById(id).href);
 
@@ -81,8 +81,8 @@ export default function K01() {
         aria-label="K-01 — interactive component diagram"
       >
         {/* ground reference */}
-        <line x1="20" y1="214" x2="660" y2="214" stroke="var(--color-line)" strokeWidth="1" />
-        <g stroke="var(--color-line)" strokeWidth="0.6" opacity="0.6">
+        <line x1="20" y1="214" x2="660" y2="214" stroke="rgba(0,0,0,0.3)" strokeWidth="1" />
+        <g stroke="rgba(0,0,0,0.3)" strokeWidth="0.6" opacity="0.6">
           {Array.from({ length: 17 }, (_, i) => 20 + i * 40).map((x) => (
             <line key={x} x1={x} y1="214" x2={x - 7} y2="221" />
           ))}
@@ -95,13 +95,13 @@ export default function K01() {
               cx={cx}
               cy="166"
               r="46"
-              fill="rgba(255,255,255,0.025)"
-              stroke="var(--color-line-strong)"
+              fill="rgba(0,0,0,0.03)"
+              stroke="rgba(0,0,0,0.62)"
               strokeWidth="1.2"
             />
-            <circle cx={cx} cy="166" r="25" fill="var(--color-void)" stroke="var(--color-line)" strokeWidth="1" />
-            <circle cx={cx} cy="166" r="9" fill="none" stroke="var(--color-line)" strokeWidth="1" />
-            <g stroke="var(--color-line)" strokeWidth="0.7">
+            <circle cx={cx} cy="166" r="25" fill="var(--color-page)" stroke="rgba(0,0,0,0.3)" strokeWidth="1" />
+            <circle cx={cx} cy="166" r="9" fill="none" stroke="rgba(0,0,0,0.3)" strokeWidth="1" />
+            <g stroke="rgba(0,0,0,0.34)" strokeWidth="0.7">
               {[0, 60, 120].map((deg) => {
                 const r = (deg * Math.PI) / 180;
                 return (
@@ -177,7 +177,7 @@ export default function K01() {
         <g {...zone('control-system')}>
           <path d="M348,120 L432,128 L436,146 L352,142 Z" fill={fill('control-system')} stroke={stroke('control-system')} strokeWidth="1.2" />
           {/* helmet */}
-          <path d="M368,122 A15,15 0 0,1 398,125 L398,132 L368,130 Z" fill="var(--color-void)" stroke={stroke('control-system')} strokeWidth="1.1" />
+          <path d="M368,122 A15,15 0 0,1 398,125 L398,132 L368,130 Z" fill="var(--color-page)" stroke={stroke('control-system')} strokeWidth="1.1" />
           {/* halo */}
           <path d="M352,118 Q392,96 434,124" fill="none" stroke={stroke('control-system')} strokeWidth="1.6" />
           <line x1="428" y1="120" x2="430" y2="132" stroke={stroke('control-system')} strokeWidth="1.3" />
