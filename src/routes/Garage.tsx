@@ -68,7 +68,7 @@ export default function Garage() {
       <PageHeader
         code="GARAGE"
         title="Engineering Database"
-        lede="Fourteen systems, tiered by what they are actually for. Every specification and every number on these pages is transcribed from the project's own repository, paper, or published results."
+        lede={`${projects.length} systems, tiered by what they are actually for. Every specification and every number on these pages is transcribed from the project's own repository, paper, or published results.`}
         meta={
           <dl className="flex gap-8 lg:justify-end">
             <div>

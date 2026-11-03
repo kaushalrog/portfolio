@@ -193,13 +193,41 @@ export const timeline: TimelineRound[] = [
         detail:
           'Binance Futures testnet CLI with MARKET, LIMIT and STOP_MARKET orders, validation, logging and a guided interactive mode.',
       },
+      {
+        title: 'Project Monitor',
+        detail:
+          'Academic project supervision on Next.js 15 and PostgreSQL. Health is explained with its evidence, never scored — and GitHub activity is never a signal.',
+      },
+      {
+        title: 'GameMetric',
+        detail:
+          'Browser-local FPS utility: CS2/VALORANT sensitivity conversion, display maths and aim practice, with every game constant tagged by provenance.',
+      },
+    ],
+  },
+  {
+    round: 'ROUND 07',
+    label: 'Control & Data',
+    period: '2026',
+    summary: 'Scaling the physics and the data until a single run proves nothing.',
+    entries: [
+      {
+        title: 'Spacecraft formation control',
+        detail:
+          'Fault-aware event triggering for a four-spacecraft formation with a browser digital twin. 97/100 terminal success vs 59/100 for the baseline trigger across a paired Monte Carlo campaign.',
+      },
+      {
+        title: 'AG-DATA',
+        detail:
+          'Spark, HDFS and Kafka over 132.9M agricultural market records; a streaming Random Forest anomaly model at 86.01% F1 and 2.46% FPR on an untouched 2025+ test set.',
+      },
     ],
   },
   {
     round: 'CURRENT ROUND',
     label: 'Research',
     period: '2026',
-    summary: 'Asking what a retrieval system knows, and what it can be made to obey.',
+    summary: 'Asking what an AI system knows, what it can be made to obey, and whether it did what it said.',
     entries: [
       {
         title: 'SciRAG-UQ',
@@ -210,6 +238,11 @@ export const timeline: TimelineRound[] = [
         title: 'Sec-RAG',
         detail:
           'Four near-disjoint defense layers for agentic RAG. 90.5% detection at 11.9% FPR; tool-attack success driven from 100% to 0%.',
+      },
+      {
+        title: 'Atithi',
+        detail:
+          'An AI receptionist across text, voice and phone that checks every "you\'re booked" against the real record before it is said. 177 tests, no network required.',
       },
     ],
   },
@@ -230,7 +263,7 @@ export const skillGraph: SkillNode[] = [
     id: 'ml',
     label: 'Machine Learning',
     parents: ['ai'],
-    projects: ['alloy-phase-ml', 'trafficflow-ai'],
+    projects: ['alloy-phase-ml', 'trafficflow-ai', 'ag-data'],
     tools: ['scikit-learn', 'XGBoost', 'LightGBM', 'Random Forest', 'SVM'],
   },
   {
@@ -307,8 +340,8 @@ export const skillGraph: SkillNode[] = [
     id: 'control',
     label: 'Control Systems',
     parents: [],
-    projects: ['antbot'],
-    tools: ['Inverse kinematics', 'MATLAB', 'Gait planning'],
+    projects: ['antbot', 'spacecraft-formation'],
+    tools: ['Inverse kinematics', 'MATLAB', 'Simulink', 'Gait planning', 'Event-triggered control'],
   },
   {
     id: 'robotics',
@@ -321,15 +354,15 @@ export const skillGraph: SkillNode[] = [
     id: 'systems',
     label: 'Distributed & Edge Systems',
     parents: ['rl'],
-    projects: ['ai-dwecs', 'kerala-metro', 'wds-ids'],
-    tools: ['Edge simulation', 'Graph algorithms', 'Raspberry Pi'],
+    projects: ['ai-dwecs', 'kerala-metro', 'wds-ids', 'ag-data'],
+    tools: ['Edge simulation', 'Graph algorithms', 'Raspberry Pi', 'Apache Spark', 'Kafka', 'HDFS'],
   },
   {
     id: 'software',
     label: 'Software Engineering',
     parents: [],
-    projects: ['abiz', 'nat', 'trading-bot'],
-    tools: ['React', 'Node.js', 'Express', 'Firebase', 'Capacitor', 'Tailwind', 'Vite'],
+    projects: ['abiz', 'nat', 'trading-bot', 'atithi', 'project-monitor', 'gamemetric'],
+    tools: ['React', 'Next.js', 'Node.js', 'Express', 'PostgreSQL', 'Firebase', 'Capacitor', 'Tailwind', 'Vite'],
   },
 ];
 
