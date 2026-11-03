@@ -23,6 +23,8 @@ const SESSION_KEY = 'kgp:booted';
 export function shouldBoot(): boolean {
   if (typeof window === 'undefined') return false;
   if (sessionStorage.getItem(SESSION_KEY) === '1') return false;
+  // The Paddock opens with its own start-light sequence.
+  if (['', '#', '#/'].includes(window.location.hash)) return false;
   return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 

@@ -39,7 +39,8 @@ export default function RaceHud() {
     return () => window.removeEventListener('scroll', onScroll);
   }, [isRace]);
 
-  if (!isRace) return null;
+  // The Paddock carries its own steering-wheel display.
+  if (!isRace || pathname === '/') return null;
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-[90] lg:left-60">

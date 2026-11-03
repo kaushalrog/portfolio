@@ -70,7 +70,7 @@ function Shell() {
         </Suspense>
       </main>
 
-      <div className="lg:pl-60">
+      <div className="relative z-10 lg:pl-60">
         <Footer />
       </div>
       <Terminal />
